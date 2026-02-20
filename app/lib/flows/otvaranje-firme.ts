@@ -173,7 +173,7 @@ export const otvaranjeFirmeFlow: FlowConfig = {
   icon: "🏢",
   estimatedTime: "2-3 minuta",
   startPageTip:
-    "Ceo proces traje **2-3 minuta**. Na kraju dobijaš checklist koji možeš da pratiš.",
+    "Na kraju dobijaš checklist koji možeš da pratiš.",
 
   buildSystemPrompt,
 
