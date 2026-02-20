@@ -13,9 +13,9 @@ import {
 
 /* ── Tab config ── */
 const TABS = [
-  { id: "firma" as const, label: "Otvaranje firme", icon: "🏢" },
-  { id: "nekretnina" as const, label: "Kupovina stana", icon: "🏠" },
-  { id: "vozilo" as const, label: "Registracija vozila", icon: "🚗" },
+  { id: "firma" as const, label: "Otvaranje firme", shortLabel: "Firma", icon: "🏢" },
+  { id: "nekretnina" as const, label: "Kupovina stana", shortLabel: "Stan", icon: "🏠" },
+  { id: "vozilo" as const, label: "Registracija vozila", shortLabel: "Vozilo", icon: "🚗" },
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
 const VALID_TABS = new Set<string>(TABS.map((t) => t.id));
@@ -84,7 +84,7 @@ function KalkulatorInner() {
             >
               <span>{t.icon}</span>
               <span className="hidden sm:inline">{t.label}</span>
-              <span className="sm:hidden">{t.label.split(" ")[0]}</span>
+              <span className="sm:hidden">{t.shortLabel}</span>
             </button>
           ))}
         </div>
@@ -520,7 +520,7 @@ function CostBreakdown({ items, totalOneTime, totalMonthly, yearlyLabel }: {
 function CTALink({ flowId, label }: { flowId: string; label: string }) {
   return (
     <Link
-      href={`/start/${flowId}`}
+      href={`/chat/${flowId}`}
       className="group flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-primary to-primary-dark
                  px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20
                  hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all duration-200"

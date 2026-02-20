@@ -196,7 +196,7 @@ export const kupovinaStanaFlow: FlowConfig = {
   initialMessages: [
     {
       role: "ai",
-      text: "Ćao! 🏠 Pomoći ću ti da prođeš kroz proces kupovine nekretnine u Srbiji. Za početak — **u kom gradu** planiraš kupovinu?",
+      text: "Ćao! 🏠 Pomoći ću ti da prođeš kroz proces kupovine nekretnine — biće gotovo za **3-4 minuta**. Za početak — **u kom gradu** planiraš kupovinu?",
     },
   ],
 

@@ -197,7 +197,7 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
                 </span>
               </div>
 
-              {/* Consult AI button — always visible, enhanced on hover */}
+              {/* Consult AI button — visible on hover only */}
               {flowId && (
                 <button
                   type="button"
@@ -206,23 +206,19 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
                     const consultText = encodeURIComponent(seg.label);
                     router.push(`/chat/${flowId}?consult=${consultText}`);
                   }}
-                  className="mt-1 flex shrink-0 items-center gap-1.5 rounded-full
-                             px-2.5 py-1 text-[11px] font-semibold
-                             bg-gradient-to-r from-primary/10 to-purple-500/10
-                             text-primary/70 border border-primary/15
-                             hover:from-primary/20 hover:to-purple-500/15
-                             hover:text-primary hover:border-primary/30
-                             hover:shadow-md hover:shadow-primary/10
-                             active:scale-95
+                  className="mt-1.5 flex shrink-0 items-center justify-center
+                             h-7 w-7 rounded-full
+                             text-muted/40 hover:text-primary hover:bg-primary/10
+                             opacity-0 group-hover/item:opacity-100 focus:opacity-100
+                             active:scale-90
                              transition-all duration-200
-                             focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-1"
-                  title={`Pitaj AI o ovom koraku`}
+                             focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  title="Pitaj AI o ovom koraku"
                   aria-label={`Konsultuj AI o: ${seg.label}`}
                 >
-                  <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
                   </svg>
-                  <span className="hidden sm:inline">Pitaj AI</span>
                 </button>
               )}
             </div>

@@ -66,7 +66,7 @@ export default function Home() {
           {FLOW_CARDS.map((flow) => (
             <a
               key={flow.id}
-              href={`/start/${flow.id}`}
+              href={`/chat/${flow.id}`}
               className="group flex items-center gap-4 rounded-2xl p-5 glass-card gradient-border
                          hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
             >

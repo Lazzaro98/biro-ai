@@ -1,7 +1,6 @@
 "use client";
 
 import { memo } from "react";
-import ThemeToggle from "./ThemeToggle";
 import { FLOWS } from "../lib/flows";
 
 interface ChatHeaderProps {
@@ -23,9 +22,6 @@ export const ChatHeader = memo(function ChatHeader({
   currentStep,
   totalSteps,
   isDone,
-  isOnline,
-  isSending,
-  elapsed,
   showNewChat,
   onResetChat,
   onToggleHistory,
@@ -82,71 +78,38 @@ export const ChatHeader = memo(function ChatHeader({
           </div>
           <div className="min-w-0">
             <h1 className="text-sm font-semibold truncate">{title}</h1>
-            <div className="flex items-center gap-2 mt-0.5">
-              <div className="h-1.5 w-20 rounded-full bg-border overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-primary transition-all duration-500 ease-out"
-                  style={{ width: `${progressPct}%` }}
-                />
-              </div>
-              <span className="text-xs text-muted">
-                {isDone ? "✅ Gotovo" : `${currentStep}/${totalSteps}`}
-              </span>
-            </div>
+            <span className="text-xs text-muted">
+              {isDone ? "✅ Gotovo" : `Korak ${currentStep + 1} od ${totalSteps}`}
+            </span>
           </div>
         </div>
 
         <div className="flex-1" />
 
-        <div className="flex items-center gap-2.5">
-          <ThemeToggle />
-
-          {showNewChat && (
-            <button
-              type="button"
-              onClick={onResetChat}
-              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted-dark
-                         hover:bg-surface-alt hover:text-foreground transition-colors"
-              aria-label="Novi razgovor"
+        {showNewChat && (
+          <button
+            type="button"
+            onClick={onResetChat}
+            className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted-dark
+                       hover:bg-surface-alt hover:text-foreground transition-colors"
+            aria-label="Novi razgovor"
+          >
+            <svg
+              className="h-3.5 w-3.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
             >
-              <svg
-                className="h-3.5 w-3.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-              <span className="hidden sm:inline">Novi razgovor</span>
-            </button>
-          )}
-
-          <div className="flex items-center gap-1.5">
-            <div
-              className={`h-2 w-2 rounded-full ${
-                !isOnline
-                  ? "bg-red-400"
-                  : isSending
-                    ? "bg-amber-400 animate-pulse"
-                    : "bg-emerald-400"
-              }`}
-            />
-            <span className="text-xs text-muted hidden sm:inline">
-              {!isOnline
-                ? "offline"
-                : isSending
-                  ? elapsed > 0
-                    ? `piše… ${elapsed}s`
-                    : "piše…"
-                  : "spreman"}
-            </span>
-          </div>
-        </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            <span className="hidden sm:inline">Novi razgovor</span>
+          </button>
+        )}
       </div>
     </header>
   );

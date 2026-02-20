@@ -206,7 +206,7 @@ export const registracijaVozilaFlow: FlowConfig = {
   initialMessages: [
     {
       role: "ai",
-      text: "Ćao! 🚗 Pomoći ću ti sa registracijom vozila u Srbiji. Za početak — **u kom gradu** registruješ vozilo?",
+      text: "Ćao! 🚗 Pomoći ću ti sa registracijom vozila — biće gotovo za **2-3 minuta**. Za početak — **u kom gradu** registruješ vozilo?",
     },
   ],
 

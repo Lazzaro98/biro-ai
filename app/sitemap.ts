@@ -6,16 +6,10 @@ const BASE = process.env.NEXT_PUBLIC_BASE_URL || "https://biro-ai.vercel.app";
 export default function sitemap(): MetadataRoute.Sitemap {
   const flowPages = FLOW_IDS.flatMap((id) => [
     {
-      url: `${BASE}/start/${id}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-    },
-    {
       url: `${BASE}/chat/${id}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
-      priority: 0.8,
+      priority: 0.9,
     },
   ]);
 

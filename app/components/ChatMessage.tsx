@@ -131,11 +131,12 @@ export const ChatMessage = memo(function ChatMessage({
           )}
         </div>
 
-        {/* Feedback buttons — only for non-error AI messages with content */}
+        {/* Feedback buttons — only on the last AI message */}
         {m.role === "ai" &&
           !m.isError &&
           m.text &&
-          !(isSending && i === totalMessages - 1) && (
+          i === totalMessages - 1 &&
+          !isSending && (
             <FeedbackButtons msgId={`msg-${i}`} />
           )}
       </div>

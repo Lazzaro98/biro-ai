@@ -197,7 +197,7 @@ export const otvaranjeFirmeFlow: FlowConfig = {
   initialMessages: [
     {
       role: "ai",
-      text: "Ćao! 👋 Hajde da zajedno prođemo kroz proces otvaranja firme. Za početak — **u kom gradu** planiraš da otvoriš firmu?",
+      text: "Ćao! 👋 Hajde da zajedno prođemo kroz proces otvaranja firme — biće gotovo za **2-3 minuta**. Za početak — **u kom gradu** planiraš da otvoriš firmu?",
     },
   ],
 
