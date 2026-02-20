@@ -6,7 +6,7 @@ import { decodeChecklist, type SharedChecklist } from "../lib/share";
 import ChecklistRenderer from "../components/ChecklistRenderer";
 import ThemeToggle from "../components/ThemeToggle";
 
-const CHECKLISTS_KEY = "biro-ai:checkliste";
+const CHECKLISTS_KEY = "bezpapira:checkliste";
 
 export default function SharePage() {
   return (
@@ -197,7 +197,7 @@ function SharePageInner() {
 
         {/* Footer */}
         <p className="mt-8 text-center text-xs text-muted leading-relaxed">
-          <a href="/" className="text-primary hover:underline">Biro AI</a> — Vodič kroz papirologiju u Srbiji
+          <a href="/" className="text-primary hover:underline">BezPapira</a> — Vodič kroz papirologiju u Srbiji
         </p>
       </div>
     </main>

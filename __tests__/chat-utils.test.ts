@@ -144,7 +144,7 @@ describe("parseSuggestions", () => {
   });
 
   it("returns empty chips when no marker present", () => {
-    const text = "Zdravo! Ja sam Biro AI.";
+    const text = "Zdravo! Ja sam BezPapira.";
     const result = parseSuggestions(text);
     expect(result.cleanText).toBe(text);
     expect(result.chips).toEqual([]);

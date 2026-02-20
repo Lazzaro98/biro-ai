@@ -1,5 +1,5 @@
 # ───────────────────────────────────────────────────
-# Multi-stage Dockerfile for biro-ai (Next.js 16)
+# Multi-stage Dockerfile for bezpapira (Next.js 16)
 # Produces a lean production image (~180 MB)
 # ───────────────────────────────────────────────────
 

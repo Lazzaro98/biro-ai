@@ -10,6 +10,9 @@ const BackgroundScene = dynamic(
 const PWAInstall = dynamic(
   () => import("./components/PWAInstall"),
 );
+const StorageMigration = dynamic(
+  () => import("./components/StorageMigration"),
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +26,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Biro AI — Vodič kroz papirologiju",
-    template: "%s | Biro AI",
+    default: "BezPapira — Vodič kroz papirologiju",
+    template: "%s | BezPapira",
   },
   description:
     "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji. Otvaranje firme, checkliste i više.",
@@ -42,19 +45,19 @@ export const metadata: Metadata = {
     "DOO",
     "APR",
   ],
-  authors: [{ name: "Biro AI" }],
-  creator: "Biro AI",
+  authors: [{ name: "BezPapira" }],
+  creator: "BezPapira",
   openGraph: {
     type: "website",
     locale: "sr_RS",
-    siteName: "Biro AI",
-    title: "Biro AI — Vodič kroz papirologiju",
+    siteName: "BezPapira",
+    title: "BezPapira — Vodič kroz papirologiju",
     description:
       "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Biro AI — Vodič kroz papirologiju",
+    title: "BezPapira — Vodič kroz papirologiju",
     description:
       "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji.",
   },
@@ -70,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // Inline script to apply dark class before paint (prevents FOUC)
-  const themeScript = `(function(){try{var t=localStorage.getItem('biro-ai:theme');var d=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);if(d)document.documentElement.classList.add('dark')}catch(e){}})()`;
+  const themeScript = `(function(){try{var t=localStorage.getItem('bezpapira:theme')||localStorage.getItem('biro-ai:theme');var d=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);if(d)document.documentElement.classList.add('dark')}catch(e){}})()`;  
 
   return (
     <html lang="sr" suppressHydrationWarning>
@@ -97,6 +100,8 @@ export default function RootLayout({
         </div>
         {/* PWA install prompt */}
         <PWAInstall />
+        {/* Migrate old localStorage keys */}
+        <StorageMigration />
       </body>
     </html>
   );

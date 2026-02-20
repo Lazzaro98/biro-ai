@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Istorija razgovora",
-  description: "Pregledaj sve prethodne razgovore sa Biro AI asistentom.",
+  description: "Pregledaj sve prethodne razgovore sa BezPapira asistentom.",
   robots: { index: false },
 };
 

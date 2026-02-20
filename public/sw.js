@@ -1,5 +1,5 @@
-// Biro AI — Service Worker
-const CACHE_NAME = "biro-ai-v1";
+// BezPapira — Service Worker
+const CACHE_NAME = "bezpapira-v1";
 
 // Static assets to pre-cache on install
 const PRECACHE_URLS = [

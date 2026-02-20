@@ -25,7 +25,7 @@ export default function PWAInstall() {
       setDeferredPrompt(e);
       // Only show if user hasn't dismissed recently
       try {
-        const dismissedAt = localStorage.getItem("biro-ai:pwa-dismissed");
+        const dismissedAt = localStorage.getItem("bezpapira:pwa-dismissed");
         if (dismissedAt && Date.now() - Number(dismissedAt) < 7 * 24 * 60 * 60 * 1000) return;
       } catch { /* ignore */ }
       setShowBanner(true);
@@ -49,7 +49,7 @@ export default function PWAInstall() {
     setShowBanner(false);
     setDismissed(true);
     try {
-      localStorage.setItem("biro-ai:pwa-dismissed", String(Date.now()));
+      localStorage.setItem("bezpapira:pwa-dismissed", String(Date.now()));
     } catch { /* ignore */ }
   }, []);
 
@@ -62,7 +62,7 @@ export default function PWAInstall() {
           📲
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-foreground">Instaliraj Biro AI</p>
+          <p className="text-sm font-semibold text-foreground">Instaliraj BezPapira</p>
           <p className="text-xs text-muted-dark mt-0.5">Koristi offline, brži pristup</p>
         </div>
         <button

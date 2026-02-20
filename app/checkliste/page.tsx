@@ -20,8 +20,8 @@ type ChecklistProgress = { checked: number; total: number };
 
 /* ── Helpers ── */
 
-const CHECKLISTS_KEY = "biro-ai:checkliste";
-const CHECKS_KEY = "biro-ai:checks";
+const CHECKLISTS_KEY = "bezpapira:checkliste";
+const CHECKS_KEY = "bezpapira:checks";
 
 function loadChecklists(): SavedChecklist[] {
   if (typeof window === "undefined") return [];
@@ -339,7 +339,7 @@ export default function ChecklistePage() {
                       });
                       try {
                         if (navigator.share) {
-                          await navigator.share({ title: "Biro AI — Checklista", url });
+                          await navigator.share({ title: "BezPapira — Checklista", url });
                         } else {
                           await navigator.clipboard.writeText(url);
                         }

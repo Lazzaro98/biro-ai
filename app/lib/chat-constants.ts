@@ -29,8 +29,8 @@ export const SUGGESTION_STEPS: SuggestionStep[] = [
 ];
 
 /* ── LocalStorage keys ─── */
-export const STORAGE_KEY = "biro-ai:otvaranje-firme";
-export const CHECKLISTS_KEY = "biro-ai:checkliste";
+export const STORAGE_KEY = "bezpapira:otvaranje-firme";
+export const CHECKLISTS_KEY = "bezpapira:checkliste";
 
 /* ── Initial state ─── */
 export const INITIAL_MESSAGES: Msg[] = [

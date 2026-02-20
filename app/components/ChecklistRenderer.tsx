@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-const CHECKS_KEY = "biro-ai:checks";
+const CHECKS_KEY = "bezpapira:checks";
 
 type CheckState = Record<string, boolean>;
 

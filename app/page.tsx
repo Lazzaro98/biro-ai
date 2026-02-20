@@ -9,7 +9,7 @@ import ThemeToggle from "./components/ThemeToggle";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Biro AI",
+  name: "BezPapira",
   url: process.env.NEXT_PUBLIC_BASE_URL || "https://biro-ai.vercel.app",
   description:
     "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji — otvaranje firme, checkliste i više.",
@@ -23,14 +23,14 @@ const jsonLd = {
   inLanguage: "sr",
   author: {
     "@type": "Organization",
-    name: "Biro AI",
+    name: "BezPapira",
     url: process.env.NEXT_PUBLIC_BASE_URL || "https://biro-ai.vercel.app",
   },
 };
 
 export default function Home() {
   return (
-    <main className="relative min-h-dvh flex flex-col items-center justify-center px-5 py-16 overflow-x-hidden" aria-label="Biro AI — Početna">
+    <main className="relative min-h-dvh flex flex-col items-center justify-center px-5 py-16 overflow-x-hidden" aria-label="BezPapira — Početna">
       {/* JSON-LD structured data */}
       <script
         type="application/ld+json"
@@ -51,8 +51,8 @@ export default function Home() {
             📋
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-            <span className="text-gradient-lg">Biro</span>{" "}
-            <span className="text-foreground">AI</span>
+            <span className="text-gradient-lg">Bez</span>{" "}
+            <span className="text-foreground">Papira</span>
           </h1>
           <p className="mt-3 text-muted-dark text-lg leading-relaxed max-w-sm mx-auto">
             Vodič kroz papirologiju u Srbiji.

@@ -4,7 +4,7 @@ import { useState, memo, useCallback } from "react";
 
 type FeedbackValue = "up" | "down" | null;
 
-const FEEDBACK_KEY = "biro-ai:feedback";
+const FEEDBACK_KEY = "bezpapira:feedback";
 
 /** Load saved feedback map from localStorage */
 function loadFeedback(): Record<string, FeedbackValue> {

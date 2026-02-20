@@ -95,7 +95,7 @@ const TESTIMONIALS: Testimonial[] = [
     src: "/person-4.jpg",
     name: "Stefan R.",
     role: "IT preduzetnik",
-    quote: "Mislio sam da moram da platim advokata. Hvala, Biro!",
+    quote: "Mislio sam da moram da platim advokata. Hvala, BezPapira!",
     desktopStyle: { left: 36, top: "82vh", transform: "rotate(-1deg)" },
     mobileStyle: { left: "5%", top: 76, transform: "rotate(-2.5deg)" },
     width: "w-[180px] xl:w-[205px]",

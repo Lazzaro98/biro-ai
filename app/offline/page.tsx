@@ -9,7 +9,7 @@ export default function OfflinePage() {
         </div>
         <h1 className="text-3xl font-extrabold tracking-tight">Nema interneta</h1>
         <p className="mt-4 text-muted-dark text-lg leading-relaxed">
-          Biro AI zahteva internet konekciju za razgovor sa AI asistentom.
+          BezPapira zahteva internet konekciju za razgovor sa AI asistentom.
         </p>
         <p className="mt-2 text-muted text-sm">
           Tvoje sačuvane checkliste su dostupne i offline u pretraživaču.

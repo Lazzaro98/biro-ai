@@ -49,7 +49,7 @@ function buildSystemPrompt(): string {
     year: "numeric",
   });
 
-  return `Ti si "Biro AI" — prijateljski asistent koji vodi korisnika kroz otvaranje firme u Srbiji.
+  return `Ti si "BezPapira" — prijateljski asistent koji vodi korisnika kroz otvaranje firme u Srbiji.
 Današnji datum je ${today}.
 
 ## Tok razgovora
@@ -201,8 +201,8 @@ export const otvaranjeFirmeFlow: FlowConfig = {
     },
   ],
 
-  storageKey: "biro-ai:otvaranje-firme",
-  checklistsKey: "biro-ai:checkliste",
+  storageKey: "bezpapira:otvaranje-firme",
+  checklistsKey: "bezpapira:checkliste",
 
   detectStep: detectStep,
   isChecklist: checkIsChecklist,

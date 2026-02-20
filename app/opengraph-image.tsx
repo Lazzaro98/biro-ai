@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Biro AI — Vodič kroz papirologiju u Srbiji";
+export const alt = "BezPapira — Vodič kroz papirologiju u Srbiji";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -89,7 +89,7 @@ export default function OGImage() {
               color: "#c4b5fd",
             }}
           >
-            Biro
+            Bez
           </span>
           <span
             style={{
@@ -98,7 +98,7 @@ export default function OGImage() {
               color: "white",
             }}
           >
-            AI
+            Papira
           </span>
         </div>
 

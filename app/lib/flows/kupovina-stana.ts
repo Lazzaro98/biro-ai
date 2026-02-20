@@ -49,7 +49,7 @@ function buildSystemPrompt(): string {
     year: "numeric",
   });
 
-  return `Ti si "Biro AI" — prijateljski asistent koji vodi korisnika kroz kupovinu stana ili nekretnine u Srbiji.
+  return `Ti si "BezPapira" — prijateljski asistent koji vodi korisnika kroz kupovinu stana ili nekretnine u Srbiji.
 Današnji datum je ${today}.
 
 ## Tok razgovora
@@ -200,8 +200,8 @@ export const kupovinaStanaFlow: FlowConfig = {
     },
   ],
 
-  storageKey: "biro-ai:kupovina-stana",
-  checklistsKey: "biro-ai:checkliste",
+  storageKey: "bezpapira:kupovina-stana",
+  checklistsKey: "bezpapira:checkliste",
 
   detectStep: detectStep,
   isChecklist: checkIsChecklist,

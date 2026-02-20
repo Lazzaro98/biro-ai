@@ -38,7 +38,7 @@ function buildSystemPrompt(): string {
     year: "numeric",
   });
 
-  return `Ti si Biro AI — stručni pravni asistent specijalizovan za birokratske procese u Srbiji.
+  return `Ti si BezPapira — stručni pravni asistent specijalizovan za birokratske procese u Srbiji.
 
 DATUM: ${today}
 
@@ -125,12 +125,12 @@ export const slobodanRazgovorFlow: FlowConfig = {
   initialMessages: [
     {
       role: "ai",
-      text: "Zdravo! 👋 Ja sam Biro AI — tvoj pravni asistent za birokratiju u Srbiji.\n\nOpiši mi svoju situaciju ili pitanje, a ja ću ti pomoći da se snaðeš kroz sve potrebne korake, dokumenta i postupke.\n\nMožeš pitati bilo šta — od otvaranja firme, kupovine stana, do registracije vozila ili bilo kog drugog administrativnog procesa. 🏛️",
+      text: "Zdravo! 👋 Ja sam BezPapira — tvoj pravni asistent za birokratiju u Srbiji.\n\nOpiši mi svoju situaciju ili pitanje, a ja ću ti pomoći da se snaðeš kroz sve potrebne korake, dokumenta i postupke.\n\nMožeš pitati bilo šta — od otvaranja firme, kupovine stana, do registracije vozila ili bilo kog drugog administrativnog procesa. 🏛️",
     },
   ],
 
-  storageKey: "biro-ai:slobodan-razgovor",
-  checklistsKey: "biro-ai:checkliste",
+  storageKey: "bezpapira:slobodan-razgovor",
+  checklistsKey: "bezpapira:checkliste",
 
   detectStep,
   isChecklist: checkIsChecklist,

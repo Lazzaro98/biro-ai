@@ -27,8 +27,8 @@ export interface ChatSession {
 }
 
 /* ── Storage key ─── */
-const SESSIONS_KEY = "biro-ai:sessions";
-const ACTIVE_SESSION_PREFIX = "biro-ai:active-session:";
+const SESSIONS_KEY = "bezpapira:sessions";
+const ACTIVE_SESSION_PREFIX = "bezpapira:active-session:";
 
 /* ── Helpers ─── */
 

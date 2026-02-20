@@ -49,7 +49,7 @@ function buildSystemPrompt(): string {
     year: "numeric",
   });
 
-  return `Ti si "Biro AI" — prijateljski asistent koji vodi korisnika kroz registraciju vozila u Srbiji.
+  return `Ti si "BezPapira" — prijateljski asistent koji vodi korisnika kroz registraciju vozila u Srbiji.
 Današnji datum je ${today}.
 
 ## Tok razgovora
@@ -210,8 +210,8 @@ export const registracijaVozilaFlow: FlowConfig = {
     },
   ],
 
-  storageKey: "biro-ai:registracija-vozila",
-  checklistsKey: "biro-ai:checkliste",
+  storageKey: "bezpapira:registracija-vozila",
+  checklistsKey: "bezpapira:checkliste",
 
   detectStep: detectStep,
   isChecklist: checkIsChecklist,

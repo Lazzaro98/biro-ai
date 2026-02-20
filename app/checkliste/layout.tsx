@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Pregledaj i upravljaj sačuvanim checklistama za birokratske procese u Srbiji.",
   openGraph: {
-    title: "Moje checkliste | Biro AI",
+    title: "Moje checkliste | BezPapira",
     description: "Sačuvane checkliste za otvaranje firme i druge procese.",
   },
 };

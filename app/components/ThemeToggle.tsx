@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark" | "system";
 
-const STORAGE_KEY = "biro-ai:theme";
+const STORAGE_KEY = "bezpapira:theme";
 
 function getSystemTheme(): "light" | "dark" {
   if (typeof window === "undefined") return "light";

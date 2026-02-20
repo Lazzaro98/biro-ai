@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Biro AI — Vodič kroz papirologiju",
-    short_name: "Biro AI",
+    name: "BezPapira — Vodič kroz papirologiju",
+    short_name: "BezPapira",
     description:
       "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji.",
     start_url: "/",

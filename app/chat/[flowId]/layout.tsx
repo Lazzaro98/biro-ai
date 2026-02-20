@@ -19,7 +19,7 @@ export async function generateMetadata({
     title: `Chat — ${flow.title}`,
     description: flow.description,
     openGraph: {
-      title: `Chat — ${flow.title} | Biro AI`,
+      title: `Chat — ${flow.title} | BezPapira`,
       description: flow.description,
     },
     robots: { index: false },

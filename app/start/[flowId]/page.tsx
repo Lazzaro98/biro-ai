@@ -19,7 +19,7 @@ export async function generateMetadata({
     title: flow.title,
     description: flow.description,
     openGraph: {
-      title: `${flow.title} | Biro AI`,
+      title: `${flow.title} | BezPapira`,
       description: flow.description,
     },
   };
