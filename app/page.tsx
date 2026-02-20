@@ -56,7 +56,7 @@ export default function Home() {
           </h1>
           <p className="mt-3 text-muted-dark text-lg leading-relaxed max-w-sm mx-auto">
             Vodič kroz papirologiju u Srbiji.
-            <br className="hidden sm:block" />
+            <br className="hidden sm:block" />{" "}
             Reci šta želiš — AI te vodi korak po korak.
           </p>
         </div>
