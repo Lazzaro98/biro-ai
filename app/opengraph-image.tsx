@@ -59,14 +59,17 @@ export default function OGImage() {
               width: 80,
               height: 80,
               borderRadius: 18,
-              background: "rgba(255,255,255,0.1)",
+              background: "rgba(255,255,255,0.15)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 44,
+              fontSize: 36,
+              fontWeight: 800,
+              color: "#c4b5fd",
+              border: "2px solid rgba(255,255,255,0.2)",
             }}
           >
-            📋
+            B
           </div>
         </div>
 
@@ -83,9 +86,7 @@ export default function OGImage() {
             style={{
               fontSize: 72,
               fontWeight: 800,
-              background: "linear-gradient(135deg, #a78bfa, #c4b5fd)",
-              backgroundClip: "text",
-              color: "transparent",
+              color: "#c4b5fd",
             }}
           >
             Biro

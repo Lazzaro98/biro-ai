@@ -30,5 +30,5 @@ export const env = {
   NODE_ENV: optional("NODE_ENV", "development"),
 
   /** Base URL for metadata / sitemap (no trailing slash) */
-  NEXT_PUBLIC_BASE_URL: optional("NEXT_PUBLIC_BASE_URL", "https://biro-ai.rs"),
+  NEXT_PUBLIC_BASE_URL: optional("NEXT_PUBLIC_BASE_URL", "https://biro-ai.vercel.app"),
 } as const;

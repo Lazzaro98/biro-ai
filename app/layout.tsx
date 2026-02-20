@@ -28,7 +28,9 @@ export const metadata: Metadata = {
   },
   description:
     "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji. Otvaranje firme, checkliste i više.",
-  metadataBase: new URL("https://biro-ai.rs"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://biro-ai.vercel.app"
+  ),
   keywords: [
     "otvaranje firme",
     "Srbija",

@@ -10,7 +10,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "Biro AI",
-  url: "https://biro-ai.rs",
+  url: process.env.NEXT_PUBLIC_BASE_URL || "https://biro-ai.vercel.app",
   description:
     "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji — otvaranje firme, checkliste i više.",
   applicationCategory: "BusinessApplication",
@@ -24,7 +24,7 @@ const jsonLd = {
   author: {
     "@type": "Organization",
     name: "Biro AI",
-    url: "https://biro-ai.rs",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://biro-ai.vercel.app",
   },
 };
 
