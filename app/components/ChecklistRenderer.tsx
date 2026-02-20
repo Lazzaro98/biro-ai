@@ -149,10 +149,10 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
           const isChecked = !!checks[key];
 
           return (
-            <div key={i} className="flex items-start gap-1 group/item">
+            <div key={i} className="flex items-start gap-1 py-0.5 group/item">
               <div
                 onClick={() => toggle(key)}
-                className="flex flex-1 items-start gap-3 py-1.5 cursor-pointer select-none"
+                className="flex flex-1 items-start gap-3 py-1.5 cursor-pointer select-none min-w-0"
                 role="checkbox"
                 aria-checked={isChecked}
                 tabIndex={0}
@@ -197,7 +197,7 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
                 </span>
               </div>
 
-              {/* Consult AI button */}
+              {/* Consult AI button — always visible, enhanced on hover */}
               {flowId && (
                 <button
                   type="button"
@@ -206,16 +206,23 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
                     const consultText = encodeURIComponent(seg.label);
                     router.push(`/chat/${flowId}?consult=${consultText}`);
                   }}
-                  className="mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg
-                             text-muted hover:text-primary hover:bg-primary/10
-                             transition-all duration-200 opacity-0 group-hover/item:opacity-100
-                             focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  className="mt-1 flex shrink-0 items-center gap-1.5 rounded-full
+                             px-2.5 py-1 text-[11px] font-semibold
+                             bg-gradient-to-r from-primary/10 to-purple-500/10
+                             text-primary/70 border border-primary/15
+                             hover:from-primary/20 hover:to-purple-500/15
+                             hover:text-primary hover:border-primary/30
+                             hover:shadow-md hover:shadow-primary/10
+                             active:scale-95
+                             transition-all duration-200
+                             focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-1"
                   title={`Pitaj AI o ovom koraku`}
                   aria-label={`Konsultuj AI o: ${seg.label}`}
                 >
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
                   </svg>
+                  <span className="hidden sm:inline">Pitaj AI</span>
                 </button>
               )}
             </div>
