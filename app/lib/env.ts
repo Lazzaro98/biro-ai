@@ -1,0 +1,34 @@
+/**
+ * Environment variable validation.
+ * Import at app startup to fail fast if required env vars are missing.
+ *
+ * Usage (in layout.tsx or route.ts):
+ *   import "@/app/lib/env";
+ */
+
+function required(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(
+      `❌ Missing required environment variable: ${name}\n` +
+        `   Add it to .env.local (dev) or your hosting provider's env config (prod).`,
+    );
+  }
+  return value;
+}
+
+function optional(name: string, fallback: string): string {
+  return process.env[name] || fallback;
+}
+
+/** Validated environment variables — import this object instead of using process.env directly. */
+export const env = {
+  /** OpenAI API key for GPT-4o-mini */
+  OPENAI_API_KEY: required("OPENAI_API_KEY"),
+
+  /** Node environment */
+  NODE_ENV: optional("NODE_ENV", "development"),
+
+  /** Base URL for metadata / sitemap (no trailing slash) */
+  NEXT_PUBLIC_BASE_URL: optional("NEXT_PUBLIC_BASE_URL", "https://biro-ai.rs"),
+} as const;

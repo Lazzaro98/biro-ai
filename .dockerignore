@@ -1,0 +1,28 @@
+# ── Build artifacts ──
+.next
+out
+build
+node_modules
+
+# ── Dev / editor ──
+.git
+.gitignore
+.vscode
+.idea
+*.md
+*.log
+
+# ── Env files (injected at runtime) ──
+.env*
+
+# ── Tests ──
+__tests__
+vitest.config.mts
+coverage
+
+# ── CI ──
+.github
+
+# ── OS junk ──
+.DS_Store
+Thumbs.db
