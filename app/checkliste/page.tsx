@@ -412,13 +412,18 @@ export default function ChecklistePage() {
         {/* ── List view ── */}
         {!openItem && filteredItems.length > 0 && (
           <div className="space-y-3" role="list" aria-label="Sačuvane checkliste">
-            {filteredItems.map((item) => {
+            {filteredItems.map((item, idx) => {
               const meta = getFlowMeta(item.flowId);
               const progress = getProgress(item.id, item.markdown, checks);
               const pct = progress.total > 0 ? Math.round((progress.checked / progress.total) * 100) : 0;
               const isComplete = pct === 100;
               return (
-                <div key={item.id} className="relative" role="listitem">
+                <div
+                  key={item.id}
+                  className="relative animate-card-in"
+                  role="listitem"
+                  style={{ animationDelay: `${idx * 60}ms` }}
+                >
                   <button
                     type="button"
                     onClick={() => setOpenId(item.id)}

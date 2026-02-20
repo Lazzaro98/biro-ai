@@ -77,6 +77,8 @@ export const ChatInput = memo(function ChatInput({
 }: ChatInputProps) {
   // Track what the user typed before voice started
   const preVoiceInputRef = useRef("");
+  // Send button pulse animation
+  const [sendPulse, setSendPulse] = useState(false);
 
   const handleVoiceTranscript = useCallback(
     (text: string) => {
@@ -132,6 +134,14 @@ export const ChatInput = memo(function ChatInput({
       return () => clearTimeout(t);
     }
   }, [status]);
+
+  // Handle send with pulse animation
+  const handleSend = useCallback(() => {
+    if (!input.trim()) return;
+    setSendPulse(true);
+    onSend();
+    setTimeout(() => setSendPulse(false), 300);
+  }, [input, onSend]);
 
   return (
     <div className="no-print shrink-0 border-t border-border/60 bg-surface/70 backdrop-blur-md sm:backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
@@ -217,11 +227,11 @@ export const ChatInput = memo(function ChatInput({
           />
           <button
             type="button"
-            onClick={onSend}
+            onClick={handleSend}
             disabled={isSending || !input.trim() || !isOnline}
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white
+            className={`flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white
                        hover:bg-primary-dark disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-150
-                       active:scale-95"
+                       active:scale-95 ${sendPulse ? "animate-send-pulse" : ""}`}
             aria-label="Pošalji poruku"
           >
             <SendIcon />

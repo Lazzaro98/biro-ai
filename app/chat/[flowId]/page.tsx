@@ -114,7 +114,7 @@ function ChatFlowPageInner() {
       {/* ─── Offline banner ─── */}
       {!isOnline && (
         <div
-          className="no-print shrink-0 bg-red-500/90 text-white text-center text-sm py-2 px-4 flex items-center justify-center gap-2"
+          className="no-print shrink-0 bg-red-500/90 text-white text-center text-sm py-2 px-4 flex items-center justify-center gap-2 animate-slide-down"
           role="alert"
         >
           <svg

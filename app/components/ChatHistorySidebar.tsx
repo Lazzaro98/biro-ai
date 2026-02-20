@@ -65,10 +65,10 @@ export function ChatHistorySidebar({
 
   return (
     <>
-      {/* Backdrop (mobile) */}
+      {/* Backdrop (mobile) — fade in/out */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm sm:hidden"
+          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm sm:hidden animate-backdrop-in"
           onClick={onClose}
         />
       )}

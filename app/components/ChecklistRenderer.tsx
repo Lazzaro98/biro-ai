@@ -103,7 +103,7 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
         <div className="mb-4 rounded-xl bg-surface-alt border border-border-light p-3.5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-foreground" id={`progress-label-${checklistId}`}>Progres</span>
-            <span className="text-sm font-semibold text-primary" aria-live="polite">
+            <span className={`text-sm font-semibold text-primary ${pct === 100 ? "animate-celebrate" : ""}`} aria-live="polite">
               {checked}/{total} {pct === 100 && "🎉"}
             </span>
           </div>
@@ -124,7 +124,7 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
             />
           </div>
           {pct === 100 && (
-            <p className="mt-2 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+            <p className="mt-2 text-xs text-emerald-600 dark:text-emerald-400 font-medium animate-celebrate">
               Svaka čast! Završio/la si sve korake! 🎉
             </p>
           )}

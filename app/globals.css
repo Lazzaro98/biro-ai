@@ -153,9 +153,65 @@ html.dark body {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-18px); }
 }
-@keyframes icon-spin {
-  0%   { rotate: 0deg; }
-  100% { rotate: 360deg; }
+
+/* ─── Chip stagger entrance ─── */
+@keyframes chip-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-chip-in {
+  animation: chip-in 0.3s ease-out both;
+}
+
+/* ─── Slide-down entrance (for banners) ─── */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down {
+  animation: slide-down 0.35s ease-out;
+}
+
+/* ─── Celebration bounce ─── */
+@keyframes celebrate {
+  0%   { transform: scale(1); }
+  15%  { transform: scale(1.15); }
+  30%  { transform: scale(0.95); }
+  45%  { transform: scale(1.05); }
+  60%  { transform: scale(0.98); }
+  75%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+.animate-celebrate {
+  animation: celebrate 0.6s ease-out;
+}
+
+/* ─── Send pulse ─── */
+@keyframes send-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+.animate-send-pulse {
+  animation: send-pulse 0.25s ease-out;
+}
+
+/* ─── Backdrop fade ─── */
+@keyframes backdrop-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-backdrop-in {
+  animation: backdrop-fade-in 0.2s ease-out;
+}
+
+/* ─── Card stagger entrance ─── */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-card-in {
+  animation: card-in 0.35s ease-out both;
 }
 
 /* ─── Glass card ─── */
