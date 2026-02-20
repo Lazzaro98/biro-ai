@@ -38,28 +38,11 @@ export const ChatHeader = memo(function ChatHeader({
   return (
     <header className="no-print shrink-0 border-b border-border/60 bg-surface/70 backdrop-blur-md sm:backdrop-blur-xl shadow-sm">
       <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:px-6">
-        {/* History toggle */}
-        {onToggleHistory ? (
-          <button
-            type="button"
-            onClick={onToggleHistory}
-            className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-surface-alt transition-colors"
-            aria-label="Istorija razgovora"
-          >
-            <svg
-              className="h-5 w-5 text-muted-dark"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        ) : (
+        {/* Back + History buttons */}
+        <div className="flex items-center gap-1">
           <a
             href="/"
-            className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-surface-alt transition-colors"
+            className="flex h-10 w-10 items-center justify-center rounded-xl hover:bg-surface-alt transition-colors"
             aria-label="Nazad na početnu"
           >
             <svg
@@ -72,7 +55,26 @@ export const ChatHeader = memo(function ChatHeader({
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </a>
-        )}
+
+          {onToggleHistory && (
+            <button
+              type="button"
+              onClick={onToggleHistory}
+              className="flex h-10 w-10 items-center justify-center rounded-xl hover:bg-surface-alt transition-colors"
+              aria-label="Istorija razgovora"
+            >
+              <svg
+                className="h-5 w-5 text-muted-dark"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          )}
+        </div>
 
         <div className="flex items-center gap-2.5 min-w-0">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-lg">
