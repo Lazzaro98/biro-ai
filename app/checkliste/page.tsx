@@ -206,6 +206,14 @@ export default function ChecklistePage() {
               <span>{stats.checkedTasks} od {stats.totalTasks} stavki završeno</span>
               <span>{items.length} checklis{items.length === 1 ? "ta" : "te"}</span>
             </div>
+            <a
+              href="/kalkulator"
+              className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-primary/20 bg-primary/5 p-2.5
+                         text-sm font-medium text-primary hover:bg-primary/10 hover:border-primary/30 transition-all duration-200"
+            >
+              <span className="text-base" aria-hidden="true">🧮</span>
+              Izračunaj okvirne troškove
+            </a>
           </div>
         )}
 

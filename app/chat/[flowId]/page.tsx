@@ -173,6 +173,7 @@ function ChatFlowPageInner() {
               checklistSaved={checklistSaved}
               onSave={handleSaveChecklist}
               onShare={handleShareChecklist}
+              flowId={flowId}
             />
           )}
 

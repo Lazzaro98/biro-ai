@@ -140,26 +140,16 @@ export default function Home() {
         </a>
 
         {/* Saved checklists link */}
-        <div className="mt-6 flex gap-3 animate-fade-in-up-delay-2">
-          <a
-            href="/checkliste"
-            className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-surface/60 dark:bg-surface/80 backdrop-blur-sm p-3
-                       text-sm font-medium text-muted-dark hover:text-primary hover:border-primary/30 hover:bg-surface/80 transition-all duration-200"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-            </svg>
-            Moje checkliste
-          </a>
-          <a
-            href="/kalkulator"
-            className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-surface/60 dark:bg-surface/80 backdrop-blur-sm p-3
-                       text-sm font-medium text-muted-dark hover:text-primary hover:border-primary/30 hover:bg-surface/80 transition-all duration-200"
-          >
-            <span className="text-base" aria-hidden="true">🧮</span>
-            Kalkulator troškova
-          </a>
-        </div>
+        <a
+          href="/checkliste"
+          className="mt-6 flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-surface/60 dark:bg-surface/80 backdrop-blur-sm p-3
+                     text-sm font-medium text-muted-dark hover:text-primary hover:border-primary/30 hover:bg-surface/80 transition-all duration-200 animate-fade-in-up-delay-2"
+        >
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+          </svg>
+          Moje checkliste
+        </a>
 
         {/* Footer note */}
         <p className="mt-8 text-center text-xs text-muted leading-relaxed">

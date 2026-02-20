@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { FLOWS, FLOW_IDS } from "@/app/lib/flows";
 import { notFound } from "next/navigation";
 
+const FLOW_TO_CALC_TAB: Record<string, string> = {
+  "otvaranje-firme": "firma",
+  "kupovina-stana": "nekretnina",
+  "registracija-vozila": "vozilo",
+};
+
 export function generateStaticParams() {
   return FLOW_IDS.map((flowId) => ({ flowId }));
 }
@@ -74,6 +80,16 @@ export default async function StartFlowPage({
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </a>
+            {FLOW_TO_CALC_TAB[flowId] && (
+              <a
+                href={`/kalkulator?tab=${FLOW_TO_CALC_TAB[flowId]}`}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-surface/60 px-5 py-3 text-sm font-medium text-muted-dark
+                           hover:text-primary hover:border-primary/30 hover:bg-surface/80 transition-all duration-200"
+              >
+                <span className="text-base" aria-hidden="true">🧮</span>
+                Pogledaj okvirne troškove
+              </a>
+            )}
           </div>
 
           <div className="mt-8 flex items-start gap-3 rounded-xl bg-primary/[0.06] border border-primary/10 p-4">

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "../components/ThemeToggle";
 import {
@@ -17,10 +18,23 @@ const TABS = [
   { id: "vozilo" as const, label: "Registracija vozila", icon: "🚗" },
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
+const VALID_TABS = new Set<string>(TABS.map((t) => t.id));
 
 /* ─────────────────────────────────────────── */
 export default function KalkulatorPage() {
-  const [tab, setTab] = useState<TabId>("firma");
+  return (
+    <Suspense>
+      <KalkulatorInner />
+    </Suspense>
+  );
+}
+
+function KalkulatorInner() {
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab");
+  const [tab, setTab] = useState<TabId>(
+    initialTab && VALID_TABS.has(initialTab) ? (initialTab as TabId) : "firma"
+  );
 
   return (
     <main className="relative min-h-dvh px-4 py-8 sm:px-6" aria-label="Kalkulator troškova">

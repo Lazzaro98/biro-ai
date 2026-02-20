@@ -6,12 +6,20 @@ interface SaveChecklistBannerProps {
   checklistSaved: boolean;
   onSave: () => void;
   onShare?: () => Promise<void> | void;
+  flowId?: string;
 }
+
+const FLOW_TO_CALC_TAB: Record<string, string> = {
+  "otvaranje-firme": "firma",
+  "kupovina-stana": "nekretnina",
+  "registracija-vozila": "vozilo",
+};
 
 export const SaveChecklistBanner = memo(function SaveChecklistBanner({
   checklistSaved,
   onSave,
   onShare,
+  flowId,
 }: SaveChecklistBannerProps) {
   const [shareStatus, setShareStatus] = useState<"idle" | "done">("idle");
 
@@ -101,6 +109,17 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
               >
                 Pogledaj sve →
               </a>
+
+              {/* Calculator */}
+              {flowId && FLOW_TO_CALC_TAB[flowId] && (
+                <a
+                  href={`/kalkulator?tab=${FLOW_TO_CALC_TAB[flowId]}`}
+                  className="inline-flex items-center gap-1 text-xs text-muted-dark hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-primary/5"
+                >
+                  <span className="text-sm" aria-hidden="true">🧮</span>
+                  Troškovi
+                </a>
+              )}
             </div>
           </div>
         ) : (
