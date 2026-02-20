@@ -25,6 +25,7 @@ function ChatFlowPageInner() {
   const { flowId } = useParams<{ flowId: string }>();
   const searchParams = useSearchParams();
   const initialSessionId = searchParams.get("session");
+  const consultItem = searchParams.get("consult");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const {
@@ -52,7 +53,7 @@ function ChatFlowPageInner() {
     sessionId,
     switchSession,
     startNewSession,
-  } = useChat(flowId, initialSessionId);
+  } = useChat(flowId, initialSessionId, consultItem);
 
   // Track page view once
   useEffect(() => {
@@ -127,6 +128,7 @@ function ChatFlowPageInner() {
               totalMessages={messages.length}
               isSending={isSending}
               onRetry={retryLast}
+              flowId={flowId}
             />
           ))}
 

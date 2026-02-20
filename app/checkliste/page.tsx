@@ -7,6 +7,7 @@ import ThemeToggle from "../components/ThemeToggle";
 type SavedChecklist = {
   id: string;
   date: string;
+  flowId?: string;
   params: { grad?: string; tip?: string; delatnost?: string; oporezivanje?: string };
   markdown: string;
 };
@@ -218,6 +219,7 @@ export default function ChecklistePage() {
                   checklistId={openItem.id}
                   markdown={openItem.markdown}
                   showProgress
+                  flowId={openItem.flowId}
                 />
               </div>
             </div>

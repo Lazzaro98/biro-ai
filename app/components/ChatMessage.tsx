@@ -45,6 +45,7 @@ interface ChatMessageProps {
   totalMessages: number;
   isSending: boolean;
   onRetry: () => void;
+  flowId?: string;
 }
 
 export const ChatMessage = memo(function ChatMessage({
@@ -53,6 +54,7 @@ export const ChatMessage = memo(function ChatMessage({
   totalMessages,
   isSending,
   onRetry,
+  flowId,
 }: ChatMessageProps) {
   return (
     <div
@@ -112,6 +114,7 @@ export const ChatMessage = memo(function ChatMessage({
                 checklistId={`chat-${i}`}
                 markdown={m.text}
                 showProgress
+                flowId={flowId}
               />
             ) : (
               <div className="prose-chat max-w-none">

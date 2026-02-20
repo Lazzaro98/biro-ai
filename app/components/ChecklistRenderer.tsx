@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -68,10 +69,13 @@ type Props = {
   checklistId: string;
   markdown: string;
   showProgress?: boolean;
+  /** When provided, each task item gets a "Pitaj AI" consultation button */
+  flowId?: string;
 };
 
-export default function ChecklistRenderer({ checklistId, markdown, showProgress = true }: Props) {
+export default function ChecklistRenderer({ checklistId, markdown, showProgress = true, flowId }: Props) {
   const [checks, setChecks] = useState<CheckState>(loadChecks);
+  const router = useRouter();
 
   useEffect(() => {
     setChecks(loadChecks());
@@ -145,52 +149,75 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
           const isChecked = !!checks[key];
 
           return (
-            <div
-              key={i}
-              onClick={() => toggle(key)}
-              className="flex items-start gap-3 py-1.5 cursor-pointer group select-none"
-              role="checkbox"
-              aria-checked={isChecked}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === " " || e.key === "Enter") {
-                  e.preventDefault();
-                  toggle(key);
-                }
-              }}
-            >
-              {/* Custom checkbox */}
-              <span
-                className={[
-                  "mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-md border-2 transition-all duration-200",
-                  isChecked
-                    ? "border-primary bg-primary text-white"
-                    : "border-border dark:border-border group-hover:border-primary/60",
-                ].join(" ")}
+            <div key={i} className="flex items-start gap-1 group/item">
+              <div
+                onClick={() => toggle(key)}
+                className="flex flex-1 items-start gap-3 py-1.5 cursor-pointer select-none"
+                role="checkbox"
+                aria-checked={isChecked}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === " " || e.key === "Enter") {
+                    e.preventDefault();
+                    toggle(key);
+                  }
+                }}
               >
-                {isChecked && (
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-              </span>
-
-              {/* Label — render inline markdown (bold, code, links) */}
-              <span
-                className={[
-                  "flex-1 text-[14px] leading-relaxed transition-all duration-200",
-                  isChecked ? "line-through text-muted opacity-60" : "text-foreground",
-                ].join(" ")}
-              >
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    p: ({ children }) => <>{children}</>,
-                  }}
+                {/* Custom checkbox */}
+                <span
+                  className={[
+                    "mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-md border-2 transition-all duration-200",
+                    isChecked
+                      ? "border-primary bg-primary text-white"
+                      : "border-border dark:border-border hover:border-primary/60",
+                  ].join(" ")}
                 >
-                  {seg.label}
-                </ReactMarkdown>
-              </span>
+                  {isChecked && (
+                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+
+                {/* Label — render inline markdown (bold, code, links) */}
+                <span
+                  className={[
+                    "flex-1 text-[14px] leading-relaxed transition-all duration-200",
+                    isChecked ? "line-through text-muted opacity-60" : "text-foreground",
+                  ].join(" ")}
+                >
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      p: ({ children }) => <>{children}</>,
+                    }}
+                  >
+                    {seg.label}
+                  </ReactMarkdown>
+                </span>
+              </div>
+
+              {/* Consult AI button */}
+              {flowId && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const consultText = encodeURIComponent(seg.label);
+                    router.push(`/chat/${flowId}?consult=${consultText}`);
+                  }}
+                  className="mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg
+                             text-muted hover:text-primary hover:bg-primary/10
+                             transition-all duration-200 opacity-0 group-hover/item:opacity-100
+                             focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  title={`Pitaj AI o ovom koraku`}
+                  aria-label={`Konsultuj AI o: ${seg.label}`}
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </button>
+              )}
             </div>
           );
         })}

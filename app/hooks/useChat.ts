@@ -75,7 +75,7 @@ export interface UseChatReturn {
   startNewSession: () => void;
 }
 
-export function useChat(flowId: string, initialSessionId?: string | null): UseChatReturn {
+export function useChat(flowId: string, initialSessionId?: string | null, consultItem?: string | null): UseChatReturn {
   const flow = useMemo(() => getFlow(flowId), [flowId]);
 
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -89,6 +89,7 @@ export function useChat(flowId: string, initialSessionId?: string | null): UseCh
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const sendTextRef = useRef<((text: string) => Promise<void>) | null>(null);
 
   // ── Online/offline detection ──
   useEffect(() => {
@@ -145,6 +146,27 @@ export function useChat(flowId: string, initialSessionId?: string | null): UseCh
       setMessages(newSession.messages);
     }
   }, [flow, initialSessionId]);
+
+  // ── Auto-send consultation message ──
+  const consultHandled = useRef(false);
+  useEffect(() => {
+    if (!consultItem || consultHandled.current || !sessionId) return;
+    consultHandled.current = true;
+
+    // Create a new session dedicated to this consultation
+    const newSession = createSession(flow.id, flow.title, flow.initialMessages);
+    setSessionId(newSession.id);
+    setMessages(flow.initialMessages);
+    setChecklistSaved(false);
+
+    // Auto-send the consultation question after a brief delay (so state settles)
+    const question = `Objasni mi detaljnije ovaj korak iz checkliste: "${consultItem}"
+
+Šta tačno treba da uradim, koji su dokumenti potrebni, koliko je vreme obrade, i da li postoje neke česte greške koje treba izbegavati?`;
+    setTimeout(() => {
+      sendTextRef.current?.(question);
+    }, 150);
+  }, [consultItem, sessionId, flow]);
 
   // Current step = detected from AI's last message
   const currentStep = useMemo(() => flow.detectStep(messages), [flow, messages]);
@@ -314,6 +336,9 @@ export function useChat(flowId: string, initialSessionId?: string | null): UseCh
     },
     [isSending, messages],
   );
+
+  // Keep sendTextRef in sync for use in consultation effect
+  sendTextRef.current = sendText;
 
   /* ── Retry last failed message ─── */
   const retryLast = useCallback(() => {
