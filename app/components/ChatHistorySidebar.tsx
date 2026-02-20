@@ -23,10 +23,21 @@ export function ChatHistorySidebar({
   onClose,
 }: ChatHistorySidebarProps) {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [otherFlowGroups, setOtherFlowGroups] = useState<Record<string, ChatSession[]>>({});
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   const refreshSessions = useCallback(() => {
     setSessions(getSessions(flowId));
+
+    // Group other flow sessions
+    const allSessions = getSessions();
+    const otherFlowSessions = allSessions.filter((s) => s.flowId !== flowId);
+    const groups: Record<string, ChatSession[]> = {};
+    for (const s of otherFlowSessions) {
+      if (!groups[s.flowId]) groups[s.flowId] = [];
+      groups[s.flowId].push(s);
+    }
+    setOtherFlowGroups(groups);
   }, [flowId]);
 
   useEffect(() => {
@@ -51,15 +62,6 @@ export function ChatHistorySidebar({
   };
 
   const flow = FLOWS[flowId];
-  const allSessions = getSessions();
-  const otherFlowSessions = allSessions.filter((s) => s.flowId !== flowId);
-
-  // Group other sessions by flow
-  const otherFlowGroups: Record<string, ChatSession[]> = {};
-  for (const s of otherFlowSessions) {
-    if (!otherFlowGroups[s.flowId]) otherFlowGroups[s.flowId] = [];
-    otherFlowGroups[s.flowId].push(s);
-  }
 
   return (
     <>
