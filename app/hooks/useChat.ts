@@ -1,61 +1,46 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
-import { detectFlowStep, isChecklist } from "../lib/chat-utils";
 import { track } from "../lib/analytics";
 import type { Msg } from "../lib/chat-utils";
-import {
-  SUGGESTION_STEPS,
-  STORAGE_KEY,
-  CHECKLISTS_KEY,
-  INITIAL_MESSAGES,
-  REQUEST_TIMEOUT_MS,
-  type SavedChecklist,
-  type SuggestionStep,
-} from "../lib/chat-constants";
+import { getFlow } from "../lib/flows";
+import type { FlowConfig, SuggestionStep, SavedChecklist } from "../lib/flows";
+
+const REQUEST_TIMEOUT_MS = 30_000;
 
 /* ── LocalStorage helpers ─── */
 
-function loadMessages(): Msg[] {
-  if (typeof window === "undefined") return INITIAL_MESSAGES;
+function loadMessages(flow: FlowConfig): Msg[] {
+  if (typeof window === "undefined") return flow.initialMessages;
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return INITIAL_MESSAGES;
+    const raw = localStorage.getItem(flow.storageKey);
+    if (!raw) return flow.initialMessages;
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.length > 0) return parsed;
   } catch {
     /* ignore corrupt data */
   }
-  return INITIAL_MESSAGES;
+  return flow.initialMessages;
 }
 
-function extractParams(msgs: Msg[]): SavedChecklist["params"] {
-  const userMsgs = msgs.filter((m) => m.role === "user");
-  return {
-    grad: userMsgs[0]?.text,
-    tip: userMsgs[1]?.text,
-    delatnost: userMsgs[2]?.text,
-    oporezivanje: userMsgs[3]?.text,
-  };
-}
-
-function saveChecklistToStorage(msgs: Msg[]): SavedChecklist | null {
-  const checklistMsg = [...msgs].reverse().find((m) => m.role === "ai" && isChecklist(m.text));
+function saveChecklistToStorage(flow: FlowConfig, msgs: Msg[]): SavedChecklist | null {
+  const checklistMsg = [...msgs].reverse().find((m) => m.role === "ai" && flow.isChecklist(m.text));
   if (!checklistMsg) return null;
 
-  const params = extractParams(msgs);
+  const params = flow.extractParams(msgs);
   const entry: SavedChecklist = {
     id: crypto.randomUUID(),
     date: new Date().toISOString(),
+    flowId: flow.id,
     params,
     markdown: checklistMsg.text,
   };
 
   try {
-    const raw = localStorage.getItem(CHECKLISTS_KEY);
+    const raw = localStorage.getItem(flow.checklistsKey);
     const list: SavedChecklist[] = raw ? JSON.parse(raw) : [];
     list.unshift(entry);
-    localStorage.setItem(CHECKLISTS_KEY, JSON.stringify(list));
+    localStorage.setItem(flow.checklistsKey, JSON.stringify(list));
   } catch {
     /* ignore */
   }
@@ -88,8 +73,10 @@ export interface UseChatReturn {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export function useChat(): UseChatReturn {
-  const [messages, setMessages] = useState<Msg[]>(INITIAL_MESSAGES);
+export function useChat(flowId: string): UseChatReturn {
+  const flow = useMemo(() => getFlow(flowId), [flowId]);
+
+  const [messages, setMessages] = useState<Msg[]>(flow.initialMessages);
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [checklistSaved, setChecklistSaved] = useState(false);
@@ -127,21 +114,21 @@ export function useChat(): UseChatReturn {
 
   // Hydration-safe: load persisted messages only on the client
   useEffect(() => {
-    const saved = loadMessages();
-    if (saved !== INITIAL_MESSAGES) setMessages(saved);
-  }, []);
+    const saved = loadMessages(flow);
+    if (saved !== flow.initialMessages) setMessages(saved);
+  }, [flow]);
 
   // Current step = detected from AI's last message
-  const currentStep = useMemo(() => detectFlowStep(messages), [messages]);
+  const currentStep = useMemo(() => flow.detectStep(messages), [flow, messages]);
 
   // Active suggestions for the current step
   const activeSuggestions = useMemo(() => {
     if (isSending) return null;
-    if (currentStep >= SUGGESTION_STEPS.length) return null;
+    if (currentStep >= flow.suggestionSteps.length) return null;
     const lastMsg = messages[messages.length - 1];
     if (lastMsg?.role !== "ai") return null;
-    return SUGGESTION_STEPS[currentStep];
-  }, [currentStep, messages, isSending]);
+    return flow.suggestionSteps[currentStep];
+  }, [currentStep, messages, isSending, flow]);
 
   // Persist messages to localStorage (skip initial render)
   const isHydrated = useRef(false);
@@ -151,7 +138,7 @@ export function useChat(): UseChatReturn {
       return;
     }
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+      localStorage.setItem(flow.storageKey, JSON.stringify(messages));
     } catch {
       /* quota exceeded — ignore */
     }
@@ -182,7 +169,7 @@ export function useChat(): UseChatReturn {
       setInput("");
       setIsSending(true);
       setSendStartTime(Date.now());
-      track("chat.message_sent", { step: detectFlowStep(messages) });
+      track("chat.message_sent", { flow: flow.id, step: flow.detectStep(messages) });
 
       // Abort controller for timeout
       abortRef.current?.abort();
@@ -204,7 +191,7 @@ export function useChat(): UseChatReturn {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: nextMessages }),
+          body: JSON.stringify({ messages: nextMessages, flowId: flow.id }),
           signal: controller.signal,
         });
 
@@ -322,21 +309,21 @@ export function useChat(): UseChatReturn {
 
   /* ── Reset chat ─── */
   function resetChat() {
-    track("chat.reset");
-    localStorage.removeItem(STORAGE_KEY);
-    setMessages(INITIAL_MESSAGES);
+    track("chat.reset", { flow: flow.id });
+    localStorage.removeItem(flow.storageKey);
+    setMessages(flow.initialMessages);
     setInput("");
     setChecklistSaved(false);
   }
 
   /* ── Detect checklist & offer save ─── */
   const hasChecklist = useMemo(
-    () => messages.some((m) => m.role === "ai" && isChecklist(m.text)),
-    [messages],
+    () => messages.some((m) => m.role === "ai" && flow.isChecklist(m.text)),
+    [messages, flow],
   );
 
   function handleSaveChecklist() {
-    const saved = saveChecklistToStorage(messages);
+    const saved = saveChecklistToStorage(flow, messages);
     if (saved) {
       setChecklistSaved(true);
       track("checklist.saved");
@@ -344,7 +331,7 @@ export function useChat(): UseChatReturn {
   }
 
   /* ── Progress indicator ─── */
-  const totalSteps = SUGGESTION_STEPS.length;
+  const totalSteps = flow.suggestionSteps.length;
   const progressPct = Math.min((currentStep / totalSteps) * 100, 100);
   const isDone = hasChecklist;
 

@@ -1,17 +1,42 @@
 import type { Metadata } from "next";
+import { FLOWS, FLOW_IDS } from "@/app/lib/flows";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Otvaranje firme",
-  description:
-    "Pokreni AI vodič za otvaranje firme u Srbiji — preduzetnik, DOO, paušalac. Dobij personalizovanu checklistu za 2-3 minuta.",
-  openGraph: {
-    title: "Otvaranje firme | Biro AI",
-    description:
-      "AI vodič za otvaranje firme u Srbiji — preduzetnik, DOO, paušalac.",
-  },
-};
+export function generateStaticParams() {
+  return FLOW_IDS.map((flowId) => ({ flowId }));
+}
 
-export default function StartOtvaranjeFirme() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ flowId: string }>;
+}): Promise<Metadata> {
+  const { flowId } = await params;
+  const flow = FLOWS[flowId];
+  if (!flow) return {};
+
+  return {
+    title: flow.title,
+    description: flow.description,
+    openGraph: {
+      title: `${flow.title} | Biro AI`,
+      description: flow.description,
+    },
+  };
+}
+
+export default async function StartFlowPage({
+  params,
+}: {
+  params: Promise<{ flowId: string }>;
+}) {
+  const { flowId } = await params;
+  const flow = FLOWS[flowId];
+
+  if (!flow) {
+    notFound();
+  }
+
   return (
     <main className="relative min-h-dvh flex flex-col items-center justify-center px-5 py-16 overflow-x-hidden">
       <div className="relative z-10 w-full max-w-lg">
@@ -27,11 +52,11 @@ export default function StartOtvaranjeFirme() {
 
         <div className="rounded-2xl glass-card gradient-border p-8 sm:p-10 animate-fade-in-up-delay-1">
           <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 text-2xl mb-5 glow-icon">
-            🏢
+            {flow.icon}
           </div>
 
           <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
-            Otvaranje firme
+            {flow.title}
           </h1>
           <p className="mt-3 text-muted-dark leading-relaxed">
             Postavljaću ti pitanja da bih razumeo tvoju situaciju, a onda dobijaš
@@ -40,7 +65,7 @@ export default function StartOtvaranjeFirme() {
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
-              href="/chat/otvaranje-firme"
+              href={`/chat/${flow.id}`}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary-dark px-6 py-3.5 text-white font-semibold
                          hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] active:scale-95 transition-all duration-200"
             >
@@ -54,8 +79,7 @@ export default function StartOtvaranjeFirme() {
           <div className="mt-8 flex items-start gap-3 rounded-xl bg-primary/[0.06] border border-primary/10 p-4">
             <span className="text-lg shrink-0">💡</span>
             <p className="text-sm text-muted-dark leading-relaxed">
-              Ceo proces traje <strong className="text-foreground">2-3 minuta</strong>. Na kraju dobijaš checklist
-              koji možeš da pratiš.
+              Ceo proces traje <strong className="text-foreground">{flow.estimatedTime}</strong>. {flow.startPageTip}
             </p>
           </div>
         </div>

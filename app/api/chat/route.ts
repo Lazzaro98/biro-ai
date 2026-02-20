@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { rateLimit } from "@/app/lib/rate-limit";
 import { sanitizeMessages } from "@/app/lib/sanitize";
-import { buildSystemPrompt } from "@/app/lib/system-prompt";
+import { getFlow, FLOW_IDS } from "@/app/lib/flows";
 import { env } from "@/app/lib/env";
 import { log } from "@/app/lib/logger";
 import { recordRequest, trackEvent } from "@/app/lib/metrics";
@@ -52,7 +52,13 @@ export async function POST(req: Request) {
     }
     const messages = result.messages;
 
-    log.info("chat.request", { ip, messageCount: messages.length });
+    /* ---- Flow selection ---- */
+    const flowId = typeof body?.flowId === "string" && FLOW_IDS.includes(body.flowId)
+      ? body.flowId
+      : "otvaranje-firme";
+    const flow = getFlow(flowId);
+
+    log.info("chat.request", { ip, flowId, messageCount: messages.length });
     trackEvent("chat.request");
 
     // Mapiramo u OpenAI format (assistant/user)
@@ -66,7 +72,7 @@ export async function POST(req: Request) {
       model: "gpt-4o-mini",
       temperature: 0.3,
       stream: true,
-      messages: [{ role: "system", content: buildSystemPrompt() }, ...convo],
+      messages: [{ role: "system", content: flow.buildSystemPrompt() }, ...convo],
     });
 
     // Convert OpenAI stream → ReadableStream for the browser

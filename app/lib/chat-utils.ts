@@ -1,5 +1,9 @@
 /**
  * Shared types and logic used by both the chat page and tests.
+ *
+ * The step detection and checklist check functions here are
+ * for the "otvaranje-firme" flow (backward compatibility).
+ * New flows define their own in app/lib/flows/.
  */
 
 export type Msg = { role: "ai" | "user"; text: string; isError?: boolean };
@@ -8,8 +12,7 @@ const TOTAL_STEPS = 4; // city, type, activity, taxation
 
 /**
  * Detect which flow step the AI is currently asking about
- * by analyzing the LAST AI message keywords, not counting user messages.
- * This prevents off-by-one when the user sends a greeting first.
+ * for the "otvaranje-firme" flow.
  */
 export function detectFlowStep(msgs: Msg[]): number {
   const lastAi = [...msgs].reverse().find((m) => m.role === "ai" && !m.isError);

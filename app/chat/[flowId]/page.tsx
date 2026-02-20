@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useParams } from "next/navigation";
 import { useChat } from "../../hooks/useChat";
 import { ChatHeader } from "../../components/ChatHeader";
 import { ChatMessage, TypingIndicator } from "../../components/ChatMessage";
@@ -9,8 +9,11 @@ import { SuggestionChips } from "../../components/SuggestionChips";
 import { SaveChecklistBanner } from "../../components/SaveChecklistBanner";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
 import { track } from "../../lib/analytics";
+import { useEffect } from "react";
 
-export default function ChatOtvaranjeFirme() {
+export default function ChatFlowPage() {
+  const { flowId } = useParams<{ flowId: string }>();
+
   const {
     messages,
     input,
@@ -33,12 +36,12 @@ export default function ChatOtvaranjeFirme() {
     resetChat,
     handleSaveChecklist,
     onKeyDown,
-  } = useChat();
+  } = useChat(flowId);
 
   // Track page view once
   useEffect(() => {
-    track("page.view", { page: "chat/otvaranje-firme" });
-  }, []);
+    track("page.view", { page: `chat/${flowId}` });
+  }, [flowId]);
 
   return (
     <ErrorBoundary>

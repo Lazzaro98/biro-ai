@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { FLOW_CARDS } from "./lib/flows";
 
 // Lazy-load decorative components — not needed for FCP/LCP
 const FloatingPeople = dynamic(() => import("./components/FloatingPeople"));
@@ -62,51 +63,39 @@ export default function Home() {
 
         {/* Process cards */}
         <nav className="space-y-3 animate-fade-in-up-delay-1" aria-label="Dostupni procesi">
-          {/* Active card */}
-          <a
-            href="/start/otvaranje-firme"
-            className="group flex items-center gap-4 rounded-2xl p-5 glass-card gradient-border
-                       hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
-          >
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 text-xl
-                            group-hover:from-primary/25 group-hover:to-purple-500/15 transition-all duration-300" aria-hidden="true">
-              🏢
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                Otvaram firmu
-              </div>
-              <div className="text-sm text-muted-dark mt-0.5">
-                Preduzetnik, DOO, paušalac — sve na jednom mestu
-              </div>
-            </div>
-            <svg className="h-5 w-5 text-muted shrink-0 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-
-          {/* Coming soon cards */}
-          {[
-            { icon: "🏠", title: "Kupujem stan", desc: "Ugovor, uknjižba, porez…" },
-            { icon: "🚗", title: "Registrujem vozilo", desc: "Tehnički, osiguranje, tablice…" },
-          ].map(({ icon, title, desc }) => (
-            <div
-              key={title}
-              className="flex items-center gap-4 rounded-2xl p-5 bg-surface/50 dark:bg-surface/80 backdrop-blur-sm border border-border-light/60 dark:border-border/50 opacity-50 dark:opacity-70 cursor-not-allowed select-none"
-              aria-disabled="true"
-              role="link"
+          {FLOW_CARDS.map((flow) => (
+            <a
+              key={flow.id}
+              href={`/start/${flow.id}`}
+              className="group flex items-center gap-4 rounded-2xl p-5 glass-card gradient-border
+                         hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-alt text-xl" aria-hidden="true">
-                {icon}
+              <div
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 text-xl
+                            group-hover:from-primary/25 group-hover:to-purple-500/15 transition-all duration-300"
+                aria-hidden="true"
+              >
+                {flow.icon}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-semibold text-foreground">{title}</div>
-                <div className="text-sm text-muted mt-0.5">{desc}</div>
+                <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {flow.title}
+                </div>
+                <div className="text-sm text-muted-dark mt-0.5">
+                  {flow.description}
+                </div>
               </div>
-              <span className="shrink-0 rounded-full bg-surface-alt/80 px-3 py-1 text-xs font-medium text-muted">
-                uskoro
-              </span>
-            </div>
+              <svg
+                className="h-5 w-5 text-muted shrink-0 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
           ))}
         </nav>
 
