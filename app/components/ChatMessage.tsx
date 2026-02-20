@@ -3,7 +3,7 @@
 import { memo } from "react";
 import dynamic from "next/dynamic";
 import FeedbackButtons from "./FeedbackButtons";
-import { isChecklist } from "../lib/chat-utils";
+import { isChecklist, parseSuggestions } from "../lib/chat-utils";
 import type { Msg } from "../lib/chat-utils";
 import remarkGfm from "remark-gfm";
 
@@ -56,6 +56,9 @@ export const ChatMessage = memo(function ChatMessage({
   onRetry,
   flowId,
 }: ChatMessageProps) {
+  // Strip <<SUGGESTIONS:...>> marker from AI text for display
+  const displayText = m.role === "ai" && !m.isError ? parseSuggestions(m.text).cleanText : m.text;
+
   return (
     <div
       className={`flex gap-3 animate-msg-in ${
@@ -72,7 +75,7 @@ export const ChatMessage = memo(function ChatMessage({
               ? "max-w-[80%] bg-gradient-to-br from-primary to-primary-dark text-white rounded-tr-md shadow-md shadow-primary/20"
               : m.isError
                 ? "max-w-[80%] bg-red-50/80 dark:bg-red-950/40 backdrop-blur-sm border border-red-200/60 dark:border-red-800/40 shadow-sm rounded-tl-md"
-                : isChecklist(m.text)
+                : isChecklist(displayText)
                   ? "max-w-[90%] bg-card-bg backdrop-blur-sm border border-border/60 shadow-sm rounded-tl-md overflow-x-auto"
                   : "max-w-[80%] bg-card-bg backdrop-blur-sm border border-border/60 shadow-sm rounded-tl-md",
           ].join(" ")}
@@ -109,17 +112,17 @@ export const ChatMessage = memo(function ChatMessage({
                   Probaj ponovo
                 </button>
               </div>
-            ) : isChecklist(m.text) ? (
+            ) : isChecklist(displayText) ? (
               <ChecklistRenderer
                 checklistId={`chat-${i}`}
-                markdown={m.text}
+                markdown={displayText}
                 showProgress
                 flowId={flowId}
               />
             ) : (
               <div className="prose-chat max-w-none">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {m.text || "…"}
+                  {displayText || "…"}
                 </ReactMarkdown>
               </div>
             )

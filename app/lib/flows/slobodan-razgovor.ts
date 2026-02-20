@@ -1,5 +1,6 @@
 import type { FlowConfig } from "./types";
 import type { Msg } from "../chat-utils";
+import { SUGGESTION_INSTRUCTION } from "./suggestion-instruction";
 
 function detectStep(msgs: Msg[]): number {
   // Free-form conversation doesn't have rigid steps.
@@ -81,7 +82,8 @@ Ako korisnik traži konkretne korake za neki proces, ili ako iz razgovora jasno 
 Svaki korak mora biti konkretan i sprovediv.
 
 NAPOMENA:
-Dajes informativne smernice. Ovo NIJE pravni savet i korisnik treba da se konsultuje sa advokatom za specifične pravne situacije.`;
+Dajes informativne smernice. Ovo NIJE pravni savet i korisnik treba da se konsultuje sa advokatom za specifične pravne situacije.
+${SUGGESTION_INSTRUCTION}`;
 }
 
 export const slobodanRazgovorFlow: FlowConfig = {

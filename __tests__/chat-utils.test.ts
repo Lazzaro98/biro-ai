@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { detectFlowStep, isChecklist } from "@/app/lib/chat-utils";
+import { detectFlowStep, isChecklist, parseSuggestions } from "@/app/lib/chat-utils";
 import type { Msg } from "@/app/lib/chat-utils";
 
 describe("detectFlowStep", () => {
@@ -132,5 +132,49 @@ describe("isChecklist", () => {
 
   it("returns false for empty string", () => {
     expect(isChecklist("")).toBe(false);
+  });
+});
+
+describe("parseSuggestions", () => {
+  it("extracts suggestions from AI response", () => {
+    const text = 'U kom gradu planiraš firmu?\n\n<<SUGGESTIONS: ["Beograd", "Novi Sad", "Niš"]>>';
+    const result = parseSuggestions(text);
+    expect(result.cleanText).toBe("U kom gradu planiraš firmu?");
+    expect(result.chips).toEqual(["Beograd", "Novi Sad", "Niš"]);
+  });
+
+  it("returns empty chips when no marker present", () => {
+    const text = "Zdravo! Ja sam Biro AI.";
+    const result = parseSuggestions(text);
+    expect(result.cleanText).toBe(text);
+    expect(result.chips).toEqual([]);
+  });
+
+  it("handles empty suggestions array", () => {
+    const text = "Evo ti checklista!\n\n- [ ] Korak 1\n\n<<SUGGESTIONS: []>>";
+    const result = parseSuggestions(text);
+    expect(result.cleanText).toBe("Evo ti checklista!\n\n- [ ] Korak 1");
+    expect(result.chips).toEqual([]);
+  });
+
+  it("handles malformed JSON gracefully", () => {
+    const text = "Tekst\n\n<<SUGGESTIONS: [broken]>>";
+    const result = parseSuggestions(text);
+    expect(result.cleanText).toBe("Tekst");
+    expect(result.chips).toEqual([]);
+  });
+
+  it("handles marker in the middle of text", () => {
+    const text = 'Pre tekst <<SUGGESTIONS: ["a", "b"]>> posle tekst';
+    const result = parseSuggestions(text);
+    expect(result.chips).toEqual(["a", "b"]);
+    expect(result.cleanText).not.toContain("SUGGESTIONS");
+  });
+
+  it("strips trailing whitespace after removing marker", () => {
+    const text = 'Pitanje?   \n\n<<SUGGESTIONS: ["Da", "Ne"]>>';
+    const result = parseSuggestions(text);
+    expect(result.cleanText).toBe("Pitanje?");
+    expect(result.chips).toEqual(["Da", "Ne"]);
   });
 });

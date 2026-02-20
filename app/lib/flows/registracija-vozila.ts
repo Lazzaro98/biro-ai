@@ -1,5 +1,6 @@
 import type { FlowConfig } from "./types";
 import type { Msg } from "../chat-utils";
+import { SUGGESTION_INSTRUCTION } from "./suggestion-instruction";
 
 function detectStep(msgs: Msg[]): number {
   const TOTAL = 4;
@@ -171,7 +172,8 @@ Na osnovu tvojih odgovora (**[tip vozila]**, **[grad]**, **[poreklo]**, **[vrsta
 - NE preskači pitanja — čak i ako korisnik pita nešto van toka, odgovori kratko pa nastavi sa sledećim pitanjem.
 - Na kraju checkliste uvek dodaj procenu **ukupnih troškova** registracije.
 - Ako korisnik napiše nešto nejasno, ljubazno zatraži pojašnjenje umesto da pretpostavljaš.
-- Ako korisnik želi da promeni neki prethodni odgovor, dozvoli to i prilagodi dalji tok.`;
+- Ako korisnik želi da promeni neki prethodni odgovor, dozvoli to i prilagodi dalji tok.
+${SUGGESTION_INSTRUCTION}`;
 }
 
 export const registracijaVozilaFlow: FlowConfig = {

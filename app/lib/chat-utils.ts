@@ -57,3 +57,38 @@ export function detectFlowStep(msgs: Msg[]): number {
 export function isChecklist(text: string): boolean {
   return text.includes("- [") && (text.includes("checklista") || text.includes("Checklista") || text.includes("checklist") || text.includes("Registracija"));
 }
+
+/* ── AI-driven suggestion parsing ─── */
+
+/** Pattern: <<SUGGESTIONS: ["opt1", "opt2"]>> at the end of AI response */
+const SUGGESTIONS_RE = /<<SUGGESTIONS:\s*(\[[\s\S]*?\])>>/;
+
+export interface ParsedSuggestions {
+  /** AI text with the suggestion marker removed */
+  cleanText: string;
+  /** Parsed chip labels, empty if none */
+  chips: string[];
+}
+
+/**
+ * Extract AI-embedded suggestions from a message.
+ * The AI is instructed to append <<SUGGESTIONS: ["a","b","c"]>> at the end.
+ * Returns cleaned text + parsed chip array.
+ */
+export function parseSuggestions(text: string): ParsedSuggestions {
+  const match = text.match(SUGGESTIONS_RE);
+  if (!match) return { cleanText: text, chips: [] };
+
+  const cleanText = text.replace(SUGGESTIONS_RE, "").trimEnd();
+
+  try {
+    const parsed = JSON.parse(match[1]);
+    if (Array.isArray(parsed) && parsed.every((c) => typeof c === "string")) {
+      return { cleanText, chips: parsed };
+    }
+  } catch {
+    // malformed JSON — ignore
+  }
+
+  return { cleanText, chips: [] };
+}
