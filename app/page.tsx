@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { FLOW_CARDS } from "./lib/flows";
+import { FLOW_CARDS, CONSULT_CARD } from "./lib/flows";
 
 // Lazy-load decorative components — not needed for FCP/LCP
 const FloatingPeople = dynamic(() => import("./components/FloatingPeople"));
@@ -98,6 +98,46 @@ export default function Home() {
             </a>
           ))}
         </nav>
+
+        {/* Free-form consultation card — visually distinct */}
+        <a
+          href={`/chat/${CONSULT_CARD.id}`}
+          className="group mt-4 block rounded-2xl p-5 animate-fade-in-up-delay-2
+                     bg-gradient-to-r from-primary/[0.08] to-purple-500/[0.06] dark:from-primary/[0.12] dark:to-purple-500/[0.08]
+                     border border-primary/20 dark:border-primary/30
+                     hover:shadow-lg hover:shadow-primary/15 hover:border-primary/40 transition-all duration-300"
+        >
+          <div className="flex items-center gap-4">
+            <div
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/25 to-purple-500/15 text-xl
+                          group-hover:from-primary/35 group-hover:to-purple-500/25 transition-all duration-300"
+              aria-hidden="true"
+            >
+              {CONSULT_CARD.icon}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-semibold text-primary transition-colors">
+                {CONSULT_CARD.title}
+              </div>
+              <div className="text-sm text-muted-dark mt-0.5">
+                {CONSULT_CARD.description}
+              </div>
+            </div>
+            <svg
+              className="h-5 w-5 text-primary/60 shrink-0 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+          <p className="mt-3 text-xs text-muted leading-relaxed pl-16">
+            Ne znaš tačno šta ti treba? Opiši svoju situaciju i AI asistent će te uputiti na pravi put.
+          </p>
+        </a>
 
         {/* Saved checklists link */}
         <a
