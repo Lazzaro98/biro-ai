@@ -11,7 +11,9 @@ import { SaveChecklistBanner } from "../../components/SaveChecklistBanner";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
 import { ChatHistorySidebar } from "../../components/ChatHistorySidebar";
 import { track } from "../../lib/analytics";
-import { useEffect } from "react";
+import { buildShareUrl } from "../../lib/share";
+import { getFlow } from "../../lib/flows";
+import { useEffect, useCallback } from "react";
 
 export default function ChatFlowPage() {
   return (
@@ -59,6 +61,26 @@ function ChatFlowPageInner() {
   useEffect(() => {
     track("page.view", { page: `chat/${flowId}` });
   }, [flowId]);
+
+  // Share checklist handler
+  const handleShareChecklist = useCallback(async () => {
+    const flow = getFlow(flowId);
+    const checklistMsg = [...messages].reverse().find((m) => m.role === "ai" && flow.isChecklist(m.text));
+    if (!checklistMsg) return;
+    const url = buildShareUrl({
+      title: flow.title,
+      flowId: flow.id,
+      params: flow.extractParams(messages),
+      markdown: checklistMsg.text,
+      date: new Date().toISOString(),
+    });
+    if (navigator.share) {
+      await navigator.share({ title: "Biro AI \u2014 Checklista", url });
+    } else {
+      await navigator.clipboard.writeText(url);
+    }
+    track("checklist.shared");
+  }, [flowId, messages]);
 
   return (
     <ErrorBoundary>
@@ -150,6 +172,7 @@ function ChatFlowPageInner() {
             <SaveChecklistBanner
               checklistSaved={checklistSaved}
               onSave={handleSaveChecklist}
+              onShare={handleShareChecklist}
             />
           )}
 

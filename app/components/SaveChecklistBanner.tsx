@@ -1,22 +1,35 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState, useCallback } from "react";
 
 interface SaveChecklistBannerProps {
   checklistSaved: boolean;
   onSave: () => void;
+  onShare?: () => Promise<void> | void;
 }
 
 export const SaveChecklistBanner = memo(function SaveChecklistBanner({
   checklistSaved,
   onSave,
+  onShare,
 }: SaveChecklistBannerProps) {
+  const [shareStatus, setShareStatus] = useState<"idle" | "done">("idle");
+
+  const handleShare = useCallback(async () => {
+    if (!onShare) return;
+    try {
+      await onShare();
+      setShareStatus("done");
+      setTimeout(() => setShareStatus("idle"), 2500);
+    } catch { /* user cancelled */ }
+  }, [onShare]);
+
   return (
     <div className="no-print flex gap-3 animate-msg-in">
       <div className="w-8 shrink-0" />
       <div className="flex-1 rounded-2xl border border-primary/20 bg-primary-ghost p-4">
         {checklistSaved ? (
-          <div className="flex items-center gap-2 text-sm text-primary font-medium">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-primary font-medium">
             <svg
               className="h-5 w-5"
               fill="none"
@@ -31,32 +44,64 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
               />
             </svg>
             Checklista sačuvana!
-            <button
-              type="button"
-              onClick={() => window.print()}
-              className="ml-2 inline-flex items-center gap-1 text-xs text-muted-dark hover:text-primary transition-colors"
-            >
-              <svg
-                className="h-3.5 w-3.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
+
+            {/* Action buttons row */}
+            <div className="flex items-center gap-1 ml-auto">
+              {/* Share */}
+              {onShare && (
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  className="inline-flex items-center gap-1 text-xs text-muted-dark hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-primary/5"
+                >
+                  {shareStatus === "done" ? (
+                    <>
+                      <svg className="h-3.5 w-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      Link kopiran!
+                    </>
+                  ) : (
+                    <>
+                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+                      </svg>
+                      Podeli
+                    </>
+                  )}
+                </button>
+              )}
+
+              {/* Print */}
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="inline-flex items-center gap-1 text-xs text-muted-dark hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-primary/5"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
-                />
-              </svg>
-              Štampaj
-            </button>
-            <a
-              href="/checkliste"
-              className="ml-auto text-xs underline underline-offset-2 hover:text-primary-dark"
-            >
-              Pogledaj sve →
-            </a>
+                <svg
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                  />
+                </svg>
+                Štampaj
+              </button>
+
+              {/* View all */}
+              <a
+                href="/checkliste"
+                className="text-xs underline underline-offset-2 hover:text-primary-dark px-2 py-1"
+              >
+                Pogledaj sve →
+              </a>
+            </div>
           </div>
         ) : (
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
