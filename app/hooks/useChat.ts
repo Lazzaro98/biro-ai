@@ -5,23 +5,21 @@ import { track } from "../lib/analytics";
 import type { Msg } from "../lib/chat-utils";
 import { getFlow } from "../lib/flows";
 import type { FlowConfig, SuggestionStep, SavedChecklist } from "../lib/flows";
+import {
+  getSessions,
+  getSession,
+  createSession,
+  updateSession,
+  deleteSession as deleteSessionFromStorage,
+  getActiveSessionId,
+  setActiveSessionId,
+  migrateOldStorage,
+  type ChatSession,
+} from "../lib/chat-sessions";
 
 const REQUEST_TIMEOUT_MS = 30_000;
 
-/* ── LocalStorage helpers ─── */
-
-function loadMessages(flow: FlowConfig): Msg[] {
-  if (typeof window === "undefined") return flow.initialMessages;
-  try {
-    const raw = localStorage.getItem(flow.storageKey);
-    if (!raw) return flow.initialMessages;
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-  } catch {
-    /* ignore corrupt data */
-  }
-  return flow.initialMessages;
-}
+/* ── Checklist save helper ─── */
 
 function saveChecklistToStorage(flow: FlowConfig, msgs: Msg[]): SavedChecklist | null {
   const checklistMsg = [...msgs].reverse().find((m) => m.role === "ai" && flow.isChecklist(m.text));
@@ -71,11 +69,16 @@ export interface UseChatReturn {
   resetChat: () => void;
   handleSaveChecklist: () => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  /* Session management */
+  sessionId: string | null;
+  switchSession: (sessionId: string) => void;
+  startNewSession: () => void;
 }
 
-export function useChat(flowId: string): UseChatReturn {
+export function useChat(flowId: string, initialSessionId?: string | null): UseChatReturn {
   const flow = useMemo(() => getFlow(flowId), [flowId]);
 
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Msg[]>(flow.initialMessages);
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -112,11 +115,36 @@ export function useChat(flowId: string): UseChatReturn {
     return () => clearInterval(interval);
   }, [sendStartTime]);
 
-  // Hydration-safe: load persisted messages only on the client
+  // ── Session initialization & migration ──
   useEffect(() => {
-    const saved = loadMessages(flow);
-    if (saved !== flow.initialMessages) setMessages(saved);
-  }, [flow]);
+    // 1. Try migrating old single-key storage
+    migrateOldStorage(flow.id, flow.storageKey, flow.title);
+
+    // 2. Determine which session to load
+    let sid = initialSessionId ?? getActiveSessionId(flow.id);
+
+    if (sid) {
+      const existing = getSession(sid);
+      if (existing) {
+        setSessionId(sid);
+        setMessages(existing.messages);
+        return;
+      }
+    }
+
+    // 3. No active session — find the most recent one, or create new
+    const flowSessions = getSessions(flow.id);
+    if (flowSessions.length > 0) {
+      const latest = flowSessions[0];
+      setSessionId(latest.id);
+      setMessages(latest.messages);
+      setActiveSessionId(flow.id, latest.id);
+    } else {
+      const newSession = createSession(flow.id, flow.title, flow.initialMessages);
+      setSessionId(newSession.id);
+      setMessages(newSession.messages);
+    }
+  }, [flow, initialSessionId]);
 
   // Current step = detected from AI's last message
   const currentStep = useMemo(() => flow.detectStep(messages), [flow, messages]);
@@ -130,19 +158,17 @@ export function useChat(flowId: string): UseChatReturn {
     return flow.suggestionSteps[currentStep];
   }, [currentStep, messages, isSending, flow]);
 
-  // Persist messages to localStorage (skip initial render)
+  // Persist messages to session storage (skip initial render)
   const isHydrated = useRef(false);
   useEffect(() => {
     if (!isHydrated.current) {
       isHydrated.current = true;
       return;
     }
-    try {
-      localStorage.setItem(flow.storageKey, JSON.stringify(messages));
-    } catch {
-      /* quota exceeded — ignore */
-    }
-  }, [messages]);
+    if (!sessionId) return;
+    const completed = messages.some((m) => m.role === "ai" && flow.isChecklist(m.text));
+    updateSession(sessionId, messages, flow.title, completed);
+  }, [messages, sessionId, flow]);
 
   // Auto-scroll
   useEffect(() => {
@@ -307,14 +333,38 @@ export function useChat(flowId: string): UseChatReturn {
     if (e.key === "Enter" && !e.shiftKey) sendMessage();
   }
 
-  /* ── Reset chat ─── */
+  /* ── Reset chat = start new session ─── */
   function resetChat() {
     track("chat.reset", { flow: flow.id });
-    localStorage.removeItem(flow.storageKey);
+    const newSession = createSession(flow.id, flow.title, flow.initialMessages);
+    setSessionId(newSession.id);
     setMessages(flow.initialMessages);
     setInput("");
     setChecklistSaved(false);
   }
+
+  /* ── Switch to an existing session ─── */
+  const switchSession = useCallback((sid: string) => {
+    const s = getSession(sid);
+    if (!s) return;
+    setSessionId(sid);
+    setMessages(s.messages);
+    setActiveSessionId(flow.id, sid);
+    setChecklistSaved(false);
+    setInput("");
+    isHydrated.current = false; // prevent re-saving during switch
+    setTimeout(() => { isHydrated.current = true; }, 50);
+  }, [flow]);
+
+  /* ── Start a brand new session ─── */
+  const startNewSession = useCallback(() => {
+    const newSession = createSession(flow.id, flow.title, flow.initialMessages);
+    setSessionId(newSession.id);
+    setMessages(flow.initialMessages);
+    setInput("");
+    setChecklistSaved(false);
+    track("chat.new_session", { flow: flow.id });
+  }, [flow]);
 
   /* ── Detect checklist & offer save ─── */
   const hasChecklist = useMemo(
@@ -357,5 +407,8 @@ export function useChat(flowId: string): UseChatReturn {
     resetChat,
     handleSaveChecklist,
     onKeyDown,
+    sessionId,
+    switchSession,
+    startNewSession,
   };
 }

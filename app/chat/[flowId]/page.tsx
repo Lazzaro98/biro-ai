@@ -1,6 +1,7 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import { useState, Suspense } from "react";
 import { useChat } from "../../hooks/useChat";
 import { ChatHeader } from "../../components/ChatHeader";
 import { ChatMessage, TypingIndicator } from "../../components/ChatMessage";
@@ -8,11 +9,23 @@ import { ChatInput } from "../../components/ChatInput";
 import { SuggestionChips } from "../../components/SuggestionChips";
 import { SaveChecklistBanner } from "../../components/SaveChecklistBanner";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
+import { ChatHistorySidebar } from "../../components/ChatHistorySidebar";
 import { track } from "../../lib/analytics";
 import { useEffect } from "react";
 
 export default function ChatFlowPage() {
+  return (
+    <Suspense>
+      <ChatFlowPageInner />
+    </Suspense>
+  );
+}
+
+function ChatFlowPageInner() {
   const { flowId } = useParams<{ flowId: string }>();
+  const searchParams = useSearchParams();
+  const initialSessionId = searchParams.get("session");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const {
     messages,
@@ -36,7 +49,10 @@ export default function ChatFlowPage() {
     resetChat,
     handleSaveChecklist,
     onKeyDown,
-  } = useChat(flowId);
+    sessionId,
+    switchSession,
+    startNewSession,
+  } = useChat(flowId, initialSessionId);
 
   // Track page view once
   useEffect(() => {
@@ -45,7 +61,18 @@ export default function ChatFlowPage() {
 
   return (
     <ErrorBoundary>
-    <div className="flex h-dvh flex-col">
+    <div className="flex h-dvh">
+      {/* ─── History sidebar ─── */}
+      <ChatHistorySidebar
+        flowId={flowId}
+        activeSessionId={sessionId}
+        onSelectSession={switchSession}
+        onNewChat={startNewSession}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
+
+      <div className="flex flex-1 flex-col min-w-0">
       {/* ─── Top bar ─── */}
       <ChatHeader
         progressPct={progressPct}
@@ -57,6 +84,8 @@ export default function ChatFlowPage() {
         elapsed={elapsed}
         showNewChat={messages.length > 1}
         onResetChat={resetChat}
+        onToggleHistory={() => setSidebarOpen((v) => !v)}
+        flowId={flowId}
       />
 
       {/* ─── Offline banner ─── */}
@@ -137,6 +166,7 @@ export default function ChatFlowPage() {
         onSend={sendMessage}
         onKeyDown={onKeyDown}
       />
+    </div>
     </div>
     </ErrorBoundary>
   );

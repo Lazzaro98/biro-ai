@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import ThemeToggle from "./ThemeToggle";
+import { FLOWS } from "../lib/flows";
 
 interface ChatHeaderProps {
   progressPct: number;
@@ -13,6 +14,8 @@ interface ChatHeaderProps {
   elapsed: number;
   showNewChat: boolean;
   onResetChat: () => void;
+  onToggleHistory?: () => void;
+  flowId?: string;
 }
 
 export const ChatHeader = memo(function ChatHeader({
@@ -25,36 +28,58 @@ export const ChatHeader = memo(function ChatHeader({
   elapsed,
   showNewChat,
   onResetChat,
+  onToggleHistory,
+  flowId,
 }: ChatHeaderProps) {
+  const flow = flowId ? FLOWS[flowId] : null;
+  const icon = flow?.icon ?? "🏢";
+  const title = flow?.title ?? "Otvaranje firme";
+
   return (
     <header className="no-print shrink-0 border-b border-border/60 bg-surface/70 backdrop-blur-md sm:backdrop-blur-xl shadow-sm">
       <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:px-6">
-        <a
-          href="/"
-          className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-surface-alt transition-colors"
-          aria-label="Nazad na početnu"
-        >
-          <svg
-            className="h-5 w-5 text-muted-dark"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+        {/* History toggle */}
+        {onToggleHistory ? (
+          <button
+            type="button"
+            onClick={onToggleHistory}
+            className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-surface-alt transition-colors"
+            aria-label="Istorija razgovora"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </a>
+            <svg
+              className="h-5 w-5 text-muted-dark"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        ) : (
+          <a
+            href="/"
+            className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-surface-alt transition-colors"
+            aria-label="Nazad na početnu"
+          >
+            <svg
+              className="h-5 w-5 text-muted-dark"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </a>
+        )}
 
         <div className="flex items-center gap-2.5 min-w-0">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-lg">
-            🏢
+            {icon}
           </div>
           <div className="min-w-0">
-            <h1 className="text-sm font-semibold truncate">Otvaranje firme</h1>
+            <h1 className="text-sm font-semibold truncate">{title}</h1>
             <div className="flex items-center gap-2 mt-0.5">
               <div className="h-1.5 w-20 rounded-full bg-border overflow-hidden">
                 <div
