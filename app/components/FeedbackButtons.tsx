@@ -42,15 +42,20 @@ function saveFeedback(msgId: string, value: FeedbackValue, comment?: string) {
 interface FeedbackButtonsProps {
   /** Unique ID for this message (e.g. "chat-3") */
   msgId: string;
+  flowId?: string;
+  messageText?: string;
 }
 
-export default memo(function FeedbackButtons({ msgId }: FeedbackButtonsProps) {
+export default memo(function FeedbackButtons({ msgId, flowId, messageText }: FeedbackButtonsProps) {
   const [feedback, setFeedback] = useState<FeedbackValue>(() => {
     return loadFeedback()[msgId] ?? null;
   });
   const [showComment, setShowComment] = useState(false);
   const [comment, setComment] = useState("");
   const [commentSent, setCommentSent] = useState(false);
+  const [showReport, setShowReport] = useState(false);
+  const [reportReason, setReportReason] = useState("");
+  const [reportSent, setReportSent] = useState(false);
 
   const handleFeedback = useCallback(
     (value: FeedbackValue) => {
@@ -76,6 +81,30 @@ export default memo(function FeedbackButtons({ msgId }: FeedbackButtonsProps) {
     setCommentSent(true);
     setShowComment(false);
   }, [comment, msgId]);
+
+  const sendInaccuracyReport = useCallback(async () => {
+    const reason = reportReason.trim();
+    if (!reason) return;
+
+    try {
+      await fetch("/api/report-inaccuracy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          msgId,
+          flowId,
+          reason,
+          messageText,
+          url: typeof window !== "undefined" ? window.location.pathname : undefined,
+        }),
+      });
+      setReportSent(true);
+      setShowReport(false);
+      setReportReason("");
+    } catch {
+      // best effort
+    }
+  }, [flowId, messageText, msgId, reportReason]);
 
   return (
     <div className="no-print mt-1.5 flex items-center gap-1">
@@ -163,6 +192,48 @@ export default memo(function FeedbackButtons({ msgId }: FeedbackButtonsProps) {
       {commentSent && (
         <span className="ml-2 text-xs text-muted animate-fade-in-up">
           Hvala na povratnoj informaciji!
+        </span>
+      )}
+
+      <button
+        type="button"
+        onClick={() => {
+          setShowReport((v) => !v);
+          setReportSent(false);
+        }}
+        className="ml-2 text-xs text-muted hover:text-primary transition-colors"
+      >
+        Prijavi netačnost
+      </button>
+
+      {showReport && (
+        <div className="ml-2 flex items-center gap-1.5 animate-fade-in-up">
+          <input
+            type="text"
+            value={reportReason}
+            onChange={(e) => setReportReason(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && sendInaccuracyReport()}
+            placeholder="Šta je netačno?"
+            className="rounded-lg border border-border/60 bg-surface/80 px-2.5 py-1 text-xs outline-none
+                       focus:border-primary/40 focus:ring-1 focus:ring-primary/10 w-44 sm:w-56"
+            maxLength={300}
+            autoFocus
+          />
+          <button
+            type="button"
+            onClick={sendInaccuracyReport}
+            disabled={!reportReason.trim()}
+            className="rounded-lg bg-primary/10 px-2 py-1 text-xs font-medium text-primary
+                       hover:bg-primary/20 disabled:opacity-40 transition-colors"
+          >
+            Pošalji
+          </button>
+        </div>
+      )}
+
+      {reportSent && (
+        <span className="ml-2 text-xs text-muted animate-fade-in-up">
+          Prijava je poslata.
         </span>
       )}
     </div>

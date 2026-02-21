@@ -5,14 +5,32 @@ import { getFlow, FLOW_IDS } from "@/app/lib/flows";
 import { env } from "@/app/lib/env";
 import { log } from "@/app/lib/logger";
 import { recordRequest, trackEvent } from "@/app/lib/metrics";
+import { ensureSourceDateBlock, validateChecklistQuality } from "@/app/lib/checklist-quality";
 import { headers } from "next/headers";
 
 /* ---------- config ---------- */
 const RATE_LIMIT_MAX = 20; // requests per window
 const RATE_LIMIT_WINDOW = 60_000; // 1 minute
 
+const TRUST_APPENDIX = `\n\n## Obavezno za finalnu checklistu\n- Kada generišeš checklistu, NA KRAJU odgovora uvek dodaj sekciju: \"### 📚 Izvori i datum provere\".\n- U toj sekciji obavezno navedi liniju \"Provereno: [datum]\" i 2-4 relevantna zvanična izvora.\n- Ako je neki rok ili trošak procena, jasno označi da može varirati.`;
+
 // Singleton OpenAI client (created once per cold start)
 const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
+
+function extractAssistantText(content: unknown): string {
+  if (typeof content === "string") return content;
+  if (!Array.isArray(content)) return "";
+
+  const parts = content
+    .map((part) => {
+      if (!part || typeof part !== "object") return "";
+      const maybeText = (part as { text?: unknown }).text;
+      return typeof maybeText === "string" ? maybeText : "";
+    })
+    .filter(Boolean);
+
+  return parts.join("\n");
+}
 
 /* ---------- helpers ---------- */
 
@@ -67,41 +85,35 @@ export async function POST(req: Request) {
       content: String(m.text ?? ""),
     }));
 
-    // Stream response
-    const stream = await openai.chat.completions.create({
+    // Generate full response first so we can validate checklist quality before sending
+    const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       temperature: 0.3,
-      stream: true,
-      messages: [{ role: "system", content: flow.buildSystemPrompt() }, ...convo],
+      messages: [{ role: "system", content: `${flow.buildSystemPrompt()}${TRUST_APPENDIX}` }, ...convo],
     });
 
-    // Convert OpenAI stream → ReadableStream for the browser
-    const encoder = new TextEncoder();
-    const readable = new ReadableStream({
-      async start(controller) {
-        try {
-          for await (const chunk of stream) {
-            const delta = chunk.choices?.[0]?.delta?.content;
-            if (delta) {
-              controller.enqueue(encoder.encode(delta));
-            }
-          }
-        } catch (err) {
-          console.error("Stream error:", err);
-          controller.enqueue(encoder.encode("\n\n[Greška pri generisanju odgovora]"));
-        } finally {
-          controller.close();
-        }
-      },
-    });
+    let answerText = extractAssistantText(completion.choices?.[0]?.message?.content);
+    if (!answerText.trim()) {
+      answerText = "⚠️ AI trenutno nije generisao odgovor. Probaj ponovo.";
+    }
+
+    answerText = ensureSourceDateBlock(answerText);
+
+    const quality = validateChecklistQuality(answerText);
+    if (quality.isChecklist && !quality.ok) {
+      log.warn("chat.checklist_validation_failed", {
+        flowId,
+        issues: quality.issues,
+      });
+      trackEvent("chat.checklist_validation_failed");
+    }
 
     recordRequest("/api/chat", Date.now() - startTime, false);
 
-    return new Response(readable, {
+    return new Response(answerText, {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
         "Cache-Control": "no-cache",
-        "Transfer-Encoding": "chunked",
       },
     });
   } catch (err: any) {

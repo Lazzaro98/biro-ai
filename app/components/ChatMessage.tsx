@@ -137,7 +137,7 @@ export const ChatMessage = memo(function ChatMessage({
           m.text &&
           i === totalMessages - 1 &&
           !isSending && (
-            <FeedbackButtons msgId={`msg-${i}`} />
+            <FeedbackButtons msgId={`msg-${i}`} flowId={flowId} messageText={displayText} />
           )}
       </div>
     </div>
