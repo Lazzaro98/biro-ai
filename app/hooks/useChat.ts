@@ -278,58 +278,27 @@ export function useChat(flowId: string, initialSessionId?: string | null, consul
           return;
         }
 
-        const reader = res.body?.getReader();
-        if (!reader) {
+        // Parse JSON response { text, citations }
+        const data = await res.json().catch(() => null);
+        const answerText = typeof data?.text === "string" ? data.text : "";
+        const citations: string[] = Array.isArray(data?.citations) ? data.citations : [];
+
+        if (!answerText.trim()) {
           setMessages((m) => [
             ...m,
-            { role: "ai", text: "⚠️ Nema odgovora od servera.", isError: true },
+            {
+              role: "ai",
+              text: "⚠️ AI nije generisao odgovor. Probaj ponovo.",
+              isError: true,
+            },
           ]);
           return;
         }
 
-        const decoder = new TextDecoder();
-        let accumulated = "";
-        setMessages((m) => [...m, { role: "ai", text: "" }]);
-
-        // Throttle state updates during streaming to ~RAF cadence
-        let rafId = 0;
-        let needsFlush = false;
-
-        const flushToState = () => {
-          rafId = 0;
-          needsFlush = false;
-          setMessages((m) => {
-            const updated = [...m];
-            updated[updated.length - 1] = { role: "ai", text: accumulated };
-            return updated;
-          });
-        };
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          accumulated += decoder.decode(value, { stream: true });
-          needsFlush = true;
-          if (!rafId) {
-            rafId = requestAnimationFrame(flushToState);
-          }
-        }
-
-        // Final flush
-        if (rafId) cancelAnimationFrame(rafId);
-        if (needsFlush) flushToState();
-
-        if (!accumulated.trim()) {
-          setMessages((m) => {
-            const updated = [...m];
-            updated[updated.length - 1] = {
-              role: "ai",
-              text: "⚠️ AI nije generisao odgovor. Probaj ponovo.",
-              isError: true,
-            };
-            return updated;
-          });
-        }
+        setMessages((m) => [
+          ...m,
+          { role: "ai", text: answerText, ...(citations.length > 0 ? { citations } : {}) },
+        ]);
       } catch (e: any) {
         const isAbort = e?.name === "AbortError";
         const isOffline = !navigator.onLine || e?.message === "offline";

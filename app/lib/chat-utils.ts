@@ -6,7 +6,7 @@
  * New flows define their own in app/lib/flows/.
  */
 
-export type Msg = { role: "ai" | "user"; text: string; isError?: boolean };
+export type Msg = { role: "ai" | "user"; text: string; isError?: boolean; citations?: string[] };
 
 const TOTAL_STEPS = 4; // city, type, activity, taxation
 

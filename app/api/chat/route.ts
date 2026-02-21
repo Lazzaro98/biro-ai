@@ -12,10 +12,18 @@ import { headers } from "next/headers";
 const RATE_LIMIT_MAX = 20; // requests per window
 const RATE_LIMIT_WINDOW = 60_000; // 1 minute
 
-const TRUST_APPENDIX = `\n\n## Obavezno za finalnu checklistu\n- Kada generišeš checklistu, NA KRAJU odgovora uvek dodaj sekciju: \"### 📚 Izvori i datum provere\".\n- U toj sekciji obavezno navedi liniju \"Provereno: [datum]\" i 2-4 relevantna zvanična izvora.\n- Ako je neki rok ili trošak procena, jasno označi da može varirati.`;
+const usePerplexity = !!env.PERPLEXITY_API_KEY;
 
-// Singleton OpenAI client (created once per cold start)
-const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
+const TRUST_APPENDIX = usePerplexity
+  ? `\n\n## Obavezno za finalnu checklistu\n- Kada generišeš checklistu, NA KRAJU odgovora uvek dodaj sekciju: \"### 📚 Izvori i datum provere\".\n- U toj sekciji navedi liniju \"Provereno: [današnji datum]\".\n- Ako je neki rok ili trošak procena, jasno označi da može varirati.`
+  : `\n\n## Obavezno za finalnu checklistu\n- Kada generišeš checklistu, NA KRAJU odgovora uvek dodaj sekciju: \"### 📚 Izvori i datum provere\".\n- U toj sekciji obavezno navedi liniju \"Provereno: [datum]\" i 2-4 relevantna zvanična izvora.\n- Ako je neki rok ili trošak procena, jasno označi da može varirati.`;
+
+// Singleton client — Perplexity when available, otherwise OpenAI
+const client = usePerplexity
+  ? new OpenAI({ apiKey: env.PERPLEXITY_API_KEY, baseURL: "https://api.perplexity.ai" })
+  : new OpenAI({ apiKey: env.OPENAI_API_KEY });
+
+const MODEL = usePerplexity ? "sonar-pro" : "gpt-4.1";
 
 function extractAssistantText(content: unknown): string {
   if (typeof content === "string") return content;
@@ -86,11 +94,16 @@ export async function POST(req: Request) {
     }));
 
     // Generate full response first so we can validate checklist quality before sending
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const completion = await client.chat.completions.create({
+      model: MODEL,
       temperature: 0.3,
       messages: [{ role: "system", content: `${flow.buildSystemPrompt()}${TRUST_APPENDIX}` }, ...convo],
     });
+
+    // Extract citations from Perplexity response (non-standard field)
+    const citations: string[] = usePerplexity
+      ? ((completion as unknown as { citations?: string[] }).citations ?? [])
+      : [];
 
     let answerText = extractAssistantText(completion.choices?.[0]?.message?.content);
     if (!answerText.trim()) {
@@ -108,14 +121,20 @@ export async function POST(req: Request) {
       trackEvent("chat.checklist_validation_failed");
     }
 
+    if (citations.length > 0) {
+      log.info("chat.citations", { flowId, count: citations.length });
+    }
+
     recordRequest("/api/chat", Date.now() - startTime, false);
 
-    return new Response(answerText, {
-      headers: {
-        "Content-Type": "text/plain; charset=utf-8",
-        "Cache-Control": "no-cache",
+    return Response.json(
+      { text: answerText, citations },
+      {
+        headers: {
+          "Cache-Control": "no-cache",
+        },
       },
-    });
+    );
   } catch (err: any) {
     const durationMs = Date.now() - startTime;
     log.error("chat.error", { error: err?.message ?? String(err), durationMs });

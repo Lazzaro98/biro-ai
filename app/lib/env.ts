@@ -23,8 +23,11 @@ function optional(name: string, fallback: string): string {
 
 /** Validated environment variables — import this object instead of using process.env directly. */
 export const env = {
-  /** OpenAI API key for GPT-4o-mini */
+  /** OpenAI API key for GPT-4o-mini (fallback when Perplexity is not configured) */
   OPENAI_API_KEY: required("OPENAI_API_KEY"),
+
+  /** Perplexity API key — enables web-search-grounded answers with real citations */
+  PERPLEXITY_API_KEY: optional("PERPLEXITY_API_KEY", ""),
 
   /** Node environment */
   NODE_ENV: optional("NODE_ENV", "development"),

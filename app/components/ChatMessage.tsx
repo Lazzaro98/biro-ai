@@ -48,6 +48,16 @@ interface ChatMessageProps {
   flowId?: string;
 }
 
+/** Try to extract a short display name from a URL */
+function urlDisplayName(url: string): string {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    return host;
+  } catch {
+    return url.slice(0, 40);
+  }
+}
+
 export const ChatMessage = memo(function ChatMessage({
   msg: m,
   index: i,
@@ -139,6 +149,36 @@ export const ChatMessage = memo(function ChatMessage({
           !isSending && (
             <FeedbackButtons msgId={`msg-${i}`} flowId={flowId} messageText={displayText} />
           )}
+
+        {/* Citations — shown below AI messages that have them */}
+        {m.role === "ai" && !m.isError && m.citations && m.citations.length > 0 && (
+          <details className="mt-1.5 group/cite">
+            <summary className="cursor-pointer text-[11px] text-muted/60 hover:text-muted/90 transition-colors select-none flex items-center gap-1">
+              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+              </svg>
+              <span>{m.citations.length} {m.citations.length === 1 ? "izvor" : m.citations.length < 5 ? "izvora" : "izvora"}</span>
+              <svg className="h-3 w-3 transition-transform group-open/cite:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <ul className="mt-1 space-y-0.5 pl-1">
+              {m.citations.map((url, ci) => (
+                <li key={ci} className="text-[11px] truncate">
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary/70 hover:text-primary hover:underline transition-colors"
+                    title={url}
+                  >
+                    {urlDisplayName(url)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
       </div>
     </div>
   );
