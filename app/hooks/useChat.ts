@@ -154,10 +154,18 @@ export function useChat(flowId: string, initialSessionId?: string | null, consul
     if (!consultItem || consultHandled.current || !sessionId) return;
     consultHandled.current = true;
 
-    // Create a new session dedicated to this consultation
-    const newSession = createSession(flow.id, flow.title, flow.initialMessages);
+    // Custom initial message relevant to the specific checklist item
+    const consultGreeting: Msg[] = [
+      {
+        role: "ai",
+        text: `🔍 Pitaj me bilo šta o ovom koraku — **„${consultItem}"** — tu sam da objasnim sve detalje!`,
+      },
+    ];
+
+    // Create a new session with the consultation-specific greeting
+    const newSession = createSession(flow.id, `Konsultacija: ${consultItem.slice(0, 50)}`, consultGreeting);
     setSessionId(newSession.id);
-    setMessages(flow.initialMessages);
+    setMessages(consultGreeting);
     setChecklistSaved(false);
 
     // Auto-send the consultation question after a brief delay (so state settles)
