@@ -208,8 +208,8 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
                   }}
                   className="mt-1.5 flex shrink-0 items-center justify-center
                              h-7 w-7 rounded-full
-                             text-muted/40 hover:text-primary hover:bg-primary/10
-                             opacity-0 group-hover/item:opacity-100 focus:opacity-100
+                             text-muted/70 hover:text-primary hover:bg-primary/10
+                             opacity-100 sm:opacity-75 md:opacity-0 md:group-hover/item:opacity-100 focus:opacity-100
                              active:scale-90
                              transition-all duration-200
                              focus:outline-none focus:ring-2 focus:ring-primary/30"
