@@ -3,6 +3,8 @@ import { FLOW_CARDS, CONSULT_CARD } from "./lib/flows";
 
 // Lazy-load decorative components — not needed for FCP/LCP
 const FloatingPeople = dynamic(() => import("./components/FloatingPeople"));
+const SocialProof = dynamic(() => import("./components/SocialProof"));
+const NewsletterSignup = dynamic(() => import("./components/NewsletterSignup"));
 import ThemeToggle from "./components/ThemeToggle";
 
 /* ── JSON-LD Structured Data ── */
@@ -150,6 +152,16 @@ export default function Home() {
           </svg>
           Moje checkliste
         </a>
+
+        {/* Social proof stats */}
+        <div className="mt-6 animate-fade-in-up-delay-2">
+          <SocialProof />
+        </div>
+
+        {/* Newsletter signup */}
+        <div className="mt-4 animate-fade-in-up-delay-2">
+          <NewsletterSignup />
+        </div>
 
         {/* Footer note */}
         <p className="mt-8 text-center text-xs text-muted leading-relaxed">

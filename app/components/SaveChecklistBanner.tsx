@@ -1,12 +1,19 @@
 "use client";
 
 import { memo, useState, useCallback } from "react";
+import ShareChecklistCard from "./ShareChecklistCard";
 
 interface SaveChecklistBannerProps {
   checklistSaved: boolean;
   onSave: () => void;
   onShare?: () => Promise<void> | void;
   flowId?: string;
+  /** For shareable story card */
+  flowTitle?: string;
+  flowIcon?: string;
+  completedSteps?: number;
+  totalSteps?: number;
+  summary?: string;
 }
 
 const FLOW_TO_CALC_TAB: Record<string, string> = {
@@ -20,6 +27,11 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
   onSave,
   onShare,
   flowId,
+  flowTitle,
+  flowIcon,
+  completedSteps,
+  totalSteps,
+  summary,
 }: SaveChecklistBannerProps) {
   const [shareStatus, setShareStatus] = useState<"idle" | "done">("idle");
 
@@ -101,6 +113,17 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
                 </svg>
                 Štampaj
               </button>
+
+              {/* Share to Instagram story */}
+              {flowTitle && flowIcon && typeof totalSteps === "number" && (
+                <ShareChecklistCard
+                  title={flowTitle}
+                  icon={flowIcon}
+                  completedSteps={completedSteps ?? 0}
+                  totalSteps={totalSteps}
+                  summary={summary}
+                />
+              )}
 
               {/* View all */}
               <a

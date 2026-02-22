@@ -174,6 +174,16 @@ function ChatFlowPageInner() {
               onSave={handleSaveChecklist}
               onShare={handleShareChecklist}
               flowId={flowId}
+              flowTitle={(() => { try { return getFlow(flowId).title; } catch { return undefined; } })()}
+              flowIcon={(() => { try { return getFlow(flowId).icon; } catch { return undefined; } })()}
+              completedSteps={currentStep}
+              totalSteps={totalSteps}
+              summary={(() => {
+                try {
+                  const params = getFlow(flowId).extractParams(messages);
+                  return Object.values(params).filter(Boolean).join(" · ") || undefined;
+                } catch { return undefined; }
+              })()}
             />
           )}
 
