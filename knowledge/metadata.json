@@ -32,6 +32,102 @@
       "institution": "Ministarstvo unutrašnjih poslova (MUP)",
       "verifiedDate": "2026-04-03",
       "flows": ["registracija-vozila"]
+    },
+    {
+      "id": "mup-licna-karta",
+      "file": "mup-licna-karta.md",
+      "title": "Lična karta — izdavanje, zamena i gubitak",
+      "institution": "Ministarstvo unutrašnjih poslova (MUP)",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "mup-pasos",
+      "file": "mup-pasos.md",
+      "title": "Pasoš — izdavanje, obnova i hitni postupak",
+      "institution": "Ministarstvo unutrašnjih poslova (MUP)",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "mup-vozacka-dozvola",
+      "file": "mup-vozacka-dozvola.md",
+      "title": "Vozačka dozvola — izdavanje, zamena i kategorije",
+      "institution": "Ministarstvo unutrašnjih poslova (MUP)",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "izvod-maticne-knjige",
+      "file": "izvod-maticne-knjige.md",
+      "title": "Izvodi iz matičnih knjiga — rođenih, venčanih, umrlih",
+      "institution": "Opštinska/gradska uprava — matična služba, eUprava",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "mup-prebivaliste",
+      "file": "mup-prebivaliste.md",
+      "title": "Prijava i odjava prebivališta i boravišta",
+      "institution": "Ministarstvo unutrašnjih poslova (MUP)",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "zakon-o-radu",
+      "file": "zakon-o-radu.md",
+      "title": "Radni odnosi — prava zaposlenih, ugovori i otkaz",
+      "institution": "Ministarstvo za rad, zapošljavanje, boračka i socijalna pitanja",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "legalizacija-objekta",
+      "file": "legalizacija-objekta.md",
+      "title": "Ozakonjenje (legalizacija) objekata — postupak i dokumentacija",
+      "institution": "Ministarstvo građevinarstva, saobraćaja i infrastrukture",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "gradjevinska-dozvola",
+      "file": "gradjevinska-dozvola.md",
+      "title": "Građevinska dozvola — objedinjena procedura i dokumentacija",
+      "institution": "Ministarstvo građevinarstva, saobraćaja i infrastrukture",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "brak-i-razvod",
+      "file": "brak-i-razvod.md",
+      "title": "Sklapanje braka i razvod — postupak, dokumentacija i troškovi",
+      "institution": "Opštinska/gradska uprava — matična služba, Osnovni sud",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "nasledjivanje",
+      "file": "nasledjivanje.md",
+      "title": "Ostavinski postupak — nasleđivanje, testament i procedura",
+      "institution": "Javni beležnik (notar), Osnovni sud",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "penzija",
+      "file": "penzija.md",
+      "title": "Penzije u Srbiji — starosna, invalidska i porodična penzija",
+      "institution": "Republički fond za penzijsko i invalidsko osiguranje (PIO fond)",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
+    },
+    {
+      "id": "zdravstvena-knjizica",
+      "file": "zdravstvena-knjizica.md",
+      "title": "Zdravstveno osiguranje — kartica, overa i participacija",
+      "institution": "Republički fond za zdravstveno osiguranje (RFZO)",
+      "verifiedDate": "2026-06-13",
+      "flows": ["slobodan-razgovor"]
     }
   ]
 }

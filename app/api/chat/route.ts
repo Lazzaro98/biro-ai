@@ -136,6 +136,7 @@ export async function POST(req: Request) {
 
     // RAG: retrieve relevant knowledge chunks based on the user's latest message
     let ragContext = "";
+    let ragHasResults = false;
     try {
       const lastUserMsg = [...messages].reverse().find((m) => m.role === "user");
       if (lastUserMsg?.text && env.OPENAI_API_KEY) {
@@ -144,8 +145,11 @@ export async function POST(req: Request) {
           topK: 5,
         });
         ragContext = buildRagContext(ragResults);
+        ragHasResults = ragResults.length > 0;
         if (ragResults.length > 0) {
           log.info("chat.rag", { flowId, chunksFound: ragResults.length, topScore: ragResults[0].score.toFixed(3) });
+        } else {
+          log.info("chat.rag_no_match", { flowId, query: lastUserMsg.text.slice(0, 100) });
         }
       }
     } catch (ragErr: any) {
@@ -153,8 +157,13 @@ export async function POST(req: Request) {
       log.warn("chat.rag_error", { error: ragErr?.message ?? String(ragErr) });
     }
 
+    // If RAG found no relevant documents, instruct AI to note this
+    const noRagDisclaimer = !ragHasResults
+      ? `\n\n## Napomena o izvorima\nZa ovu temu NEMAMO verifikovane zvanične dokumente u bazi znanja. Tvoj odgovor će biti baziran na tvom treningu. Na KRAJU odgovora OBAVEZNO dodaj kratku napomenu:\n"⚠️ *Ove informacije su bazirane na opštem znanju AI modela, a ne na verifikovanim zvaničnim dokumentima. Preporučujemo da proverite aktuelne informacije na zvaničnom sajtu nadležne institucije.*"`
+      : "";
+
     // Generate full response first so we can validate checklist quality before sending
-    const systemPrompt = `${flow.buildSystemPrompt()}${ragContext}${TRUST_APPENDIX}`;
+    const systemPrompt = `${flow.buildSystemPrompt()}${ragContext}${noRagDisclaimer}${TRUST_APPENDIX}`;
     const completion = await client.chat.completions.create({
       model: MODEL,
       temperature: 0.3,
