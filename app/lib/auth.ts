@@ -67,4 +67,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   // Trust Vercel proxy headers
   trustHost: true,
+
+  // Debug mode — temporarily enabled to diagnose login issues
+  debug: true,
 });
