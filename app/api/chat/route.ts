@@ -6,6 +6,8 @@ import { env } from "@/app/lib/env";
 import { log } from "@/app/lib/logger";
 import { recordRequest, trackEvent } from "@/app/lib/metrics";
 import { ensureSourceDateBlock, validateChecklistQuality } from "@/app/lib/checklist-quality";
+import { retrieve } from "@/app/lib/rag";
+import type { RetrievalResult } from "@/app/lib/rag";
 import { headers } from "next/headers";
 
 /* ---------- config ---------- */
@@ -38,6 +40,27 @@ function extractAssistantText(content: unknown): string {
     .filter(Boolean);
 
   return parts.join("\n");
+}
+
+/** Build a context block from RAG retrieval results */
+function buildRagContext(results: RetrievalResult[]): string {
+  if (results.length === 0) return "";
+
+  const lines = results.map((r, i) => {
+    const srcLabel = `${r.source.institution} (${r.source.url})`;
+    const heading = r.section ? `### ${r.section}` : "";
+    return `[Izvor ${i + 1}: ${srcLabel}, verifikovano: ${r.source.verifiedDate}]\n${heading}\n${r.text}`;
+  });
+
+  return [
+    "\n\n## Kontekst iz zvaničnih izvora (RAG)",
+    "Sledeće informacije su preuzete iz verifikovanih zvaničnih dokumenata.",
+    "Koristi ih kao primarni izvor činjenica. Ako se informacija u tvom treningu razlikuje od ovih podataka, VERUJ ovim podacima.",
+    "",
+    ...lines,
+    "",
+    "---",
+  ].join("\n");
 }
 
 /* ---------- helpers ---------- */
@@ -93,11 +116,31 @@ export async function POST(req: Request) {
       content: String(m.text ?? ""),
     }));
 
+    // RAG: retrieve relevant knowledge chunks based on the user's latest message
+    let ragContext = "";
+    try {
+      const lastUserMsg = [...messages].reverse().find((m) => m.role === "user");
+      if (lastUserMsg?.text && env.OPENAI_API_KEY) {
+        const ragResults = await retrieve(lastUserMsg.text, env.OPENAI_API_KEY, {
+          flowId,
+          topK: 5,
+        });
+        ragContext = buildRagContext(ragResults);
+        if (ragResults.length > 0) {
+          log.info("chat.rag", { flowId, chunksFound: ragResults.length, topScore: ragResults[0].score.toFixed(3) });
+        }
+      }
+    } catch (ragErr: any) {
+      // RAG failure is non-fatal — fall back to system prompt only
+      log.warn("chat.rag_error", { error: ragErr?.message ?? String(ragErr) });
+    }
+
     // Generate full response first so we can validate checklist quality before sending
+    const systemPrompt = `${flow.buildSystemPrompt()}${ragContext}${TRUST_APPENDIX}`;
     const completion = await client.chat.completions.create({
       model: MODEL,
       temperature: 0.3,
-      messages: [{ role: "system", content: `${flow.buildSystemPrompt()}${TRUST_APPENDIX}` }, ...convo],
+      messages: [{ role: "system", content: systemPrompt }, ...convo],
     });
 
     // Extract citations from Perplexity response (non-standard field)

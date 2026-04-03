@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "ingest": "npx tsx app/lib/rag/ingest.ts"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",

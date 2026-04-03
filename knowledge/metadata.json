@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "documents": [
+    {
+      "id": "apr-registracija-preduzetnika",
+      "file": "apr-registracija-preduzetnika.md",
+      "title": "Registracija preduzetnika (PR) — APR uputstvo i naknade",
+      "institution": "Agencija za privredne registre (APR)",
+      "verifiedDate": "2026-04-03",
+      "flows": ["otvaranje-firme"]
+    },
+    {
+      "id": "apr-registracija-doo",
+      "file": "apr-registracija-doo.md",
+      "title": "Registracija DOO — APR uputstvo i naknade",
+      "institution": "Agencija za privredne registre (APR)",
+      "verifiedDate": "2026-04-03",
+      "flows": ["otvaranje-firme"]
+    },
+    {
+      "id": "kupovina-nekretnine-procedura",
+      "file": "kupovina-nekretnine-procedura.md",
+      "title": "Kupovina nekretnine — procedura, porezi i uknjižba",
+      "institution": "Višestruko (RGZ, Poreska uprava, Javni beležnik)",
+      "verifiedDate": "2026-04-03",
+      "flows": ["kupovina-stana"]
+    },
+    {
+      "id": "mup-registracija-vozila",
+      "file": "mup-registracija-vozila.md",
+      "title": "Registracija vozila — MUP procedura i dokumentacija",
+      "institution": "Ministarstvo unutrašnjih poslova (MUP)",
+      "verifiedDate": "2026-04-03",
+      "flows": ["registracija-vozila"]
+    }
+  ]
+}
