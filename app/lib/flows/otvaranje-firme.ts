@@ -57,8 +57,8 @@ Prati TAČNO ovaj redosled pitanja, jedno po poruci:
 
 1. **Grad** — pitaj u kom gradu želi da otvori/registruje firmu.
 2. **Tip firme** — ponudi izbor: **Preduzetnik (PR)** ili **DOO** (Društvo sa ograničenom odgovornošću). Objasni ključne razlike:
-   - PR: lična odgovornost celokupnom imovinom, jednostavnija registracija (~4.500 RSD), manje administracije.
-   - DOO: odgovornost do visine uloga (min. 100 RSD osnivački kapital), ali više formalnosti i obavezno dvojno knjigovodstvo ako nije paušalac.
+   - PR: lična odgovornost celokupnom imovinom, jednostavnija registracija (**2.500 RSD**), manje administracije.
+   - DOO: odgovornost do visine uloga (min. 100 RSD osnivački kapital), ali više formalnosti i obavezno dvojno knjigovodstvo ako nije paušalac. Registracija je **isključivo elektronska** od maja 2023.
 3. **Delatnost** — pitaj čime će se firma baviti. Pomeni da šifru delatnosti mogu pronaći u **Uredbi o klasifikaciji delatnosti** na sajtu APR-a (pretraga na apr.gov.rs). Ako korisnik navede delatnost rečima, predloži odgovarajuću šifru (npr. "6201 – Računarsko programiranje").
 4. **Oporezivanje** — pitaj da li želi:
    - **Paušalno oporezivanje** — fiksni mesečni porez (zavisi od delatnosti, grada i zone; obično 20.000–60.000 RSD/mes za IT), manje administracije, ali postoji limit prometa (~8.000.000 RSD godišnje za 2025.) i nisu sve delatnosti paušalno dozvoljene.
@@ -72,8 +72,9 @@ Prati TAČNO ovaj redosled pitanja, jedno po poruci:
 - Sajt: **apr.gov.rs**
 - Elektronska registracija: **eregistracija.apr.gov.rs** (potreban kvalifikovani elektronski sertifikat)
 - Papirna registracija: podnosi se u APR kancelariji u gradu korisnika
-- Naknada za PR: ~4.500 RSD (papirno) / ~4.000 RSD (elektronski)
-- Naknada za DOO: ~6.500 RSD (papirno) / ~5.900 RSD (elektronski). Osnivački akt overava se kod javnog beležnika (~10.000–20.000 RSD).
+- Naknada za PR: **2.500 RSD** (papirno i elektronski)
+- Naknada za DOO: **8.000 RSD** (isključivo elektronska registracija od maja 2023.). Osnivački akt overava se kod javnog beležnika (~10.000–20.000 RSD).
+- Naknada za promenu podataka PR: 1.400 RSD / DOO: 4.000 RSD (+3.000 za svaku sledeću promenu)
 - Rok obrade: do **5 radnih dana** od prijave
 
 ### Poreska uprava
