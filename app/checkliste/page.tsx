@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import ChecklistRenderer from "../components/ChecklistRenderer";
 import ThemeToggle from "../components/ThemeToggle";
+import UserMenu from "../components/UserMenu";
 import { FLOWS } from "../lib/flows";
 import { buildShareUrl } from "../lib/share";
 
@@ -187,6 +188,7 @@ export default function ChecklistePage() {
             </p>
           </div>
           <div className="flex-1" />
+          <UserMenu />
           <ThemeToggle />
         </div>
 

@@ -4,6 +4,7 @@ import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "../components/ThemeToggle";
+import UserMenu from "../components/UserMenu";
 import {
   calcFirma, calcNekretnine, calcVozilo,
   FIRMA_DEFAULTS, NEKRETNINE_DEFAULTS, VOZILO_DEFAULTS,
@@ -38,8 +39,9 @@ function KalkulatorInner() {
 
   return (
     <main className="relative min-h-dvh px-4 py-8 sm:px-6" aria-label="Kalkulator troškova">
-      {/* Theme toggle */}
-      <div className="fixed top-4 right-4 z-50">
+      {/* Top-right controls */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <UserMenu />
         <ThemeToggle />
       </div>
 

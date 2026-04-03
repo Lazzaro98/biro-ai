@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { getSessions, deleteSession, type ChatSession } from "../lib/chat-sessions";
 import { FLOWS } from "../lib/flows";
 import ThemeToggle from "../components/ThemeToggle";
+import UserMenu from "../components/UserMenu";
 
 export default function IstorijaPage() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
@@ -59,6 +60,7 @@ export default function IstorijaPage() {
 
           <div className="flex-1" />
 
+          <UserMenu />
           <ThemeToggle />
         </div>
       </header>

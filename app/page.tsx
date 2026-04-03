@@ -5,6 +5,7 @@ import { FLOW_CARDS, CONSULT_CARD } from "./lib/flows";
 const FloatingPeople = dynamic(() => import("./components/FloatingPeople"));
 const SocialProof = dynamic(() => import("./components/SocialProof"));
 const NewsletterSignup = dynamic(() => import("./components/NewsletterSignup"));
+const UserMenu = dynamic(() => import("./components/UserMenu"), { ssr: false });
 import ThemeToggle from "./components/ThemeToggle";
 
 /* ── JSON-LD Structured Data ── */
@@ -38,8 +39,9 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Theme toggle — top right */}
-      <div className="fixed top-4 right-4 z-50">
+      {/* Top-right controls: user menu + theme toggle */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <UserMenu />
         <ThemeToggle />
       </div>
 
