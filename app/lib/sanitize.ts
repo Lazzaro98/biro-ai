@@ -7,6 +7,7 @@ export type ClientMsg = { role: "ai" | "user"; text: string };
 
 export const MAX_MESSAGES = 30;
 export const MAX_MSG_LENGTH = 2000;
+export const MAX_AI_MSG_LENGTH = 10000;
 
 /** Validates and sanitizes incoming messages, returning clean data or an error string. */
 export function sanitizeMessages(
@@ -31,8 +32,9 @@ export function sanitizeMessages(
     if (text.length === 0) {
       return { ok: false, error: "Message text cannot be empty." };
     }
-    if (text.length > MAX_MSG_LENGTH) {
-      return { ok: false, error: `Message too long (max ${MAX_MSG_LENGTH} chars).` };
+    const limit = role === "ai" ? MAX_AI_MSG_LENGTH : MAX_MSG_LENGTH;
+    if (text.length > limit) {
+      return { ok: false, error: `Message too long (max ${limit} chars).` };
     }
     clean.push({ role, text });
   }

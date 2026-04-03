@@ -64,7 +64,7 @@ describe("sanitizeMessages", () => {
     }
   });
 
-  it("rejects text exceeding MAX_MSG_LENGTH", () => {
+  it("rejects user text exceeding MAX_MSG_LENGTH", () => {
     const longText = "a".repeat(2001);
     const result = sanitizeMessages([{ role: "user", text: longText }]);
     expect(result.ok).toBe(false);
@@ -73,10 +73,28 @@ describe("sanitizeMessages", () => {
     }
   });
 
-  it("accepts text at exactly MAX_MSG_LENGTH", () => {
+  it("accepts user text at exactly MAX_MSG_LENGTH", () => {
     const text = "a".repeat(2000);
     const result = sanitizeMessages([{ role: "user", text }]);
     expect(result.ok).toBe(true);
+  });
+
+  it("accepts long AI messages (checklists) up to 10000 chars", () => {
+    const longChecklist = "a".repeat(5000);
+    const result = sanitizeMessages([
+      { role: "user", text: "Beograd" },
+      { role: "ai", text: longChecklist },
+      { role: "user", text: "Hvala" },
+    ]);
+    expect(result.ok).toBe(true);
+  });
+
+  it("rejects AI messages exceeding 10000 chars", () => {
+    const result = sanitizeMessages([{ role: "ai", text: "a".repeat(10001) }]);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error).toContain("too long");
+    }
   });
 
   it("trims whitespace from text", () => {
