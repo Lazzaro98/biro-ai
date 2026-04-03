@@ -33,7 +33,7 @@ export const ChatHeader = memo(function ChatHeader({
   const title = flow?.title ?? "Otvaranje firme";
 
   return (
-    <header className="no-print shrink-0 border-b border-border/60 bg-surface/70 backdrop-blur-md sm:backdrop-blur-xl shadow-sm">
+    <header className="no-print shrink-0 border-b border-border/60 bg-surface/70 backdrop-blur-md sm:backdrop-blur-xl shadow-sm relative z-30 overflow-visible">
       <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:px-6">
         {/* Back + History buttons */}
         <div className="flex items-center gap-1">

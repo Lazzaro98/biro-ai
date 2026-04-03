@@ -46,7 +46,7 @@ export default function UserMenu() {
   const image = session.user.image;
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative z-50">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
