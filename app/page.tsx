@@ -5,8 +5,8 @@ import { FLOW_CARDS, CONSULT_CARD } from "./lib/flows";
 const FloatingPeople = dynamic(() => import("./components/FloatingPeople"));
 const SocialProof = dynamic(() => import("./components/SocialProof"));
 const NewsletterSignup = dynamic(() => import("./components/NewsletterSignup"));
-const UserMenu = dynamic(() => import("./components/UserMenu"), { ssr: false });
 import ThemeToggle from "./components/ThemeToggle";
+import UserMenu from "./components/UserMenu";
 
 /* ── JSON-LD Structured Data ── */
 const jsonLd = {
