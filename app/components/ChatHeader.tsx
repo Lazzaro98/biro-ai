@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import { FLOWS } from "../lib/flows";
+import UserMenu from "./UserMenu";
 
 interface ChatHeaderProps {
   progressPct: number;
@@ -110,6 +111,8 @@ export const ChatHeader = memo(function ChatHeader({
             <span className="hidden sm:inline">Novi razgovor</span>
           </button>
         )}
+
+        <UserMenu />
       </div>
     </header>
   );

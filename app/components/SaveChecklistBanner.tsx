@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useState, useCallback } from "react";
+import { useSession } from "next-auth/react";
 import ShareChecklistCard from "./ShareChecklistCard";
 
 interface SaveChecklistBannerProps {
@@ -33,7 +34,9 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
   totalSteps,
   summary,
 }: SaveChecklistBannerProps) {
+  const { data: session } = useSession();
   const [shareStatus, setShareStatus] = useState<"idle" | "done">("idle");
+  const [dismissed, setDismissed] = useState(false);
 
   const handleShare = useCallback(async () => {
     if (!onShare) return;
@@ -144,6 +147,33 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
                 </a>
               )}
             </div>
+
+            {/* Progressive auth prompt — only when not logged in */}
+            {!session?.user && !dismissed && (
+              <div className="w-full mt-3 flex items-center gap-3 rounded-xl bg-surface/80 border border-border/40 px-3 py-2.5">
+                <span className="text-lg" aria-hidden="true">🔒</span>
+                <p className="flex-1 text-xs text-muted-dark">
+                  Napravi besplatan nalog da sačuvaš checkliste i pristupiš sa bilo kog uređaja.
+                </p>
+                <a
+                  href="/login"
+                  className="shrink-0 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-white
+                             hover:bg-primary-dark transition-colors"
+                >
+                  Prijavi se
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setDismissed(true)}
+                  className="shrink-0 text-muted hover:text-muted-dark transition-colors"
+                  aria-label="Zatvori"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">

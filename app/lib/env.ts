@@ -38,4 +38,11 @@ export const env = {
   /** Upstash Redis — persistent analytics counters */
   UPSTASH_REDIS_REST_URL: optional("UPSTASH_REDIS_REST_URL", ""),
   UPSTASH_REDIS_REST_TOKEN: optional("UPSTASH_REDIS_REST_TOKEN", ""),
+
+  /** Auth.js / NextAuth — authentication */
+  AUTH_SECRET: optional("AUTH_SECRET", ""),
+  GOOGLE_CLIENT_ID: optional("GOOGLE_CLIENT_ID", ""),
+  GOOGLE_CLIENT_SECRET: optional("GOOGLE_CLIENT_SECRET", ""),
+  RESEND_API_KEY: optional("RESEND_API_KEY", ""),
+  EMAIL_FROM: optional("EMAIL_FROM", "BezPapira <noreply@bezpapira.rs>"),
 } as const;

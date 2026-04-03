@@ -12,10 +12,12 @@
     "ingest": "npx tsx app/lib/rag/ingest.ts"
   },
   "dependencies": {
+    "@auth/upstash-redis-adapter": "^2.11.1",
     "@tailwindcss/typography": "^0.5.19",
     "@upstash/redis": "^1.37.0",
     "lz-string": "^1.5.0",
     "next": "16.1.6",
+    "next-auth": "^5.0.0-beta.30",
     "openai": "^6.22.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",

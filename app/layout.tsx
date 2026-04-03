@@ -16,6 +16,7 @@ const StorageMigration = dynamic(
 const PageViewTracker = dynamic(
   () => import("./components/PageViewTracker"),
 );
+import AuthProvider from "./components/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -86,6 +87,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-foreground`}
       >
+        <AuthProvider>
         {/* Skip to main content — a11y */}
         <a
           href="#main-content"
@@ -107,6 +109,7 @@ export default function RootLayout({
         <StorageMigration />
         {/* Track page views for analytics */}
         <PageViewTracker />
+        </AuthProvider>
       </body>
     </html>
   );
