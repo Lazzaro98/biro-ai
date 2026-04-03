@@ -13,6 +13,9 @@ const PWAInstall = dynamic(
 const StorageMigration = dynamic(
   () => import("./components/StorageMigration"),
 );
+const PageViewTracker = dynamic(
+  () => import("./components/PageViewTracker"),
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -102,6 +105,8 @@ export default function RootLayout({
         <PWAInstall />
         {/* Migrate old localStorage keys */}
         <StorageMigration />
+        {/* Track page views for analytics */}
+        <PageViewTracker />
       </body>
     </html>
   );

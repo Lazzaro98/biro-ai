@@ -3,10 +3,22 @@
  *
  * Receives client-side analytics events.
  * Logs them server-side + increments metrics counters.
+ * Tracks unique visitors via Upstash Redis.
  */
 
 import { log } from "@/app/lib/logger";
 import { trackEvent } from "@/app/lib/metrics";
+import { trackUniqueVisitor } from "@/app/lib/stats";
+import { headers } from "next/headers";
+
+/** Simple hash to anonymize IP (no PII stored in Redis). */
+async function hashIP(ip: string): Promise<string> {
+  const data = new TextEncoder().encode(ip + "bezpapira-salt-2026");
+  const buf = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(buf).slice(0, 8))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
 export async function POST(req: Request) {
   try {
@@ -20,6 +32,15 @@ export async function POST(req: Request) {
 
     log.info("analytics.event", { event, url });
     trackEvent(`client.${event}`);
+
+    // Track unique visitor on page_view events
+    if (event === "page_view") {
+      const hdrs = await headers();
+      const ip = hdrs.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+        hdrs.get("x-real-ip") || "unknown";
+      const ipHash = await hashIP(ip);
+      await trackUniqueVisitor(ipHash);
+    }
 
     return Response.json({ ok: true });
   } catch {

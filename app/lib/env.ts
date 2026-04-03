@@ -34,4 +34,8 @@ export const env = {
 
   /** Base URL for metadata / sitemap (no trailing slash) */
   NEXT_PUBLIC_BASE_URL: optional("NEXT_PUBLIC_BASE_URL", "https://biro-ai.vercel.app"),
+
+  /** Upstash Redis — persistent analytics counters */
+  UPSTASH_REDIS_REST_URL: optional("UPSTASH_REDIS_REST_URL", ""),
+  UPSTASH_REDIS_REST_TOKEN: optional("UPSTASH_REDIS_REST_TOKEN", ""),
 } as const;

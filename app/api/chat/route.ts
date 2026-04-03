@@ -5,6 +5,7 @@ import { getFlow, FLOW_IDS } from "@/app/lib/flows";
 import { env } from "@/app/lib/env";
 import { log } from "@/app/lib/logger";
 import { recordRequest, trackEvent } from "@/app/lib/metrics";
+import { incrementStat, STAT_KEYS } from "@/app/lib/stats";
 import { ensureSourceDateBlock, validateChecklistQuality } from "@/app/lib/checklist-quality";
 import { retrieve } from "@/app/lib/rag";
 import type { RetrievalResult } from "@/app/lib/rag";
@@ -128,6 +129,11 @@ export async function POST(req: Request) {
     log.info("chat.request", { ip, flowId, messageCount: messages.length });
     trackEvent("chat.request");
 
+    // Track new chat conversations (first user message = new chat)
+    if (messages.filter((m) => m.role === "user").length === 1) {
+      await incrementStat(STAT_KEYS.chats);
+    }
+
     // Mapiramo u OpenAI format (assistant/user)
     const convo = messages.map((m) => ({
       role: m.role === "ai" ? ("assistant" as const) : ("user" as const),
@@ -181,6 +187,12 @@ export async function POST(req: Request) {
     }
 
     answerText = ensureSourceDateBlock(answerText);
+
+    // Track checklist generation
+    const isChecklist = answerText.includes("- [") || answerText.includes("- [x]");
+    if (isChecklist) {
+      await incrementStat(STAT_KEYS.checklists);
+    }
 
     const quality = validateChecklistQuality(answerText);
     if (quality.isChecklist && !quality.ok) {
