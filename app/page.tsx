@@ -116,12 +116,14 @@ export default function Home() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-xs font-medium text-muted-dark/70">Kako funkcioniše ↓</span>
-          <svg className="h-5 w-5 text-primary/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <a href="#procesi" className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce
+                  rounded-full bg-surface/60 dark:bg-surface-alt/60 backdrop-blur-sm px-5 py-2.5
+                  ring-1 ring-border/40 hover:ring-primary/40 hover:bg-surface transition-all cursor-pointer">
+          <span className="text-sm font-semibold text-foreground/80">Kako funkcioniše</span>
+          <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
-        </div>
+        </a>
       </section>
 
       {/* Client-side sections with scroll reveal */}
