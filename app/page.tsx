@@ -118,11 +118,11 @@ export default function Home() {
         </div>
 
         {/* Scroll indicator */}
-        <a href="#procesi" className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce
-                  rounded-full bg-surface/80 backdrop-blur-sm px-5 py-2.5 shadow-md
-                  border border-border/60 hover:border-primary/40 hover:bg-surface transition-all cursor-pointer">
-          <span className="text-sm font-semibold text-foreground/80">Kako funkcioniše</span>
-          <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <a href="#kako-funkcionise" className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-1.5 animate-bounce
+                  rounded-full bg-surface-alt/80 backdrop-blur-sm px-4 py-2 shadow-sm
+                  border border-border/50 hover:border-primary/40 transition-all cursor-pointer">
+          <span className="text-xs font-medium text-muted-dark">Kako funkcioniše</span>
+          <svg className="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </a>

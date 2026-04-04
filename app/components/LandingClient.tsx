@@ -28,7 +28,7 @@ export default function LandingClient({ steps, flowCards, consultCard }: Landing
       {/* ════════════════════════════════════════════ */}
       {/*  SECTION 2 — How it works                   */}
       {/* ════════════════════════════════════════════ */}
-      <section className="section-tinted px-5 py-20 sm:px-8">
+      <section id="kako-funkcionise" className="section-tinted px-5 py-20 sm:px-8 scroll-mt-16">
         <div className="mx-auto max-w-3xl">
           <ScrollReveal>
             <div className="text-center mb-14">
