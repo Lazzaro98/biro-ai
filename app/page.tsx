@@ -1,10 +1,9 @@
 import dynamic from "next/dynamic";
 import { FLOW_CARDS, CONSULT_CARD } from "./lib/flows";
 
-// Lazy-load decorative components — not needed for FCP/LCP
-const FloatingPeople = dynamic(() => import("./components/FloatingPeople"));
 const SocialProof = dynamic(() => import("./components/SocialProof"));
 const NewsletterSignup = dynamic(() => import("./components/NewsletterSignup"));
+const LandingClient = dynamic(() => import("./components/LandingClient"));
 import ThemeToggle from "./components/ThemeToggle";
 import UserMenu from "./components/UserMenu";
 
@@ -18,11 +17,7 @@ const jsonLd = {
     "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji — otvaranje firme, checkliste i više.",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Any",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "RSD",
-  },
+  offers: { "@type": "Offer", price: "0", priceCurrency: "RSD" },
   inLanguage: "sr",
   author: {
     "@type": "Organization",
@@ -31,145 +26,132 @@ const jsonLd = {
   },
 };
 
+/* ── Steps data ── */
+const STEPS = [
+  {
+    number: "1",
+    title: "Izaberi proces",
+    description: "Otvaranje firme, kupovina stana, registracija vozila — ili opiši svoju situaciju.",
+    icon: "🎯",
+  },
+  {
+    number: "2",
+    title: "Odgovaraj na pitanja",
+    description: "AI asistent te pita samo ono što je bitno za tvoj slučaj. Bez nepotrebnih koraka.",
+    icon: "💬",
+  },
+  {
+    number: "3",
+    title: "Dobij checklistu",
+    description: "Personalizovana checklista sa svim koracima, dokumentima i rokovima. Sačuvaj ili podeli.",
+    icon: "✅",
+  },
+];
+
 export default function Home() {
   return (
-    <main className="relative min-h-dvh flex flex-col items-center justify-center px-5 py-16 overflow-x-hidden" aria-label="BezPapira — Početna">
-      {/* JSON-LD structured data */}
+    <main className="relative overflow-x-hidden" aria-label="BezPapira — Početna">
+      {/* JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Top-right controls: user menu + theme toggle */}
-      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
-        <UserMenu />
-        <ThemeToggle />
+
+      {/* Top bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 sm:px-8">
+        <a href="/" className="flex items-center gap-2 group">
+          <span className="text-2xl" aria-hidden="true">📋</span>
+          <span className="font-bold text-foreground text-sm tracking-tight group-hover:text-primary transition-colors">
+            BezPapira
+          </span>
+        </a>
+        <div className="flex items-center gap-2">
+          <UserMenu />
+          <ThemeToggle />
+        </div>
       </div>
 
-      {/* People floating around the edges (desktop only) */}
-      <FloatingPeople />
-
-      <div className="relative z-10 w-full max-w-lg">
-        {/* Logo / Brand */}
-        <div className="mb-10 text-center animate-fade-in-up">
-          <div className="mx-auto mb-5 flex h-18 w-18 items-center justify-center rounded-2xl bg-primary/10 text-4xl shadow-lg glow-icon" aria-hidden="true">
-            📋
+      {/* ════════════════════════════════════════════ */}
+      {/*  SECTION 1 — Hero                           */}
+      {/* ════════════════════════════════════════════ */}
+      <section className="min-h-dvh flex flex-col items-center justify-center px-5 py-24 text-center">
+        <div className="animate-fade-in-up max-w-xl mx-auto">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 dark:bg-primary/15 px-4 py-1.5 text-xs font-medium text-primary mb-6">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Besplatno · Bez registracije · Na srpskom
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-            <span className="text-gradient-lg">Bez</span>{" "}
-            <span className="text-foreground">Papira</span>
-          </h1>
-          <p className="mt-3 text-muted-dark text-lg leading-relaxed max-w-sm mx-auto">
-            Vodič kroz papirologiju u Srbiji.
-            <br className="hidden sm:block" />{" "}
-            Reci šta želiš — AI te vodi korak po korak.
-          </p>
-        </div>
 
-        {/* Process cards */}
-        <nav className="space-y-3 animate-fade-in-up-delay-1" aria-label="Dostupni procesi">
-          {FLOW_CARDS.map((flow) => (
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+            <span className="text-gradient-lg">Papirologiju</span>
+            <br />
+            <span className="text-foreground">ostavi nama.</span>
+          </h1>
+
+          <p className="mt-5 text-lg sm:text-xl text-muted-dark leading-relaxed max-w-md mx-auto">
+            AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji.
+          </p>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
-              key={flow.id}
-              href={`/chat/${flow.id}`}
-              className="group flex items-center gap-4 rounded-2xl p-5 glass-card gradient-border
-                         hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
+              href="#procesi"
+              className="inline-flex items-center gap-2 rounded-2xl bg-primary px-7 py-3.5 text-sm font-semibold text-white
+                         hover:bg-primary-dark active:scale-[0.97] transition-all shadow-lg shadow-primary/25"
             >
-              <div
-                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 text-xl
-                            group-hover:from-primary/25 group-hover:to-purple-500/15 transition-all duration-300"
-                aria-hidden="true"
-              >
-                {flow.icon}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                  {flow.title}
-                </div>
-                <div className="text-sm text-muted-dark mt-0.5">
-                  {flow.description}
-                </div>
-              </div>
-              <svg
-                className="h-5 w-5 text-muted shrink-0 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              Započni besplatno
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </a>
-          ))}
-        </nav>
-
-        {/* Free-form consultation card — visually distinct */}
-        <a
-          href={`/chat/${CONSULT_CARD.id}`}
-          className="group mt-4 block rounded-2xl p-5 animate-fade-in-up-delay-2
-                     bg-gradient-to-r from-primary/[0.08] to-purple-500/[0.06] dark:from-primary/[0.12] dark:to-purple-500/[0.08]
-                     border border-primary/20 dark:border-primary/30
-                     hover:shadow-lg hover:shadow-primary/15 hover:border-primary/40 transition-all duration-300"
-        >
-          <div className="flex items-center gap-4">
-            <div
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/25 to-purple-500/15 text-xl
-                          group-hover:from-primary/35 group-hover:to-purple-500/25 transition-all duration-300"
-              aria-hidden="true"
+            <a
+              href="/checkliste"
+              className="inline-flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 backdrop-blur-sm px-6 py-3.5 text-sm font-medium text-muted-dark
+                         hover:text-foreground hover:border-primary/30 transition-all"
             >
-              {CONSULT_CARD.icon}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-semibold text-primary transition-colors">
-                {CONSULT_CARD.title}
-              </div>
-              <div className="text-sm text-muted-dark mt-0.5">
-                {CONSULT_CARD.description}
-              </div>
-            </div>
-            <svg
-              className="h-5 w-5 text-primary/60 shrink-0 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-              aria-hidden="true"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+              Moje checkliste
+            </a>
           </div>
-          <p className="mt-3 text-xs text-muted leading-relaxed pl-16">
-            Ne znaš tačno šta ti treba? Opiši svoju situaciju i AI asistent će te uputiti na pravi put.
-          </p>
-        </a>
+        </div>
 
-        {/* Saved checklists link */}
-        <a
-          href="/checkliste"
-          className="mt-6 flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-surface/60 dark:bg-surface/80 backdrop-blur-sm p-3
-                     text-sm font-medium text-muted-dark hover:text-primary hover:border-primary/30 hover:bg-surface/80 transition-all duration-200 animate-fade-in-up-delay-2"
-        >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+          <svg className="h-6 w-6 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
-          Moje checkliste
-        </a>
+        </div>
+      </section>
 
-        {/* Social proof stats */}
-        <div className="mt-6 animate-fade-in-up-delay-2">
+      {/* Client-side sections with scroll reveal */}
+      <LandingClient
+        steps={STEPS}
+        flowCards={FLOW_CARDS}
+        consultCard={CONSULT_CARD}
+      />
+
+      {/* ════════════════════════════════════════════ */}
+      {/*  SECTION 4 — Stats                          */}
+      {/* ════════════════════════════════════════════ */}
+      <section className="px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-2xl">
           <SocialProof />
         </div>
+      </section>
 
-        {/* Newsletter signup */}
-        <div className="mt-4 animate-fade-in-up-delay-2">
+      {/* ════════════════════════════════════════════ */}
+      {/*  SECTION 5 — Newsletter + Footer             */}
+      {/* ════════════════════════════════════════════ */}
+      <section className="px-5 pb-16 sm:px-8">
+        <div className="mx-auto max-w-md">
           <NewsletterSignup />
         </div>
-
-        {/* Footer note */}
-        <p className="mt-8 text-center text-xs text-muted leading-relaxed">
+        <p className="mt-8 text-center text-xs text-muted leading-relaxed max-w-md mx-auto">
           Aplikacija daje informativne smernice i ne predstavlja pravni savet.
+          <br />
+          © {new Date().getFullYear()} BezPapira
         </p>
-      </div>
+      </section>
     </main>
   );
 }
