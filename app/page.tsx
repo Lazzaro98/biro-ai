@@ -4,7 +4,6 @@ import { FLOW_CARDS, CONSULT_CARD } from "./lib/flows";
 const SocialProof = dynamic(() => import("./components/SocialProof"));
 const NewsletterSignup = dynamic(() => import("./components/NewsletterSignup"));
 const LandingClient = dynamic(() => import("./components/LandingClient"));
-import ThemeToggle from "./components/ThemeToggle";
 import UserMenu from "./components/UserMenu";
 
 /* ── JSON-LD Structured Data ── */
@@ -67,7 +66,6 @@ export default function Home() {
         </a>
         <div className="flex items-center gap-2">
           <UserMenu />
-          <ThemeToggle />
         </div>
       </div>
 
@@ -76,7 +74,7 @@ export default function Home() {
       {/* ════════════════════════════════════════════ */}
       <section className="min-h-[85dvh] flex flex-col items-center justify-center px-5 py-24 text-center relative">
         <div className="animate-fade-in-up max-w-xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 dark:bg-primary/15 px-4 py-1.5 text-xs font-medium text-primary mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Besplatno · Bez registracije · Na srpskom
           </div>
@@ -117,7 +115,7 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <a href="#procesi" className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce
-                  rounded-full bg-surface/60 dark:bg-surface-alt/60 backdrop-blur-sm px-5 py-2.5
+                  rounded-full bg-surface/60 backdrop-blur-sm px-5 py-2.5
                   ring-1 ring-border/40 hover:ring-primary/40 hover:bg-surface transition-all cursor-pointer">
           <span className="text-sm font-semibold text-foreground/80">Kako funkcioniše</span>
           <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

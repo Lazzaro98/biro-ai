@@ -3,7 +3,6 @@
 import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import ThemeToggle from "../components/ThemeToggle";
 import UserMenu from "../components/UserMenu";
 import {
   calcFirma, calcNekretnine, calcVozilo,
@@ -42,7 +41,6 @@ function KalkulatorInner() {
       {/* Top-right controls */}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
         <UserMenu />
-        <ThemeToggle />
       </div>
 
       <div className="mx-auto max-w-2xl">

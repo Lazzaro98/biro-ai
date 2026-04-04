@@ -2,52 +2,30 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-background: #fafafa;
-  --color-foreground: #0f172a;
+  /* ─── Warm "paper" palette — single theme, between light & dark ─── */
+  --color-background: #f7f5f0;
+  --color-foreground: #2c2926;
   --color-primary: #6366f1;
   --color-primary-dark: #4f46e5;
   --color-primary-light: #a5b4fc;
   --color-primary-ghost: #eef2ff;
   --color-surface: #ffffff;
-  --color-surface-alt: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
-  --color-muted: #94a3b8;
-  --color-muted-dark: #64748b;
-  --color-card-bg: rgba(255, 255, 255, 0.7);
-  --color-card-border: rgba(255, 255, 255, 0.4);
-  --color-card-bg-solid: rgba(255, 255, 255, 0.65);
+  --color-surface-alt: #f0ede7;
+  --color-border: #ddd8cf;
+  --color-border-light: #eae6df;
+  --color-muted: #9a9590;
+  --color-muted-dark: #6b6560;
+  --color-card-bg: rgba(255, 255, 255, 0.65);
+  --color-card-border: rgba(220, 215, 205, 0.5);
+  --color-card-bg-solid: rgba(255, 255, 255, 0.6);
   --color-card-bg-hover: rgba(255, 255, 255, 0.8);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-/* ─── Dark mode token overrides ─── */
-.dark {
-  --color-background: #0f0e1a;
-  --color-foreground: #f8fafc;
-  --color-primary: #a5b4fc;
-  --color-primary-dark: #818cf8;
-  --color-primary-light: #c4b5fd;
-  --color-primary-ghost: rgba(129, 140, 248, 0.18);
-  --color-surface: #1e1e36;
-  --color-surface-alt: #26264a;
-  --color-border: #3d3d6b;
-  --color-border-light: #30304f;
-  --color-muted: #a0a8c0;
-  --color-muted-dark: #c0c8e0;
-  --color-card-bg: rgba(35, 35, 65, 0.85);
-  --color-card-border: rgba(70, 70, 120, 0.55);
-  --color-card-bg-solid: rgba(40, 40, 70, 0.85);
-  --color-card-bg-hover: rgba(50, 50, 80, 0.9);
-}
-
 * {
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
-}
-.dark * {
-  scrollbar-color: #3b3b5c transparent;
+  scrollbar-color: #c5c0b8 transparent;
 }
 
 /* ─── Focus-visible ring (keyboard users only) ─── */
@@ -67,25 +45,12 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f0ff;
+  background-color: #f7f5f0;
+  /* Subtle warm gradient — one accent top-right, one bottom-left */
   background-image:
-    radial-gradient(at 20% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-    radial-gradient(at 80% 10%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(59, 130, 246, 0.10) 0%, transparent 50%),
-    radial-gradient(at 90% 70%, rgba(236, 72, 153, 0.10) 0%, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+    radial-gradient(ellipse 60% 50% at 85% 5%, rgba(99, 102, 241, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 10% 90%, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
   background-attachment: fixed;
-}
-
-.dark body,
-html.dark body {
-  background-color: #0f0e1a;
-  background-image:
-    radial-gradient(at 20% 0%, rgba(99, 102, 241, 0.20) 0%, transparent 50%),
-    radial-gradient(at 80% 10%, rgba(168, 85, 247, 0.16) 0%, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
-    radial-gradient(at 90% 70%, rgba(236, 72, 153, 0.10) 0%, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(99, 102, 241, 0.10) 0%, transparent 50%);
 }
 
 /* iOS Safari ignores background-attachment: fixed — fallback to scroll */
@@ -93,62 +58,20 @@ html.dark body {
   body { background-attachment: scroll; }
 }
 
-/* ─── Animated background orbs ─── */
-@keyframes orb-float-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25%      { transform: translate(30px, -50px) scale(1.05); }
-  50%      { transform: translate(-20px, -80px) scale(0.95); }
-  75%      { transform: translate(50px, -30px) scale(1.02); }
-}
-@keyframes orb-float-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25%      { transform: translate(-40px, 30px) scale(1.08); }
-  50%      { transform: translate(60px, 60px) scale(0.92); }
-  75%      { transform: translate(-30px, 80px) scale(1.03); }
-}
-@keyframes orb-float-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%      { transform: translate(70px, -40px) scale(1.06); }
-  66%      { transform: translate(-50px, 50px) scale(0.97); }
-}
-
-.bg-orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(80px);
+/* ─── Subtle paper grain texture ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
-  will-change: transform;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
 }
 
-.bg-orb--1 {
-  width: min(700px, 90vw);
-  height: min(700px, 90vw);
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(139, 92, 246, 0.15) 35%, transparent 65%);
-  animation: orb-float-1 20s ease-in-out infinite;
-}
-.bg-orb--2 {
-  width: min(600px, 80vw);
-  height: min(600px, 80vw);
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.30) 0%, rgba(236, 72, 153, 0.12) 35%, transparent 65%);
-  animation: orb-float-2 25s ease-in-out infinite;
-}
-.bg-orb--3 {
-  width: min(500px, 70vw);
-  height: min(500px, 70vw);
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(99, 102, 241, 0.10) 35%, transparent 65%);
-  animation: orb-float-3 18s ease-in-out infinite;
-}
-
-/* ─── Dot grid pattern ─── */
-.bg-dot-grid {
-  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.18) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-.dark .bg-dot-grid {
-  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.12) 1px, transparent 1px);
-}
-
-/* ─── Floating icon animations ─── */
+/* ─── Floating icon animations (kept for potential reuse) ─── */
 @keyframes icon-float {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-18px); }
@@ -225,14 +148,6 @@ html.dark body {
     0 8px 32px rgba(99, 102, 241, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
-.dark .glass-card {
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(99, 102, 241, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border-color: rgba(100, 100, 160, 0.45);
-  background: rgba(35, 35, 65, 0.88);
-}
 
 /* ─── Gradient border shimmer ─── */
 @keyframes shimmer {
@@ -305,11 +220,6 @@ html.dark body {
   font-size: 0.9375rem;
   line-height: 1.65;
 }
-.dark .prose-chat {
-  --tw-prose-body: #cbd5e1;
-  --tw-prose-headings: #e2e8f0;
-  --tw-prose-links: #a5b4fc;
-}
 
 .prose-chat p {
   margin-top: 0.4em;
@@ -339,10 +249,6 @@ html.dark body {
   font-size: 0.85em;
   font-weight: 500;
 }
-.dark .prose-chat code {
-  background: rgba(99, 102, 241, 0.15);
-  color: #a5b4fc;
-}
 
 .prose-chat pre {
   background: #1e293b;
@@ -353,10 +259,6 @@ html.dark body {
   margin-top: 0.6em;
   margin-bottom: 0.6em;
   border: 1px solid #334155;
-}
-.dark .prose-chat pre {
-  background: #0f172a;
-  border-color: #1e293b;
 }
 
 .prose-chat pre code {
@@ -379,13 +281,9 @@ html.dark body {
   text-decoration-color: #4f46e5;
 }
 
-.prose-chat strong  { font-weight: 600; color: #0f172a; }
-.prose-chat hr      { margin: 0.75em 0; border-color: #e2e8f0; }
+.prose-chat strong  { font-weight: 600; color: #2c2926; }
+.prose-chat hr      { margin: 0.75em 0; border-color: #ddd8cf; }
 
-.dark .prose-chat a { color: #a5b4fc; text-decoration-color: #6366f1; }
-.dark .prose-chat a:hover { text-decoration-color: #a5b4fc; }
-.dark .prose-chat strong { color: #e2e8f0; }
-.dark .prose-chat hr { border-color: #2d2d4a; }
 .prose-chat table   { font-size: 0.85em; overflow-x: auto; display: block; }
 
 .prose-chat h1,
@@ -437,20 +335,6 @@ html.dark body {
   background-clip: text;
 }
 
-.dark .text-gradient {
-  background: linear-gradient(135deg, #c4b5fd, #d8b4fe, #e9d5ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.dark .text-gradient-lg {
-  background: linear-gradient(135deg, #c4b5fd 0%, #d8b4fe 40%, #e9d5ff 70%, #fbcfe8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* ─── Interactive checklist overrides ─── */
 .checklist-interactive ul {
   list-style: none !important;
@@ -477,9 +361,6 @@ html.dark body {
 
 /* ─── Mobile: reduce heavy GPU effects ─── */
 @media (max-width: 768px) {
-  .bg-orb {
-    filter: blur(60px);
-  }
   .glass-card {
     backdrop-filter: blur(8px) saturate(1.2);
     -webkit-backdrop-filter: blur(8px) saturate(1.2);
@@ -490,8 +371,6 @@ html.dark body {
 @media print {
   /* Hide non-essential UI */
   .no-print,
-  .bg-orb,
-  .bg-dot-grid,
   header,
   nav,
   footer,
@@ -503,13 +382,9 @@ html.dark body {
   body {
     background: white !important;
     background-image: none !important;
-    color: #0f172a !important;
+    color: #2c2926 !important;
   }
-
-  html.dark body {
-    background: white !important;
-    color: #0f172a !important;
-  }
+  body::before { display: none !important; }
 
   /* Full width, no blur/shadow */
   .glass-card,

@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import dynamic from "next/dynamic";
 
-// Lazy-load decorative/non-critical components
-const BackgroundScene = dynamic(
-  () => import("./components/BackgroundScene"),
-);
+import dynamic from "next/dynamic";
 const PWAInstall = dynamic(
   () => import("./components/PWAInstall"),
 );
@@ -76,14 +72,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Inline script to apply dark class before paint (prevents FOUC)
-  const themeScript = `(function(){try{var t=localStorage.getItem('bezpapira:theme')||localStorage.getItem('biro-ai:theme');var d=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);if(d)document.documentElement.classList.add('dark')}catch(e){}})()`;  
-
+  // No dark mode — single theme
   return (
-    <html lang="sr" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
+    <html lang="sr">
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-foreground`}
       >
@@ -98,8 +90,7 @@ export default function RootLayout({
           Preskoči na sadržaj
         </a>
 
-        {/* Interactive background */}
-        <BackgroundScene />
+        {/* Main content */}
         <div id="main-content" className="relative z-10" role="main">
           {children}
         </div>

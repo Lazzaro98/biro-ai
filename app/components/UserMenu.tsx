@@ -30,12 +30,12 @@ export default function UserMenu() {
     return (
       <a
         href="/login"
-        className="group relative flex items-center gap-2.5 rounded-full bg-primary/10 dark:bg-primary/15 pl-2 pr-5 py-2
-                   hover:bg-primary/20 dark:hover:bg-primary/25 hover:shadow-md hover:shadow-primary/10
+        className="group relative flex items-center gap-2.5 rounded-full bg-primary/10 pl-2 pr-5 py-2
+                   hover:bg-primary/20 hover:shadow-md hover:shadow-primary/10
                    transition-all duration-300 ring-1 ring-primary/20 hover:ring-primary/40"
       >
         {/* Animated avatar placeholder with glow */}
-        <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary/20 dark:bg-primary/30">
+        <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary/20">
           <svg className="h-4.5 w-4.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
           </svg>

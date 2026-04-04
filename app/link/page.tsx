@@ -1,5 +1,4 @@
 import { FLOW_CARDS, CONSULT_CARD } from "../lib/flows";
-import ThemeToggle from "../components/ThemeToggle";
 import dynamic from "next/dynamic";
 
 const NewsletterSignup = dynamic(() => import("../components/NewsletterSignup"));
@@ -43,10 +42,7 @@ export default function LinkPage() {
       className="relative min-h-dvh flex flex-col items-center px-5 py-12 overflow-x-hidden"
       aria-label="BezPapira — Link u bio"
     >
-      {/* Theme toggle */}
-      <div className="fixed top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
+
 
       <div className="w-full max-w-md animate-fade-in-up">
         {/* Avatar / Brand */}

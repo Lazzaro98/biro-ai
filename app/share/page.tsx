@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState, useCallback } from "react";
 import { decodeChecklist, type SharedChecklist } from "../lib/share";
 import ChecklistRenderer from "../components/ChecklistRenderer";
-import ThemeToggle from "../components/ThemeToggle";
+
 
 const CHECKLISTS_KEY = "bezpapira:checkliste";
 
@@ -112,7 +112,6 @@ function SharePageInner() {
             </p>
           </div>
           <div className="flex-1" />
-          <ThemeToggle />
         </div>
 
         {/* Shared badge */}
