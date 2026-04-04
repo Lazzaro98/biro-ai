@@ -74,6 +74,9 @@ export default function Home() {
       {/*  SECTION 1 — Hero                           */}
       {/* ════════════════════════════════════════════ */}
       <section className="min-h-[85dvh] flex flex-col items-center justify-center px-5 py-24 text-center relative">
+        {/* Decorative accent line */}
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-12 h-1 rounded-full bg-primary/25" aria-hidden="true" />
+
         <div className="animate-fade-in-up max-w-xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -126,9 +129,6 @@ export default function Home() {
       </section>
 
       {/* Client-side sections with scroll reveal */}
-      <div className="mx-auto max-w-xl">
-        <hr className="border-border/40" />
-      </div>
       <LandingClient
         steps={STEPS}
         flowCards={FLOW_CARDS}
@@ -138,7 +138,7 @@ export default function Home() {
       {/* ════════════════════════════════════════════ */}
       {/*  SECTION 4 — Stats                          */}
       {/* ════════════════════════════════════════════ */}
-      <section className="px-5 py-20 sm:px-8">
+      <section className="section-tinted px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-2xl">
           <SocialProof />
         </div>

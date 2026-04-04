@@ -28,7 +28,7 @@ export default function LandingClient({ steps, flowCards, consultCard }: Landing
       {/* ════════════════════════════════════════════ */}
       {/*  SECTION 2 — How it works                   */}
       {/* ════════════════════════════════════════════ */}
-      <section className="px-5 py-20 sm:px-8">
+      <section className="section-tinted px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-3xl">
           <ScrollReveal>
             <div className="text-center mb-14">
@@ -47,7 +47,7 @@ export default function LandingClient({ steps, flowCards, consultCard }: Landing
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
             {steps.map((step, i) => (
               <ScrollReveal key={step.number} delay={i * 150}>
-                <div className="relative text-center p-6 rounded-2xl bg-surface/80 border border-border/50 shadow-sm hover:shadow-md transition-shadow">
+                <div className="relative text-center p-6 rounded-2xl bg-surface border border-border/60 shadow-sm hover:shadow-md transition-shadow">
                   {/* Step number badge */}
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25">
                     {step.number}
@@ -96,7 +96,7 @@ export default function LandingClient({ steps, flowCards, consultCard }: Landing
                 <a
                   href={`/chat/${flow.id}`}
                   className="group flex items-center gap-4 rounded-2xl p-5
-                             bg-surface/80 border border-border/50 shadow-sm
+                             bg-surface border border-border/60 shadow-sm
                              hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 transition-all duration-300"
                 >
                   <div

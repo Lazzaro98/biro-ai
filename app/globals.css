@@ -3,22 +3,22 @@
 
 @theme {
   /* ─── Warm "paper" palette — single theme, between light & dark ─── */
-  --color-background: #f5f3ed;
+  --color-background: #efece5;
   --color-foreground: #2c2926;
   --color-primary: #6366f1;
   --color-primary-dark: #4f46e5;
   --color-primary-light: #a5b4fc;
   --color-primary-ghost: #eef2ff;
-  --color-surface: #fffffe;
-  --color-surface-alt: #ece9e1;
-  --color-border: #d1cbc2;
-  --color-border-light: #e2ddd5;
+  --color-surface: #f9f8f5;
+  --color-surface-alt: #e8e5dc;
+  --color-border: #cdc7bc;
+  --color-border-light: #ddd8cf;
   --color-muted: #8a8580;
   --color-muted-dark: #5c5752;
-  --color-card-bg: rgba(255, 255, 254, 0.75);
-  --color-card-border: rgba(200, 192, 180, 0.55);
-  --color-card-bg-solid: rgba(255, 255, 254, 0.7);
-  --color-card-bg-hover: rgba(255, 255, 254, 0.9);
+  --color-card-bg: rgba(249, 248, 245, 0.85);
+  --color-card-border: rgba(195, 188, 176, 0.6);
+  --color-card-bg-solid: rgba(249, 248, 245, 0.8);
+  --color-card-bg-hover: rgba(252, 251, 248, 0.95);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -45,11 +45,11 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f3ed;
+  background-color: #efece5;
   /* Subtle warm gradient — one accent top-right, one bottom-left */
   background-image:
-    radial-gradient(ellipse 60% 50% at 85% 5%, rgba(99, 102, 241, 0.09) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 60% at 10% 90%, rgba(168, 85, 247, 0.06) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 50% at 85% 5%, rgba(99, 102, 241, 0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 10% 90%, rgba(168, 85, 247, 0.07) 0%, transparent 70%);
   background-attachment: fixed;
 }
 
@@ -58,17 +58,26 @@ body {
   body { background-attachment: scroll; }
 }
 
-/* ─── Subtle paper grain texture ─── */
+/* ─── Subtle cross-hatch pattern ─── */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.35;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
+  opacity: 0.4;
+  background-image:
+    linear-gradient(45deg, rgba(180, 172, 160, 0.08) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(180, 172, 160, 0.08) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(180, 172, 160, 0.08) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(180, 172, 160, 0.08) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+}
+
+/* ─── Tinted section bands for visual rhythm ─── */
+.section-tinted {
+  background-color: rgba(232, 229, 220, 0.45);
 }
 
 /* ─── Floating icon animations (kept for potential reuse) ─── */
