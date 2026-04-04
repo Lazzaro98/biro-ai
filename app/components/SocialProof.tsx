@@ -102,7 +102,7 @@ export default function SocialProof() {
   return (
     <section
       className="flex items-center justify-center gap-4 sm:gap-8 rounded-2xl p-4
-                 glass-card border border-border/40"
+                 glass-card border border-border/50"
       aria-label="Statistika korišćenja"
     >
       {STAT_CONFIG.map((cfg) => (

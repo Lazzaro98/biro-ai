@@ -3,22 +3,22 @@
 
 @theme {
   /* ─── Warm "paper" palette — single theme, between light & dark ─── */
-  --color-background: #f7f5f0;
+  --color-background: #f5f3ed;
   --color-foreground: #2c2926;
   --color-primary: #6366f1;
   --color-primary-dark: #4f46e5;
   --color-primary-light: #a5b4fc;
   --color-primary-ghost: #eef2ff;
-  --color-surface: #ffffff;
-  --color-surface-alt: #f0ede7;
-  --color-border: #ddd8cf;
-  --color-border-light: #eae6df;
-  --color-muted: #9a9590;
-  --color-muted-dark: #6b6560;
-  --color-card-bg: rgba(255, 255, 255, 0.65);
-  --color-card-border: rgba(220, 215, 205, 0.5);
-  --color-card-bg-solid: rgba(255, 255, 255, 0.6);
-  --color-card-bg-hover: rgba(255, 255, 255, 0.8);
+  --color-surface: #fffffe;
+  --color-surface-alt: #ece9e1;
+  --color-border: #d1cbc2;
+  --color-border-light: #e2ddd5;
+  --color-muted: #8a8580;
+  --color-muted-dark: #5c5752;
+  --color-card-bg: rgba(255, 255, 254, 0.75);
+  --color-card-border: rgba(200, 192, 180, 0.55);
+  --color-card-bg-solid: rgba(255, 255, 254, 0.7);
+  --color-card-bg-hover: rgba(255, 255, 254, 0.9);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -45,11 +45,11 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f7f5f0;
+  background-color: #f5f3ed;
   /* Subtle warm gradient — one accent top-right, one bottom-left */
   background-image:
-    radial-gradient(ellipse 60% 50% at 85% 5%, rgba(99, 102, 241, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 60% at 10% 90%, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 50% at 85% 5%, rgba(99, 102, 241, 0.09) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 10% 90%, rgba(168, 85, 247, 0.06) 0%, transparent 70%);
   background-attachment: fixed;
 }
 
@@ -144,9 +144,10 @@ body::before {
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
   border: 1px solid var(--color-card-border);
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.04),
-    0 8px 32px rgba(99, 102, 241, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    0 8px 32px rgba(99, 102, 241, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 /* ─── Gradient border shimmer ─── */

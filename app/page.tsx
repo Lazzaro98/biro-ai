@@ -57,7 +57,8 @@ export default function Home() {
       />
 
       {/* Top bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 sm:px-8">
+      <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 sm:px-8
+                      bg-surface/80 backdrop-blur-md border-b border-border/40">
         <a href="/" className="flex items-center gap-2 group">
           <span className="text-2xl" aria-hidden="true">📋</span>
           <span className="font-bold text-foreground text-sm tracking-tight group-hover:text-primary transition-colors">
@@ -102,8 +103,8 @@ export default function Home() {
             </a>
             <a
               href="/checkliste"
-              className="inline-flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 backdrop-blur-sm px-6 py-3.5 text-sm font-medium text-muted-dark
-                         hover:text-foreground hover:border-primary/30 transition-all"
+              className="inline-flex items-center gap-2 rounded-2xl border border-border bg-surface/80 backdrop-blur-sm px-6 py-3.5 text-sm font-medium text-muted-dark
+                         shadow-sm hover:text-foreground hover:border-primary/40 hover:shadow-md transition-all"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
@@ -115,8 +116,8 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <a href="#procesi" className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce
-                  rounded-full bg-surface/60 backdrop-blur-sm px-5 py-2.5
-                  ring-1 ring-border/40 hover:ring-primary/40 hover:bg-surface transition-all cursor-pointer">
+                  rounded-full bg-surface/80 backdrop-blur-sm px-5 py-2.5 shadow-md
+                  border border-border/60 hover:border-primary/40 hover:bg-surface transition-all cursor-pointer">
           <span className="text-sm font-semibold text-foreground/80">Kako funkcioniše</span>
           <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -125,6 +126,9 @@ export default function Home() {
       </section>
 
       {/* Client-side sections with scroll reveal */}
+      <div className="mx-auto max-w-xl">
+        <hr className="border-border/40" />
+      </div>
       <LandingClient
         steps={STEPS}
         flowCards={FLOW_CARDS}

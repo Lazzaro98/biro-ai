@@ -47,7 +47,7 @@ export default function LandingClient({ steps, flowCards, consultCard }: Landing
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
             {steps.map((step, i) => (
               <ScrollReveal key={step.number} delay={i * 150}>
-                <div className="relative text-center p-6 rounded-2xl bg-surface/60 border border-border/30 backdrop-blur-sm">
+                <div className="relative text-center p-6 rounded-2xl bg-surface/80 border border-border/50 shadow-sm hover:shadow-md transition-shadow">
                   {/* Step number badge */}
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25">
                     {step.number}
@@ -96,8 +96,8 @@ export default function LandingClient({ steps, flowCards, consultCard }: Landing
                 <a
                   href={`/chat/${flow.id}`}
                   className="group flex items-center gap-4 rounded-2xl p-5
-                             bg-surface/70 border border-border/30 backdrop-blur-sm
-                             hover:shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
+                             bg-surface/80 border border-border/50 shadow-sm
+                             hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 transition-all duration-300"
                 >
                   <div
                     className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-xl
@@ -133,9 +133,9 @@ export default function LandingClient({ steps, flowCards, consultCard }: Landing
               <a
                 href={`/chat/${consultCard.id}`}
                 className="group block rounded-2xl p-5
-                           bg-gradient-to-r from-primary/[0.06] to-purple-500/[0.04]
-                           border border-primary/20
-                           hover:shadow-lg hover:shadow-primary/15 hover:border-primary/35 transition-all duration-300"
+                           bg-gradient-to-r from-primary/[0.07] to-purple-500/[0.05]
+                           border border-primary/25 shadow-sm
+                           hover:shadow-lg hover:shadow-primary/15 hover:border-primary/40 transition-all duration-300"
               >
                 <div className="flex items-center gap-4">
                   <div
