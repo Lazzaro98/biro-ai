@@ -35,10 +35,10 @@ const nextConfig: NextConfig = {
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
               // Google Fonts + data URIs for inline assets
               "font-src 'self' https://fonts.gstatic.com data:",
-              // Images from self, data URIs, and blobs
-              "img-src 'self' data: blob: https://images.pexels.com",
-              // API calls to self only
-              "connect-src 'self'",
+              // Images from self, data URIs, blobs, and Google avatars
+              "img-src 'self' data: blob: https://images.pexels.com https://lh3.googleusercontent.com https://*.googleusercontent.com",
+              // API calls to self + Google auth
+              "connect-src 'self' https://accounts.google.com",
               // Prevent embedding in frames
               "frame-ancestors 'none'",
               // Restrict form targets
