@@ -30,13 +30,20 @@ export default function UserMenu() {
     return (
       <a
         href="/login"
-        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted-dark
-                   hover:bg-surface-alt hover:text-foreground transition-colors"
+        className="group relative flex items-center gap-2 rounded-full bg-primary/10 dark:bg-primary/15 pl-1.5 pr-3.5 py-1.5
+                   hover:bg-primary/20 dark:hover:bg-primary/25 transition-all duration-300"
       >
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-        </svg>
-        <span className="hidden sm:inline">Prijavi se</span>
+        {/* Animated avatar placeholder with glow */}
+        <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-primary/20 dark:bg-primary/30">
+          <svg className="h-3.5 w-3.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          {/* Pulse ring */}
+          <span className="absolute inset-0 rounded-full animate-ping bg-primary/20" style={{ animationDuration: '2.5s' }} />
+        </span>
+        <span className="text-xs font-semibold text-primary group-hover:text-primary-dark transition-colors">
+          Prijavi se
+        </span>
       </a>
     );
   }

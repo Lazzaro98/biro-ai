@@ -74,7 +74,7 @@ export default function Home() {
       {/* ════════════════════════════════════════════ */}
       {/*  SECTION 1 — Hero                           */}
       {/* ════════════════════════════════════════════ */}
-      <section className="min-h-dvh flex flex-col items-center justify-center px-5 py-24 text-center">
+      <section className="min-h-[85dvh] flex flex-col items-center justify-center px-5 py-24 text-center relative">
         <div className="animate-fade-in-up max-w-xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 dark:bg-primary/15 px-4 py-1.5 text-xs font-medium text-primary mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -116,8 +116,9 @@ export default function Home() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
-          <svg className="h-6 w-6 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+          <span className="text-xs font-medium text-muted-dark/70">Kako funkcioniše ↓</span>
+          <svg className="h-5 w-5 text-primary/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </div>
