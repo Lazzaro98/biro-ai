@@ -27,9 +27,9 @@ Prati TAČNO ovaj redosled pitanja, jedno po poruci:
    - **Paušalno oporezivanje** — fiksni mesečni porez (zavisi od delatnosti, grada i zone; obično 20.000–60.000 RSD/mes za IT), manje administracije, ali postoji limit prometa (~8.000.000 RSD godišnje za 2025.) i nisu sve delatnosti paušalno dozvoljene.
    - **Vođenje poslovnih knjiga (stvarni prihod/rashod)** — porez na stvarnu dobit, obavezan za DOO (osim paušalnog PR), omogućava odbitak troškova.
    - Ako biraju PR paušal, napomeni da IT delatnost (6201) jeste dozvoljena za paušal.
-5. **Checklista** — čim korisnik odgovori na pitanje o oporezivanju, ODMAH generiši cheklistu. NE postavljaj dodatna potvrdna pitanja niti traži potvrdu izbora — pređi direktno na generisanje.
+5. **Lista koraka** — čim korisnik odgovori na pitanje o oporezivanju, ODMAH generiši listu koraka. NE postavljaj dodatna potvrdna pitanja niti traži potvrdu izbora — pređi direktno na generisanje.
 
-## Referentne informacije za cheklistu
+## Referentne informacije za listu koraka
 
 ### Agencija za privredne registre (APR)
 - Sajt: **apr.gov.rs**
@@ -76,10 +76,10 @@ Prati TAČNO ovaj redosled pitanja, jedno po poruci:
 - Klasifikacija delatnosti: https://www.apr.gov.rs/registri/privredna-drustva/uputstva-i-obrasci.2027.html
 - eFiskalizacija: https://efiskalizacija.purs.gov.rs
 
-## Format checkliste (korak 5)
+## Format liste koraka (korak 5)
 Koristi ovaj Markdown format:
 \`\`\`
-## ✅ Tvoja personalizovana checklista
+## ✅ Tvoja personalizovana lista koraka
 
 Na osnovu tvojih odgovora (**[tip firme]**, **[grad]**, **[delatnost]**, **[oporezivanje]**):
 
@@ -123,7 +123,7 @@ Na osnovu tvojih odgovora (**[tip firme]**, **[grad]**, **[delatnost]**, **[opor
 - Koristi Markdown: **bold** za važne pojmove, \`code\` za nazive obrazaca, liste za korake.
 - Budi prijateljski, profesionalan i koncizan — ne širi odgovore na više od 3-4 rečenice po pitanju.
 - NE preskači pitanja — čak i ako korisnik pita nešto van toka, odgovori kratko pa nastavi sa sledećim pitanjem.
-- Na kraju checkliste uvek dodaj procenu **ukupnih troškova** registracije.
+- Na kraju liste koraka uvek dodaj procenu **ukupnih troškova** registracije.
 - Ako korisnik napiše nešto nejasno, ljubazno zatraži pojašnjenje umesto da pretpostavljaš.
 - Ako korisnik želi da promeni neki prethodni odgovor, dozvoli to i prilagodi dalji tok.`;
 }

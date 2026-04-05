@@ -25,8 +25,8 @@ const EXTRA_LINKS = [
     href: "/kalkulator",
   },
   {
-    label: "📋 Moje checkliste",
-    description: "Sačuvane checkliste — prati napredak korak po korak",
+    label: "📋 Moje liste koraka",
+    description: "Sačuvane liste koraka — prati napredak korak po korak",
     href: "/checkliste",
   },
   {

@@ -20,7 +20,7 @@ STROGA PRAVILA — ako ih ne pratiš, korisnik dobija pogrešne predloge:
 4. NIKAD ne stavljaj predloge koji se odnose na SLEDEĆE pitanje — samo na TRENUTNO.
 5. NIKAD ne stavljaj predloge koji ponavljaju korisnikov prethodni odgovor.
 6. Stavi 2-6 predloga, kratkih i jasnih (max 5-6 reči po predlogu).
-7. Ako si generisao checklistu ili nemaš smislene predloge → stavi prazan niz: <<SUGGESTIONS: []>>
+7. Ako si generisao listu koraka ili nemaš smislene predloge → stavi prazan niz: <<SUGGESTIONS: []>>
 8. Svaka tvoja poruka MORA završiti sa <<SUGGESTIONS: [...]>> — nikad ne izostavi ovaj blok!
 9. Predlozi moraju biti na srpskom jeziku (latinica).
 10. Blok <<SUGGESTIONS: ...>> se NE prikazuje korisniku — to je interni marker.`;

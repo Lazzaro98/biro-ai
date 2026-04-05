@@ -82,7 +82,7 @@ function LoginPageInner() {
           </a>
           <h1 className="text-2xl font-bold">Prijavi se</h1>
           <p className="text-sm text-muted-dark">
-            Sačuvaj checkliste i pristupi sa bilo kog uređaja.
+            Sačuvaj liste koraka i pristupi sa bilo kog uređaja.
           </p>
         </div>
 
@@ -147,7 +147,7 @@ function LoginPageInner() {
         <p className="text-center text-xs text-muted">
           Bez lozinke. Bez spam-a.
           <br />
-          Prijavljuješ se da sačuvaš svoje checkliste.
+          Prijavljuješ se da sačuvaš svoje liste koraka.
         </p>
 
         {/* Back */}

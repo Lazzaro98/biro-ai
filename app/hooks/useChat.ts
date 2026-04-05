@@ -32,7 +32,7 @@ function saveChecklistToStorage(flow: FlowConfig, msgs: Msg[]): SavedChecklist |
     date: new Date().toISOString(),
     flowId: flow.id,
     params,
-    markdown: checklistMsg.text,
+    markdown: parseSuggestions(checklistMsg.text).cleanText,
   };
 
   try {
@@ -169,7 +169,7 @@ export function useChat(flowId: string, initialSessionId?: string | null, consul
     setChecklistSaved(false);
 
     // Auto-send the consultation question after a brief delay (so state settles)
-    const question = `Objasni mi detaljnije ovaj korak iz checkliste: "${consultItem}"
+    const question = `Objasni mi detaljnije ovaj korak iz liste koraka: "${consultItem}"
 
 Šta tačno treba da uradim, koji su dokumenti potrebni, koliko je vreme obrade, i da li postoje neke česte greške koje treba izbegavati?`;
     setTimeout(() => {

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | BezPapira",
   },
   description:
-    "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji. Otvaranje firme, checkliste i više.",
+    "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji. Otvaranje firme, liste koraka i više.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "https://biro-ai.vercel.app"
   ),
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "papiologija",
     "birokracija",
     "AI asistent",
-    "checklista",
+    "lista koraka",
     "preduzetnik",
     "DOO",
     "APR",

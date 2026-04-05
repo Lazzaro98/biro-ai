@@ -145,7 +145,7 @@ export default function IstorijaPage() {
                           {session.title}
                         </span>
                         {session.completed && (
-                          <span className="text-xs" title="Checklista generisana">✅</span>
+                          <span className="text-xs" title="Lista koraka generisana">✅</span>
                         )}
                       </div>
                       <div className="flex items-center gap-2 mt-1">

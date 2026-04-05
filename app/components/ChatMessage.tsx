@@ -22,7 +22,7 @@ export const AiAvatar = memo(function AiAvatar() {
       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm select-none"
       aria-hidden="true"
     >
-      🤖
+      🏛️
     </div>
   );
 });

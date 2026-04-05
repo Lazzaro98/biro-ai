@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Moje checkliste",
+  title: "Moje liste koraka",
   description:
-    "Pregledaj i upravljaj sačuvanim checklistama za birokratske procese u Srbiji.",
+    "Pregledaj i upravljaj sačuvanim listama koraka za birokratske procese u Srbiji.",
   openGraph: {
-    title: "Moje checkliste | BezPapira",
-    description: "Sačuvane checkliste za otvaranje firme i druge procese.",
+    title: "Moje liste koraka | BezPapira",
+    description: "Sačuvane liste koraka za otvaranje firme i druge procese.",
   },
 };
 

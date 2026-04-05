@@ -13,7 +13,7 @@ const jsonLd = {
   name: "BezPapira",
   url: process.env.NEXT_PUBLIC_BASE_URL || "https://biro-ai.vercel.app",
   description:
-    "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji — otvaranje firme, checkliste i više.",
+    "AI asistent koji te vodi korak po korak kroz birokratske procese u Srbiji — otvaranje firme, liste koraka i više.",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "RSD" },
@@ -41,8 +41,8 @@ const STEPS = [
   },
   {
     number: "3",
-    title: "Dobij checklistu",
-    description: "Personalizovana checklista sa svim koracima, dokumentima i rokovima. Sačuvaj ili podeli.",
+    title: "Dobij listu koraka",
+    description: "Personalizovana lista koraka sa svim dokumentima i rokovima. Sačuvaj ili podeli.",
     icon: "✅",
   },
 ];
@@ -112,7 +112,7 @@ export default function Home() {
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
               </svg>
-              Moje checkliste
+              Moje liste koraka
             </a>
           </div>
         </div>

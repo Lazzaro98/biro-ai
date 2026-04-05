@@ -132,7 +132,7 @@ export default function ChecklistRenderer({ checklistId, markdown, showProgress 
       )}
 
       {/* Render segments */}
-      <div className="prose-chat max-w-none" role="group" aria-label="Stavke checkliste">
+      <div className="prose-chat max-w-none" role="group" aria-label="Stavke liste koraka">
         {segments.map((seg, i) => {
           if (seg.type === "md") {
             // Skip empty / whitespace-only segments

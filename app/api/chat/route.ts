@@ -17,7 +17,7 @@ const RATE_LIMIT_WINDOW = 60_000; // 1 minute
 
 const usePerplexity = !!env.PERPLEXITY_API_KEY;
 
-const TRUST_APPENDIX = `\n\n## Obavezno za finalnu checklistu\n- Kada generišeš checklistu, NA KRAJU odgovora uvek dodaj sekciju: \"### 📚 Izvori i datum provere\".\n- U toj sekciji navedi liniju \"Provereno: [današnji datum]\" i linkove ka zvaničnim izvorima koje si koristio (APR, MUP, Poreska uprava, itd.).\n- Format izvora: \"[Ime institucije](URL)\" — kratko i čitljivo, BEZ dugačkih pravnih citata.\n- Ako je neki rok ili trošak procena, jasno označi da može varirati.`;
+const TRUST_APPENDIX = `\n\n## Obavezno za finalnu listu koraka\n- Kada generišeš listu koraka, NA KRAJU odgovora uvek dodaj sekciju: \"### 📚 Izvori i datum provere\".\n- U toj sekciji navedi liniju \"Provereno: [današnji datum]\" i linkove ka zvaničnim izvorima koje si koristio (APR, MUP, Poreska uprava, itd.).\n- Format izvora: \"[Ime institucije](URL)\" — kratko i čitljivo, BEZ dugačkih pravnih citata.\n- Ako je neki rok ili trošak procena, jasno označi da može varirati.`;
 
 // Singleton client — Perplexity when available, otherwise OpenAI
 const client = usePerplexity
@@ -75,7 +75,7 @@ function buildRagContext(results: RetrievalResult[]): string {
     ...lines,
     "",
     "## Instrukcija za citiranje izvora",
-    "Kada generišeš checklistu, u sekciji '📚 Izvori i datum provere' na kraju, OBAVEZNO navedi sledeće izvore sa kojih su podaci preuzeti:",
+    "Kada generišeš listu koraka, u sekciji '📚 Izvori i datum provere' na kraju, OBAVEZNO navedi sledeće izvore sa kojih su podaci preuzeti:",
     sourceList,
     "Format: ime institucije + link. Ne navodi dugačke pravne reference — samo instituciju i URL.",
     "---",

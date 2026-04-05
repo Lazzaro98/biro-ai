@@ -12,7 +12,7 @@ export default function OfflinePage() {
           BezPapira zahteva internet konekciju za razgovor sa AI asistentom.
         </p>
         <p className="mt-2 text-muted text-sm">
-          Tvoje sačuvane checkliste su dostupne i offline u pretraživaču.
+          Tvoje sačuvane liste koraka su dostupne i offline u pretraživaču.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
@@ -34,7 +34,7 @@ export default function OfflinePage() {
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
             </svg>
-            Moje checkliste
+            Moje liste koraka
           </a>
         </div>
       </div>

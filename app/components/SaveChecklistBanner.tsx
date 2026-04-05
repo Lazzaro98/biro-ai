@@ -66,7 +66,7 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Checklista sačuvana!
+            Lista koraka sačuvana!
 
             {/* Action buttons row */}
             <div className="flex items-center gap-1 ml-auto">
@@ -153,7 +153,7 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
               <div className="w-full mt-3 flex items-center gap-3 rounded-xl bg-surface/80 border border-border/40 px-3 py-2.5">
                 <span className="text-lg" aria-hidden="true">🔒</span>
                 <p className="flex-1 text-xs text-muted-dark">
-                  Napravi besplatan nalog da sačuvaš checkliste i pristupiš sa bilo kog uređaja.
+                  Napravi besplatan nalog da sačuvaš liste koraka i pristupiš sa bilo kog uređaja.
                 </p>
                 <a
                   href="/login"
@@ -178,7 +178,7 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
         ) : (
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <p className="text-sm text-muted-dark flex-1">
-              📋 Checklista je spremna! Sačuvaj je da možeš da je pogledaš
+              📋 Lista koraka je spremna! Sačuvaj je da možeš da je pogledaš
               kasnije.
             </p>
             <button
@@ -200,7 +200,7 @@ export const SaveChecklistBanner = memo(function SaveChecklistBanner({
                   d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
                 />
               </svg>
-              Sačuvaj cheklistu
+              Sačuvaj listu
             </button>
           </div>
         )}

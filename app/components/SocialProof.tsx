@@ -11,7 +11,7 @@ interface Stats {
 
 const STAT_CONFIG = [
   { key: "visitors" as const, label: "posetilaca", icon: "👥" },
-  { key: "checklists" as const, label: "checklisti", icon: "✅" },
+  { key: "checklists" as const, label: "listi koraka", icon: "✅" },
   { key: "chats" as const, label: "razgovora", icon: "💬" },
 ];
 

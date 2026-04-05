@@ -11,7 +11,7 @@ function detectStep(msgs: Msg[]): number {
   // Checklist generated
   if (t.includes("- [")) return TOTAL;
   if (
-    (t.includes("generi") || t.includes("checklista") || t.includes("cheklistu")) &&
+    (t.includes("generi") || t.includes("checklista") || t.includes("cheklistu") || t.includes("lista koraka") || t.includes("listu koraka")) &&
     (t.includes("registr") || t.includes("prva") || t.includes("produž"))
   )
     return TOTAL;
@@ -37,6 +37,8 @@ function checkIsChecklist(text: string): boolean {
     (text.includes("checklista") ||
       text.includes("Checklista") ||
       text.includes("checklist") ||
+      text.includes("lista koraka") ||
+      text.includes("Lista koraka") ||
       text.includes("Registracija") ||
       text.includes("tehnički pregled"))
   );
@@ -65,7 +67,7 @@ Prati TAČNO ovaj redosled pitanja, jedno po poruci:
    - **Prva registracija** — vozilo se prvi put registruje u Srbiji
    - **Produženje registracije** — vozilo je već registrovano, ističe mu registracija
    - **Preregistracija (promena vlasnika)** — promenjeni vlasnik, treba nova saobraćajna
-5. **Checklista** — čim korisnik odgovori, ODMAH generiši cheklistu. NE postavljaj dodatna pitanja.
+5. **Lista koraka** — čim korisnik odgovori, ODMAH generiši listu koraka. NE postavljaj dodatna pitanja.
 
 ## Referentne informacije za cheklistu
 
@@ -123,10 +125,10 @@ Prati TAČNO ovaj redosled pitanja, jedno po poruci:
 - AMSS (Auto-moto savez Srbije): https://www.amss.rs
 - Agencija za bezbednost saobraćaja: https://www.abs.gov.rs
 
-## Format checkliste (korak 5)
+## Format liste koraka (korak 5)
 Koristi ovaj Markdown format:
 \`\`\`
-## ✅ Tvoja personalizovana checklista
+## ✅ Tvoja personalizovana lista koraka
 
 Na osnovu tvojih odgovora (**[tip vozila]**, **[grad]**, **[poreklo]**, **[vrsta registracije]**):
 
@@ -170,7 +172,7 @@ Na osnovu tvojih odgovora (**[tip vozila]**, **[grad]**, **[poreklo]**, **[vrsta
 - Koristi Markdown: **bold** za važne pojmove, \`code\` za nazive obrazaca, liste za korake.
 - Budi prijateljski, profesionalan i koncizan — ne širi odgovore na više od 3-4 rečenice po pitanju.
 - NE preskači pitanja — čak i ako korisnik pita nešto van toka, odgovori kratko pa nastavi sa sledećim pitanjem.
-- Na kraju checkliste uvek dodaj procenu **ukupnih troškova** registracije.
+- Na kraju liste koraka uvek dodaj procenu **ukupnih troškova** registracije.
 - Ako korisnik napiše nešto nejasno, ljubazno zatraži pojašnjenje umesto da pretpostavljaš.
 - Ako korisnik želi da promeni neki prethodni odgovor, dozvoli to i prilagodi dalji tok.
 ${SUGGESTION_INSTRUCTION}`;
@@ -183,7 +185,7 @@ export const registracijaVozilaFlow: FlowConfig = {
   icon: "🚗",
   estimatedTime: "2-3 minuta",
   startPageTip:
-    "Odgovaraš na par pitanja i dobijaš kompletnu checklistu sa troškovima.",
+    "Odgovaraš na par pitanja i dobijaš kompletnu listu koraka sa troškovima.",
 
   buildSystemPrompt,
 

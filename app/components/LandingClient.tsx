@@ -36,7 +36,7 @@ export default function LandingClient({ steps, flowCards, consultCard }: Landing
                 Kako funkcioniše
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Tri koraka do tvoje checkliste
+                Tri koraka do tvoje liste koraka
               </h2>
               <p className="mt-3 text-muted-dark max-w-md mx-auto">
                 Bez čekanja, bez komplikovanih formulara. Samo razgovor.

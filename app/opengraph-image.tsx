@@ -126,7 +126,7 @@ export default function OGImage() {
             marginTop: 40,
           }}
         >
-          {["Otvaranje firme", "Checkliste", "Personalizovano"].map(
+          {["Otvaranje firme", "Liste koraka", "Personalizovano"].map(
             (tag) => (
               <div
                 key={tag}

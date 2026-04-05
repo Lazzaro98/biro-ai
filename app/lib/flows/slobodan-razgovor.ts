@@ -26,6 +26,8 @@ function checkIsChecklist(text: string): boolean {
       text.includes("checklista") ||
       text.includes("Checklista") ||
       text.includes("checklist") ||
+      text.includes("lista koraka") ||
+      text.includes("Lista koraka") ||
       text.includes("potrebno") ||
       text.includes("procedura"))
   );
@@ -48,7 +50,7 @@ Tvoj posao je da:
 1. Pažljivo saslušaš i razumeš korisnikovu situaciju
 2. Ako treba, postaviš potpitanja da razjasniš detalje
 3. Daš jasan, strukturiran odgovor sa svim potrebnim koracima
-4. Na kraju, ako je primenjivo, generišeš checklistu koraka
+4. Na kraju, ako je primenjivo, generišeš listu koraka
 
 OBLASTI EKSPERTIZE:
 - Registracija preduzetnika i firmi (DOO, preduzetnik, ortačko društvo)
@@ -70,10 +72,10 @@ STIL KOMUNIKACIJE:
 - Svaki odgovor neka bude jasan i strukturiran.
 - Ako nečega nisi siguran, reci to otvoreno.
 
-CHECKLISTA:
-Ako korisnik traži konkretne korake za neki proces, ili ako iz razgovora jasno proizilazi koji proces treba pratiti, generiši checklistu u ovom formatu:
+LISTA KORAKA:
+Ako korisnik traži konkretne korake za neki proces, ili ako iz razgovora jasno proizilazi koji proces treba pratiti, generiši listu koraka u ovom formatu:
 
-## ✅ Checklista: [Naslov procesa]
+## ✅ Lista koraka: [Naslov procesa]
 
 - [ ] Korak 1 — opis
 - [ ] Korak 2 — opis
@@ -113,11 +115,11 @@ export const slobodanRazgovorFlow: FlowConfig = {
       allowFreeText: true,
     },
     {
-      chips: ["Možeš li mi napraviti checklistu?", "Imam još pitanja"],
+      chips: ["Možeš li mi napraviti listu koraka?", "Imam još pitanja"],
       allowFreeText: true,
     },
     {
-      chips: ["Generiši mi checklistu koraka", "Hvala, to je sve!"],
+      chips: ["Generiši mi listu koraka", "Hvala, to je sve!"],
       allowFreeText: true,
     },
   ],

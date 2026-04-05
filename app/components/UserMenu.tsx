@@ -85,7 +85,7 @@ export default function UserMenu() {
               href="/checkliste"
               className="block px-4 py-2 text-sm text-muted-dark hover:bg-surface-alt hover:text-foreground transition-colors"
             >
-              📋 Moje checkliste
+              📋 Moje liste koraka
             </a>
             <a
               href="/istorija"

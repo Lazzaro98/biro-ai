@@ -75,7 +75,7 @@ function ChatFlowPageInner() {
       date: new Date().toISOString(),
     });
     if (navigator.share) {
-      await navigator.share({ title: "BezPapira \u2014 Checklista", url });
+      await navigator.share({ title: "BezPapira \u2014 Lista koraka", url });
     } else {
       await navigator.clipboard.writeText(url);
     }

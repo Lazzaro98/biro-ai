@@ -11,7 +11,7 @@ function detectStep(msgs: Msg[]): number {
   // Checklist generated
   if (t.includes("- [")) return TOTAL;
   if (
-    (t.includes("generi") || t.includes("checklista") || t.includes("cheklistu")) &&
+    (t.includes("generi") || t.includes("checklista") || t.includes("cheklistu") || t.includes("lista koraka") || t.includes("listu koraka")) &&
     (t.includes("gotov") || t.includes("kredit") || t.includes("finansir"))
   )
     return TOTAL;
@@ -37,6 +37,8 @@ function checkIsChecklist(text: string): boolean {
     (text.includes("checklista") ||
       text.includes("Checklista") ||
       text.includes("checklist") ||
+      text.includes("lista koraka") ||
+      text.includes("Lista koraka") ||
       text.includes("Uknjižba") ||
       text.includes("kupoprodaj"))
   );
@@ -64,7 +66,7 @@ Prati TAČNO ovaj redosled pitanja, jedno po poruci:
    - **Gotovina** — najjednostavnije, nema troškova banke
    - **Stambeni kredit** — objasni da je potrebna kreditna sposobnost, procena vrednosti nekretnine, založno pravo/hipoteka
    - **Kombinacija** — deo gotovinom, deo kreditom
-5. **Checklista** — čim korisnik odgovori na pitanje o finansiranju, ODMAH generiši cheklistu. NE postavljaj dodatna pitanja.
+5. **Lista koraka** — čim korisnik odgovori na pitanje o finansiranju, ODMAH generiši listu koraka. NE postavljaj dodatna pitanja.
 
 ## Referentne informacije za cheklistu
 
@@ -114,10 +116,10 @@ Prati TAČNO ovaj redosled pitanja, jedno po poruci:
 - Poreska uprava: https://www.purs.gov.rs
 - Javni beležnici: https://www.beleznik.org
 
-## Format checkliste (korak 5)
+## Format liste koraka (korak 5)
 Koristi ovaj Markdown format:
 \`\`\`
-## ✅ Tvoja personalizovana checklista
+## ✅ Tvoja personalizovana lista koraka
 
 Na osnovu tvojih odgovora (**[tip nekretnine]**, **[grad]**, **[novogradnja/stari]**, **[finansiranje]**):
 
@@ -160,7 +162,7 @@ Na osnovu tvojih odgovora (**[tip nekretnine]**, **[grad]**, **[novogradnja/star
 - Koristi Markdown: **bold** za važne pojmove, \`code\` za nazive obrazaca, liste za korake.
 - Budi prijateljski, profesionalan i koncizan — ne širi odgovore na više od 3-4 rečenice po pitanju.
 - NE preskači pitanja — čak i ako korisnik pita nešto van toka, odgovori kratko pa nastavi sa sledećim pitanjem.
-- Na kraju checkliste uvek dodaj procenu **ukupnih troškova** (bez cene nekretnine).
+- Na kraju liste koraka uvek dodaj procenu **ukupnih troškova** (bez cene nekretnine).
 - Ako korisnik napiše nešto nejasno, ljubazno zatraži pojašnjenje umesto da pretpostavljaš.
 - Ako korisnik želi da promeni neki prethodni odgovor, dozvoli to i prilagodi dalji tok.
 ${SUGGESTION_INSTRUCTION}`;
@@ -173,7 +175,7 @@ export const kupovinaStanaFlow: FlowConfig = {
   icon: "🏠",
   estimatedTime: "3-4 minuta",
   startPageTip:
-    "Na kraju dobijaš kompletnu checklistu — od provere nekretnine do uknjižbe.",
+    "Na kraju dobijaš kompletnu listu koraka — od provere nekretnine do uknjižbe.",
 
   buildSystemPrompt,
 

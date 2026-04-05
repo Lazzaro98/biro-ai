@@ -233,7 +233,7 @@ function SessionItem({
           <span className="text-xs text-muted">•</span>
           <span className="text-xs text-muted">{timeStr}</span>
           {session.completed && (
-            <span className="text-xs" title="Checklista generisana">✅</span>
+            <span className="text-xs" title="Lista koraka generisana">✅</span>
           )}
         </div>
       </div>

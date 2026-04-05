@@ -25,7 +25,7 @@ export function detectFlowStep(msgs: Msg[]): number {
 
   // AI is summarising / confirming choices before generating checklist
   if (
-    (t.includes("generi") || t.includes("checklista") || t.includes("cheklistu")) &&
+    (t.includes("generi") || t.includes("checklista") || t.includes("cheklistu") || t.includes("lista koraka") || t.includes("listu koraka")) &&
     (t.includes("paušal") || t.includes("vođenj") || t.includes("knjiga"))
   )
     return TOTAL_STEPS;
@@ -55,7 +55,7 @@ export function detectFlowStep(msgs: Msg[]): number {
 
 /** Check if a message looks like the final checklist */
 export function isChecklist(text: string): boolean {
-  return text.includes("- [") && (text.includes("checklista") || text.includes("Checklista") || text.includes("checklist") || text.includes("Registracija"));
+  return text.includes("- [") && (text.includes("checklista") || text.includes("Checklista") || text.includes("checklist") || text.includes("lista koraka") || text.includes("Lista koraka") || text.includes("Registracija"));
 }
 
 /* ── AI-driven suggestion parsing ─── */

@@ -92,7 +92,7 @@ function SharePageInner() {
   const paramValues = Object.values(data.params || {}).filter(Boolean);
 
   return (
-    <main className="relative min-h-dvh px-5 py-10 overflow-x-hidden" aria-label="Deljena checklista">
+    <main className="relative min-h-dvh px-5 py-10 overflow-x-hidden" aria-label="Deljena lista koraka">
       <div className="relative z-10 mx-auto max-w-2xl">
         {/* Header */}
         <div className="no-print flex items-center gap-3 mb-6">
@@ -106,9 +106,9 @@ function SharePageInner() {
             </svg>
           </a>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Deljena checklista</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Deljena lista koraka</h1>
             <p className="text-sm text-muted-dark">
-              {data.title || "Checklista"}
+              {data.title || "Lista koraka"}
             </p>
           </div>
           <div className="flex-1" />
@@ -120,7 +120,7 @@ function SharePageInner() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
           </svg>
           <span className="text-sm text-primary font-medium">
-            Neko je podelio ovu cheklistu sa tobom
+            Neko je podelio ovu listu koraka sa tobom
           </span>
         </div>
 
@@ -176,7 +176,7 @@ function SharePageInner() {
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                 </svg>
-                Sačuvaj u moje checkliste
+                Sačuvaj u moje liste koraka
               </>
             )}
           </button>
@@ -190,7 +190,7 @@ function SharePageInner() {
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
-            Moje checkliste
+            Moje liste koraka
           </a>
         </div>
 

@@ -73,9 +73,9 @@ function formatDate(iso: string): string {
 
 /** Get flow metadata (icon + title), or fallback for unknown flows */
 function getFlowMeta(flowId?: string) {
-  if (!flowId) return { icon: "📋", title: "Checklista" };
+  if (!flowId) return { icon: "📋", title: "Lista koraka" };
   const flow = FLOWS[flowId];
-  return flow ? { icon: flow.icon, title: flow.title } : { icon: "📋", title: "Checklista" };
+  return flow ? { icon: flow.icon, title: flow.title } : { icon: "📋", title: "Lista koraka" };
 }
 
 /** Build a descriptive card title from params + flow */
@@ -165,7 +165,7 @@ export default function ChecklistePage() {
   const openItem = items.find((c) => c.id === openId);
 
   return (
-    <main className="relative min-h-dvh px-5 py-10 overflow-x-hidden" aria-label="Moje checkliste">
+    <main className="relative min-h-dvh px-5 py-10 overflow-x-hidden" aria-label="Moje liste koraka">
       <div className="relative z-10 mx-auto max-w-2xl">
         {/* ── Header ── */}
         <div className="no-print flex items-center gap-3 mb-6">
@@ -179,11 +179,11 @@ export default function ChecklistePage() {
             </svg>
           </a>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Moje checkliste</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Moje liste koraka</h1>
             <p className="text-sm text-muted-dark">
               {items.length === 0
-                ? "Još nema sačuvanih checklisti"
-                : `${items.length} checklis${items.length === 1 ? "ta" : "te"}`}
+                ? "Još nema sačuvanih listi koraka"
+                : `${items.length} ${items.length === 1 ? "lista koraka" : "liste koraka"}`}
             </p>
           </div>
           <div className="flex-1" />
@@ -205,7 +205,7 @@ export default function ChecklistePage() {
             </div>
             <div className="mt-2 flex items-center justify-between text-xs text-muted">
               <span>{stats.checkedTasks} od {stats.totalTasks} stavki završeno</span>
-              <span>{items.length} checklis{items.length === 1 ? "ta" : "te"}</span>
+              <span>{items.length} {items.length === 1 ? "lista koraka" : "liste koraka"}</span>
             </div>
             <a
               href="/kalkulator"
@@ -259,9 +259,9 @@ export default function ChecklistePage() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-alt text-3xl glow-icon" aria-hidden="true">
               📋
             </div>
-            <h2 className="text-lg font-semibold">Nemaš još checklisti</h2>
+            <h2 className="text-lg font-semibold">Nemaš još listi koraka</h2>
             <p className="mt-2 text-sm text-muted-dark max-w-sm mx-auto">
-              Prođi kroz AI vodič i sačuvaj generisanu cheklistu da je pratiš ovde.
+              Prođi kroz AI vodič i sačuvaj generisanu listu koraka da je pratiš ovde.
             </p>
             <a
               href="/"
@@ -315,7 +315,7 @@ export default function ChecklistePage() {
                       });
                       try {
                         if (navigator.share) {
-                          await navigator.share({ title: "BezPapira — Checklista", url });
+                          await navigator.share({ title: "BezPapira — Lista koraka", url });
                         } else {
                           await navigator.clipboard.writeText(url);
                         }
@@ -435,7 +435,7 @@ export default function ChecklistePage() {
 
         {/* ── List view ── */}
         {!openItem && filteredItems.length > 0 && (
-          <div className="space-y-3" role="list" aria-label="Sačuvane checkliste">
+          <div className="space-y-3" role="list" aria-label="Sačuvane liste koraka">
             {filteredItems.map((item, idx) => {
               const meta = getFlowMeta(item.flowId);
               const progress = getProgress(item.id, item.markdown, checks);
@@ -518,7 +518,7 @@ export default function ChecklistePage() {
                     onClick={() => setDeleteConfirm(item.id)}
                     className="no-print absolute top-3 right-3 opacity-0 group-hover:opacity-100 focus:opacity-100
                                h-8 w-8 flex items-center justify-center rounded-lg text-muted hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all"
-                    aria-label="Obriši cheklistu"
+                    aria-label="Obriši listu koraka"
                   >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -533,7 +533,7 @@ export default function ChecklistePage() {
         {/* Filtered empty */}
         {!openItem && filteredItems.length === 0 && items.length > 0 && (
           <div className="text-center py-12 text-muted-dark animate-fade-in-up">
-            <p className="text-sm">Nema checklisti za ovaj filter.</p>
+            <p className="text-sm">Nema listi koraka za ovaj filter.</p>
             <button
               type="button"
               onClick={() => setFilter(null)}
@@ -560,7 +560,7 @@ export default function ChecklistePage() {
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold">Obriši cheklistu?</h3>
+                <h3 className="font-semibold">Obriši listu koraka?</h3>
                 <p className="text-sm text-muted-dark">Ovo se ne može poništiti.</p>
               </div>
             </div>
