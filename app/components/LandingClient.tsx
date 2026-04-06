@@ -1,6 +1,7 @@
 "use client";
 
 import ScrollReveal from "./ScrollReveal";
+import SocialProof from "./SocialProof";
 
 interface Step {
   number: string;
@@ -34,12 +35,6 @@ const FRUSTRATIONS = [
   { icon: "🔄", text: "Preskočiš korak. Moraš sve ispočetka." },
   { icon: "💸", text: "Platiš taksu. Pogrešan iznos. Platiš ponovo." },
   { icon: "⏳", text: "Izgubiš ceo dan. A moglo je za 30 minuta." },
-];
-
-const STATS = [
-  { value: "2.500+", label: "korisnika" },
-  { value: "~15 min", label: "umesto celog dana" },
-  { value: "94%", label: "završi iz prvog puta" },
 ];
 
 export default function LandingClient({ steps, flowCards, consultCard, exampleChecklist }: LandingClientProps) {
@@ -192,9 +187,6 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
 
               {/* FOMO + CTA over fade */}
               <div className="relative z-10 pb-6 pt-2 text-center">
-                <p className="text-sm font-medium text-foreground mb-3">
-                  Ovo je samo deo. <span className="text-primary">Nedostaje ti još 4 koraka.</span>
-                </p>
                 <a
                   href="/chat/otvaranje-firme"
                   className="inline-flex items-center gap-2 rounded-2xl bg-primary px-7 py-3.5 text-sm font-semibold text-white
@@ -217,16 +209,7 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
       {/* ════════════════════════════════════════════ */}
       <section className="px-5 py-16 sm:px-8">
         <div className="mx-auto max-w-2xl">
-          <ScrollReveal>
-            <div className="grid grid-cols-3 gap-4 sm:gap-8 rounded-2xl p-6 sm:p-8 glass-card border border-border/50">
-              {STATS.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-foreground">{stat.value}</div>
-                  <div className="text-xs sm:text-sm text-muted-dark mt-1">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
+          <SocialProof />
         </div>
       </section>
 
