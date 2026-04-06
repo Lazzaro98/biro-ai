@@ -70,7 +70,7 @@ export default function AdvokatPage() {
             ⚖️
           </div>
           <h2 className="text-2xl font-bold text-foreground">
-            Trebate siguran pravni savet?
+            Potreban vam je siguran pravni savet?
           </h2>
           <p className="text-muted-dark text-[15px] leading-relaxed max-w-lg mx-auto">
             BezPapira daje informativne smernice, ali za složenije situacije preporučujemo

@@ -331,7 +331,7 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
                       Konsultacija sa advokatom
                     </div>
                     <div className="text-sm text-muted-dark mt-0.5">
-                      Trebate siguran pravni savet? Povežite se sa advokatom.
+                      Potreban vam je siguran pravni savet? Povežite se sa advokatom.
                     </div>
                   </div>
                   <svg

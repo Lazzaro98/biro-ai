@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Konsultacija sa advokatom | BezPapira",
     description:
-      "Trebate pravni savet? Povežite se sa advokatom direktno kroz BezPapira.",
+      "Potreban vam je pravni savet? Povežite se sa advokatom direktno kroz BezPapira.",
   },
 };
 
