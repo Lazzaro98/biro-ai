@@ -308,6 +308,48 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
                 </p>
               </a>
             </ScrollReveal>
+
+            {/* Lawyer consultation card */}
+            <ScrollReveal delay={(flowCards.length + 1) * 100}>
+              <a
+                href="/advokat"
+                className="group block rounded-2xl p-5
+                           bg-gradient-to-r from-amber-500/[0.07] to-orange-500/[0.05]
+                           border border-amber-300/40 shadow-sm
+                           hover:shadow-lg hover:shadow-amber-500/15 hover:border-amber-400/50 transition-all duration-300"
+              >
+                <div className="flex items-center gap-4">
+                  <div
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-xl
+                                group-hover:bg-amber-500/20 transition-all duration-300"
+                    aria-hidden="true"
+                  >
+                    ⚖️
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-amber-800 transition-colors">
+                      Konsultacija sa advokatom
+                    </div>
+                    <div className="text-sm text-muted-dark mt-0.5">
+                      Trebate siguran pravni savet? Povežite se sa advokatom.
+                    </div>
+                  </div>
+                  <svg
+                    className="h-5 w-5 text-amber-500/60 shrink-0 group-hover:text-amber-600 group-hover:translate-x-1 transition-all duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+                <p className="mt-3 text-xs text-muted leading-relaxed pl-16">
+                  BezPapira daje informativne smernice. Za pravno obavezujući savet — povežite se sa licenciranim advokatom.
+                </p>
+              </a>
+            </ScrollReveal>
           </nav>
         </div>
       </section>
