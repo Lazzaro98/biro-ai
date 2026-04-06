@@ -42,7 +42,7 @@ function useCountUp(target: number, durationMs = 1800) {
   return { current, start: () => setStarted(true) };
 }
 
-function StatItem({ label, icon, value }: { label: string; icon: string; value: number }) {
+function StatItem({ label, value }: { label: string; value: number }) {
   const counter = useCountUp(value);
 
   useEffect(() => {
@@ -65,15 +65,12 @@ function StatItem({ label, icon, value }: { label: string; icon: string; value: 
   return (
     <div
       id={`stat-${label}`}
-      className="flex flex-col items-center gap-1 px-3 py-2"
+      className="flex flex-col items-center gap-1 px-4 py-3"
     >
-      <span className="text-lg" aria-hidden="true">
-        {icon}
-      </span>
-      <span className="text-xl font-bold text-foreground tabular-nums">
+      <span className="text-2xl sm:text-3xl font-bold text-foreground tabular-nums">
         {value > 0 ? counter.current.toLocaleString("sr") : "—"}
       </span>
-      <span className="text-xs text-muted-dark">{label}</span>
+      <span className="text-xs sm:text-sm text-muted-dark">{label}</span>
     </div>
   );
 }
@@ -101,12 +98,12 @@ export default function SocialProof() {
 
   return (
     <section
-      className="flex items-center justify-center gap-4 sm:gap-8 rounded-2xl p-4
+      className="grid grid-cols-3 divide-x divide-border/40 rounded-2xl p-4 sm:p-6
                  glass-card border border-border/50"
       aria-label="Statistika korišćenja"
     >
       {STAT_CONFIG.map((cfg) => (
-        <StatItem key={cfg.key} label={cfg.label} icon={cfg.icon} value={stats[cfg.key]} />
+        <StatItem key={cfg.key} label={cfg.label} value={stats[cfg.key]} />
       ))}
     </section>
   );

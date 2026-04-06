@@ -89,7 +89,7 @@ export default function Home() {
         <div className="animate-fade-in-up max-w-xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Besplatno · Bez registracije · Na srpskom
+            Besplatno · Bez registracije
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
