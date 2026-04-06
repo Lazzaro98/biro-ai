@@ -9,6 +9,7 @@ export default function AdvokatPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
   const [description, setDescription] = useState("");
   const [formState, setFormState] = useState<FormState>("idle");
 
@@ -31,6 +32,7 @@ export default function AdvokatPage() {
             name: name.trim(),
             email: email.trim(),
             phone: phone.trim() || undefined,
+            city: city.trim() || undefined,
             description: description.trim(),
           }),
         });
@@ -40,7 +42,7 @@ export default function AdvokatPage() {
         setFormState("error");
       }
     },
-    [canSubmit, name, email, phone, description],
+    [canSubmit, name, email, phone, city, description],
   );
 
   return (
@@ -172,20 +174,37 @@ export default function AdvokatPage() {
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="phone" className="block text-xs font-medium text-muted-dark mb-1">
-                    Telefon <span className="text-muted text-[10px]">(opciono)</span>
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="060 123 4567"
-                    className="w-full rounded-xl border border-border bg-surface px-3 py-2.5 text-sm text-foreground
-                               placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
-                               transition-all"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label htmlFor="phone" className="block text-xs font-medium text-muted-dark mb-1">
+                      Telefon <span className="text-muted text-[10px]">(opciono)</span>
+                    </label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="060 123 4567"
+                      className="w-full rounded-xl border border-border bg-surface px-3 py-2.5 text-sm text-foreground
+                                 placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
+                                 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="city" className="block text-xs font-medium text-muted-dark mb-1">
+                      Grad <span className="text-muted text-[10px]">(opciono)</span>
+                    </label>
+                    <input
+                      id="city"
+                      type="text"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      placeholder="Beograd"
+                      className="w-full rounded-xl border border-border bg-surface px-3 py-2.5 text-sm text-foreground
+                                 placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
+                                 transition-all"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

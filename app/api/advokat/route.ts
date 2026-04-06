@@ -20,6 +20,7 @@ interface LawyerLead {
   name: string;
   email: string;
   phone?: string;
+  city?: string;
   description: string;
 }
 
@@ -48,7 +49,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Neispravan zahtev" }, { status: 400 });
     }
 
-    const { name, email, phone, description } = body;
+    const { name, email, phone, city, description } = body;
 
     // Validate required fields
     if (typeof name !== "string" || name.trim().length < 2) {
@@ -70,6 +71,7 @@ export async function POST(req: Request) {
       name: name.trim(),
       email: email.trim().toLowerCase(),
       phone: typeof phone === "string" && phone.trim() ? phone.trim() : undefined,
+      city: typeof city === "string" && city.trim() ? city.trim() : undefined,
       description: description.trim(),
     };
 
