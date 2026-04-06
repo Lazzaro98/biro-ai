@@ -19,6 +19,7 @@ interface FlowCard {
 interface ExampleItem {
   text: string;
   checked: boolean;
+  faded?: boolean;
 }
 
 interface LandingClientProps {
@@ -29,10 +30,10 @@ interface LandingClientProps {
 }
 
 const FRUSTRATIONS = [
-  { icon: "📄", text: "Dolaziš na šalter — fali ti dokument." },
-  { icon: "🔄", text: "Radiš korake pogrešnim redosledom." },
-  { icon: "🚫", text: "Vraćaju te kući jer nisi overio potpis." },
-  { icon: "⏳", text: "Trošiš ceo dan na nešto što traje 30 minuta." },
+  { icon: "📄", text: "Stigneš na šalter. Fali overa. Vrate te kući." },
+  { icon: "🔄", text: "Preskočiš korak. Moraš sve ispočetka." },
+  { icon: "💸", text: "Platiš taksu. Pogrešan iznos. Platiš ponovo." },
+  { icon: "⏳", text: "Izgubiš ceo dan. A moglo je za 30 minuta." },
 ];
 
 const STATS = [
@@ -52,11 +53,8 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
           <ScrollReveal>
             <div className="text-center mb-10">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Zvuči poznato?
+                Svima se ovo dešava.
               </h2>
-              <p className="mt-3 text-muted-dark max-w-md mx-auto">
-                Većina ljudi bar jednom prođe kroz ovo.
-              </p>
             </div>
           </ScrollReveal>
 
@@ -65,15 +63,18 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
               <ScrollReveal key={i} delay={i * 100}>
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-surface border border-border/60">
                   <span className="text-xl shrink-0 mt-0.5" aria-hidden="true">{item.icon}</span>
-                  <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
+                  <p className="text-sm text-foreground leading-relaxed font-medium">{item.text}</p>
                 </div>
               </ScrollReveal>
             ))}
           </div>
 
           <ScrollReveal delay={450}>
-            <p className="text-center mt-8 text-muted-dark text-sm">
-              Sve ovo možeš da izbegneš. <span className="font-semibold text-foreground">Za 5 minuta.</span>
+            <p className="text-center mt-10 text-base text-foreground font-semibold">
+              Ne mora tako.
+            </p>
+            <p className="text-center mt-1 text-muted-dark text-sm">
+              Spremi se za šalter za 5 minuta — i završi sve iz prve.
             </p>
           </ScrollReveal>
         </div>
@@ -131,26 +132,29 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
           <ScrollReveal>
             <div className="text-center mb-8">
               <span className="inline-block text-xs font-semibold tracking-widest text-primary uppercase mb-3">
-                Primer
+                Primer liste
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Registracija vozila — evo šta dobijaš
+                Otvaranje firme — evo šta dobijaš
               </h2>
               <p className="mt-3 text-muted-dark text-sm max-w-sm mx-auto">
-                Svaka lista je prilagođena tvojoj situaciji. Ovo je samo deo.
+                Ovo je samo deo liste. Tvoja će biti prilagođena tvojim odgovorima.
               </p>
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={150}>
-            <div className="rounded-2xl bg-surface border border-border/60 shadow-sm p-6">
-              <div className="flex items-center gap-2 mb-5">
-                <span className="text-lg">🚗</span>
-                <h3 className="text-sm font-semibold text-foreground">Registracija polovnog vozila</h3>
+            <div className="relative rounded-2xl bg-surface border border-border/60 shadow-md overflow-hidden">
+              {/* Header bar */}
+              <div className="flex items-center gap-2 px-6 py-4 border-b border-border/40 bg-surface-alt/30">
+                <span className="text-lg">🏢</span>
+                <h3 className="text-sm font-semibold text-foreground">Otvaranje preduzetničke radnje (PR)</h3>
+                <span className="ml-auto text-xs text-muted bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">3/7 završeno</span>
               </div>
-              <ul className="space-y-3">
+
+              <ul className="px-6 py-5 space-y-3">
                 {exampleChecklist.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
+                  <li key={i} className={`flex items-start gap-3 ${item.faded ? 'opacity-40' : ''}`}>
                     <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border text-xs
                       ${item.checked
                         ? "bg-primary/15 border-primary/40 text-primary"
@@ -164,16 +168,23 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 pt-4 border-t border-border/40 text-center">
+
+              {/* Fade-out overlay */}
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-surface via-surface/80 to-transparent pointer-events-none" />
+
+              {/* CTA over fade */}
+              <div className="relative z-10 pb-6 pt-2 text-center">
                 <a
-                  href="/chat/registracija-vozila"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                  href="/chat/otvaranje-firme"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white
+                             hover:bg-primary-dark active:scale-[0.97] transition-all shadow-lg shadow-primary/25"
                 >
-                  Generiši svoju listu koraka
+                  Generiši svoju listu
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </a>
+                <p className="mt-2 text-xs text-muted-dark">Besplatno · 2 minuta · Bez registracije</p>
               </div>
             </div>
           </ScrollReveal>

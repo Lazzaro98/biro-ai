@@ -46,13 +46,15 @@ const STEPS = [
   },
 ];
 
-/* ── Example checklist items (registracija vozila) ── */
+/* ── Example checklist items (otvaranje firme) ── */
 const EXAMPLE_CHECKLIST = [
-  { text: "Ugovor o kupoprodaji vozila (overen kod notara)", checked: true },
-  { text: "Polisa osiguranja (registruj se kod osiguravajuće kuće)", checked: true },
-  { text: "Tehnički pregled vozila (stanica tehničkog pregleda)", checked: false },
-  { text: "Uplata takse za registraciju (~5.000 RSD)", checked: false },
-  { text: "Prijava u MUP — šalter za registraciju vozila", checked: false },
+  { text: "Proveri dostupnost poslovnog imena na apr.gov.rs", checked: true },
+  { text: "Pripremi ličnu kartu (original + fotokopija)", checked: true },
+  { text: "Overi OP obrazac kod javnog beležnika (~2.000 RSD)", checked: true },
+  { text: "Popuni registracionu prijavu na APR portalu", checked: false },
+  { text: "Uplati taksu za registraciju (~4.500 RSD)", checked: false },
+  { text: "Otvori poslovni račun u banci", checked: false },
+  { text: "Prijavi paušalno oporezivanje u roku od 15 dana", checked: false, faded: true },
 ];
 
 export default function Home() {
@@ -91,13 +93,13 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
-            <span className="text-foreground">Ne idi na šalter</span>
+            <span className="text-foreground">Fali ti jedan papir.</span>
             <br />
-            <span className="text-gradient-lg">nespreman.</span>
+            <span className="text-gradient-lg">Ode ceo dan.</span>
           </h1>
 
           <p className="mt-5 text-lg sm:text-xl text-muted-dark leading-relaxed max-w-md mx-auto">
-            Reci nam šta ti treba — a mi ćemo ti reći tačno koje papire da spremiš, gde da odeš i koliko košta.
+            Spremi sve papire, troškove i korake <span className="font-semibold text-foreground">pre nego što odeš na šalter.</span> Za 5 minuta.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
