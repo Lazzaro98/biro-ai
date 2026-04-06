@@ -93,36 +93,27 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
-            <span className="text-foreground">Fali ti jedan papir.</span>
+            <span className="text-foreground">Koliko puta su te</span>
             <br />
-            <span className="text-gradient-lg">Ode ceo dan.</span>
+            <span className="text-gradient-lg">već vratili?</span>
           </h1>
 
           <p className="mt-5 text-lg sm:text-xl text-muted-dark leading-relaxed max-w-md mx-auto">
-            Spremi sve papire, troškove i korake <span className="font-semibold text-foreground">pre nego što odeš na šalter.</span> Za 5 minuta.
+            BezPapira ti kaže tačno šta ti treba — <span className="font-semibold text-foreground">korak po korak, dokument po dokument.</span>
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="mt-8 flex flex-col items-center gap-3">
             <a
               href="#procesi"
-              className="inline-flex items-center gap-2 rounded-2xl bg-primary px-7 py-3.5 text-sm font-semibold text-white
+              className="inline-flex items-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white
                          hover:bg-primary-dark active:scale-[0.97] transition-all shadow-lg shadow-primary/25"
             >
-              Probaj besplatno
+              Kreni odmah
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </a>
-            <a
-              href="/checkliste"
-              className="inline-flex items-center gap-2 rounded-2xl border border-border bg-surface/80 backdrop-blur-sm px-6 py-3.5 text-sm font-medium text-muted-dark
-                         shadow-sm hover:text-foreground hover:border-primary/40 hover:shadow-md transition-all"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-              </svg>
-              Moje liste koraka
-            </a>
+            <span className="text-xs text-muted-dark">Treba ti 30 sekundi da kreneš. Bez registracije.</span>
           </div>
         </div>
 
@@ -150,22 +141,25 @@ export default function Home() {
       {/* ════════════════════════════════════════════ */}
       <section className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-lg text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-            Završi sve iz prve.
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+            Ne idi na šalter nespreman.
           </h2>
           <p className="text-muted-dark mb-8 max-w-sm mx-auto">
-            Bez vraćanja, bez čekanja, bez iznenađenja. Spremi se za šalter za 5 minuta.
+            Spremi sve za 5 minuta. Idi jednom. Završi sve.
           </p>
-          <a
-            href="#procesi"
-            className="inline-flex items-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white
-                       hover:bg-primary-dark active:scale-[0.97] transition-all shadow-lg shadow-primary/25"
-          >
-            Kreni odmah
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </a>
+          <div className="flex flex-col items-center gap-3">
+            <a
+              href="#procesi"
+              className="inline-flex items-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white
+                         hover:bg-primary-dark active:scale-[0.97] transition-all shadow-lg shadow-primary/25"
+            >
+              Kreni odmah
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+            <span className="text-xs text-muted-dark">Besplatno. Bez registracije.</span>
+          </div>
         </div>
       </section>
 

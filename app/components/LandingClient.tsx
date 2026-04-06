@@ -53,15 +53,16 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
           <ScrollReveal>
             <div className="text-center mb-10">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Svima se ovo dešava.
+                Kako izgleda bez BezPapira?
               </h2>
             </div>
           </ScrollReveal>
 
+          {/* Before: pain */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {FRUSTRATIONS.map((item, i) => (
               <ScrollReveal key={i} delay={i * 100}>
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-surface border border-border/60">
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-surface border border-red-200/60">
                   <span className="text-xl shrink-0 mt-0.5" aria-hidden="true">{item.icon}</span>
                   <p className="text-sm text-foreground leading-relaxed font-medium">{item.text}</p>
                 </div>
@@ -69,13 +70,27 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
             ))}
           </div>
 
+          {/* Divider arrow */}
           <ScrollReveal delay={450}>
-            <p className="text-center mt-10 text-base text-foreground font-semibold">
-              Ne mora tako.
-            </p>
-            <p className="text-center mt-1 text-muted-dark text-sm">
-              Spremi se za šalter za 5 minuta — i završi sve iz prve.
-            </p>
+            <div className="flex justify-center my-8">
+              <div className="flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* After: solution */}
+          <ScrollReveal delay={550}>
+            <div className="rounded-xl border border-primary/30 bg-primary/[0.04] p-5 text-center">
+              <p className="text-base font-semibold text-foreground">
+                Sa BezPapira — ideš jednom i završavaš.
+              </p>
+              <p className="mt-1 text-sm text-muted-dark">
+                Svi papiri, svi koraci, svi troškovi — pre nego što ustaneš sa stolice.
+              </p>
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -170,21 +185,24 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
               </ul>
 
               {/* Fade-out overlay */}
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-surface via-surface/80 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-surface via-surface/90 to-transparent pointer-events-none" />
 
-              {/* CTA over fade */}
+              {/* FOMO + CTA over fade */}
               <div className="relative z-10 pb-6 pt-2 text-center">
+                <p className="text-sm font-medium text-foreground mb-3">
+                  Ovo je samo deo. <span className="text-primary">Nedostaje ti još 4 koraka.</span>
+                </p>
                 <a
                   href="/chat/otvaranje-firme"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white
+                  className="inline-flex items-center gap-2 rounded-2xl bg-primary px-7 py-3.5 text-sm font-semibold text-white
                              hover:bg-primary-dark active:scale-[0.97] transition-all shadow-lg shadow-primary/25"
                 >
-                  Generiši svoju listu
+                  Prikaži celu listu
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </a>
-                <p className="mt-2 text-xs text-muted-dark">Besplatno · 2 minuta · Bez registracije</p>
+                <p className="mt-2 text-xs text-muted-dark">Besplatno · Traje 2 minuta</p>
               </div>
             </div>
           </ScrollReveal>
