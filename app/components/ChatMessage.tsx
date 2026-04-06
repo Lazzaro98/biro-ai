@@ -14,6 +14,9 @@ const ReactMarkdown = dynamic(() => import("react-markdown"), {
 const ChecklistRenderer = dynamic(() => import("./ChecklistRenderer"), {
   ssr: false,
 });
+const LawyerCTA = dynamic(() => import("./LawyerCTA"), {
+  ssr: false,
+});
 
 /* ── Avatars ─── */
 export const AiAvatar = memo(function AiAvatar() {
@@ -66,8 +69,10 @@ export const ChatMessage = memo(function ChatMessage({
   onRetry,
   flowId,
 }: ChatMessageProps) {
-  // Strip <<SUGGESTIONS:...>> marker from AI text for display
-  const displayText = m.role === "ai" && !m.isError ? parseSuggestions(m.text).cleanText : m.text;
+  // Strip <<SUGGESTIONS:...>> and <<LAWYER_CTA>> markers from AI text for display
+  const parsed = m.role === "ai" && !m.isError ? parseSuggestions(m.text) : null;
+  const displayText = parsed ? parsed.cleanText : m.text;
+  const showLawyerCTA = parsed?.showLawyerCTA ?? false;
 
   return (
     <div
@@ -179,6 +184,9 @@ export const ChatMessage = memo(function ChatMessage({
             </ul>
           </details>
         )}
+
+        {/* Inline lawyer CTA — shown when AI detects complex legal question */}
+        {showLawyerCTA && <div className="mt-2"><LawyerCTA /></div>}
       </div>
     </div>
   );

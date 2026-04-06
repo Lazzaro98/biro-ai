@@ -63,32 +63,43 @@ export function isChecklist(text: string): boolean {
 /** Pattern: <<SUGGESTIONS: ["opt1", "opt2"]>> at the end of AI response */
 const SUGGESTIONS_RE = /<<SUGGESTIONS:\s*(\[[\s\S]*?\])>>/;
 
+/** Pattern: <<LAWYER_CTA>> — AI requests inline lawyer referral */
+const LAWYER_CTA_RE = /<<LAWYER_CTA>>/;
+
 export interface ParsedSuggestions {
   /** AI text with the suggestion marker removed */
   cleanText: string;
   /** Parsed chip labels, empty if none */
   chips: string[];
+  /** Whether the AI flagged this message for a lawyer CTA */
+  showLawyerCTA: boolean;
 }
 
 /**
  * Extract AI-embedded suggestions from a message.
  * The AI is instructed to append <<SUGGESTIONS: ["a","b","c"]>> at the end.
- * Returns cleaned text + parsed chip array.
+ * Also detects <<LAWYER_CTA>> marker for inline lawyer referral.
+ * Returns cleaned text + parsed chip array + lawyer CTA flag.
  */
 export function parseSuggestions(text: string): ParsedSuggestions {
   const match = text.match(SUGGESTIONS_RE);
-  if (!match) return { cleanText: text, chips: [] };
+  const showLawyerCTA = LAWYER_CTA_RE.test(text);
 
-  const cleanText = text.replace(SUGGESTIONS_RE, "").trimEnd();
+  let cleanText = text;
+  if (match) cleanText = cleanText.replace(SUGGESTIONS_RE, "");
+  if (showLawyerCTA) cleanText = cleanText.replace(LAWYER_CTA_RE, "");
+  cleanText = cleanText.trimEnd();
+
+  if (!match) return { cleanText, chips: [], showLawyerCTA };
 
   try {
     const parsed = JSON.parse(match[1]);
     if (Array.isArray(parsed) && parsed.every((c) => typeof c === "string")) {
-      return { cleanText, chips: parsed };
+      return { cleanText, chips: parsed, showLawyerCTA };
     }
   } catch {
     // malformed JSON — ignore
   }
 
-  return { cleanText, chips: [] };
+  return { cleanText, chips: [], showLawyerCTA };
 }

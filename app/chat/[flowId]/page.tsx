@@ -8,6 +8,7 @@ import { ChatMessage, TypingIndicator } from "../../components/ChatMessage";
 import { ChatInput } from "../../components/ChatInput";
 import { SuggestionChips } from "../../components/SuggestionChips";
 import { SaveChecklistBanner } from "../../components/SaveChecklistBanner";
+import { LawyerCTA } from "../../components/LawyerCTA";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
 import { ChatHistorySidebar } from "../../components/ChatHistorySidebar";
 import { track } from "../../lib/analytics";
@@ -186,6 +187,9 @@ function ChatFlowPageInner() {
               })()}
             />
           )}
+
+          {/* Lawyer consultation CTA — shown after checklist */}
+          {hasChecklist && !isSending && <LawyerCTA />}
 
           <div ref={bottomRef} />
         </div>

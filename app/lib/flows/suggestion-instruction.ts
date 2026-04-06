@@ -1,8 +1,23 @@
 /**
  * Shared instruction block appended to all flow system prompts.
- * Tells the AI to embed suggestion chips at the end of each response.
+ * Tells the AI to embed suggestion chips at the end of each response,
+ * and to refer users to a lawyer when questions exceed informational scope.
  */
 export const SUGGESTION_INSTRUCTION = `
+
+## Upućivanje na advokata
+Ako korisnik postavi pitanje koje:
+- zahteva **individualni pravni savet** (npr. tumačenje ugovora, sudski spor, pravna odgovornost),
+- tiče se **konkretnog pravnog spora ili postupka** pred sudom,
+- prevazilazi okvire opštih informativnih smernica,
+
+ONDA na kraju svog odgovora dodaj TAČNO ovaj blok (bez izmena):
+
+<<LAWYER_CTA>>
+
+Ovaj marker se automatski zamenjuje vizuelnim pozivom ka advokatu na platformi.
+NE dodaj <<LAWYER_CTA>> na svaku poruku — samo kad je pitanje zaista složeno i prevazilazi tvoje informativne mogućnosti.
+NE dodaj <<LAWYER_CTA>> kad generišeš listu koraka — tamo se automatski prikazuje CTA.
 
 ## Predloženi odgovori (KRITIČNO — PRATI OVA PRAVILA)
 Na KRAJU svake poruke OBAVEZNO dodaj blok sa predloženim odgovorima u ovom TAČNOM formatu:
