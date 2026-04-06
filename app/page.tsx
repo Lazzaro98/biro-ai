@@ -93,9 +93,9 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
-            <span className="text-foreground">Koliko puta su te</span>
+            <span className="text-foreground">Fali vam</span>
             <br />
-            <span className="text-gradient-lg">već vratili?</span>
+            <span className="text-gradient-lg">&ldquo;jedan papir&rdquo;?</span>
           </h1>
 
           <p className="mt-5 text-lg sm:text-xl text-muted-dark leading-relaxed max-w-md mx-auto">
