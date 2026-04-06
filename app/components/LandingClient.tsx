@@ -53,8 +53,11 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
           <ScrollReveal>
             <div className="text-center mb-10">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Kako izgleda bez BezPapira?
+                Završavate birokratski proces?
               </h2>
+              <p className="mt-3 text-muted-dark max-w-md mx-auto">
+                Evo šta vas obično čeka.
+              </p>
             </div>
           </ScrollReveal>
 
@@ -85,10 +88,10 @@ export default function LandingClient({ steps, flowCards, consultCard, exampleCh
           <ScrollReveal delay={550}>
             <div className="rounded-xl border border-primary/30 bg-primary/[0.04] p-5 text-center">
               <p className="text-base font-semibold text-foreground">
-                Sa BezPapira — ideš jednom i završavaš.
+                Uz BezPapira — idete jednom i završavate.
               </p>
               <p className="mt-1 text-sm text-muted-dark">
-                Svi papiri, svi koraci, svi troškovi — pre nego što ustaneš sa stolice.
+                Svi papiri, svi koraci, svi troškovi — pre nego što ustanete iz fotelje.
               </p>
             </div>
           </ScrollReveal>
