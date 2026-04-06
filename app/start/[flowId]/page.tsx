@@ -6,6 +6,7 @@ const FLOW_TO_CALC_TAB: Record<string, string> = {
   "otvaranje-firme": "firma",
   "kupovina-stana": "nekretnina",
   "registracija-vozila": "vozilo",
+  "legalizacija-objekta": "nekretnina",
 };
 
 export function generateStaticParams() {

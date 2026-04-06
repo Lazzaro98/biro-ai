@@ -2,6 +2,7 @@ import type { FlowConfig } from "./types";
 import { otvaranjeFirmeFlow } from "./otvaranje-firme";
 import { kupovinaStanaFlow } from "./kupovina-stana";
 import { registracijaVozilaFlow } from "./registracija-vozila";
+import { legalizacijaObjektaFlow } from "./legalizacija-objekta";
 import { slobodanRazgovorFlow } from "./slobodan-razgovor";
 
 export type { FlowConfig } from "./types";
@@ -12,6 +13,7 @@ export const FLOWS: Record<string, FlowConfig> = {
   "otvaranje-firme": otvaranjeFirmeFlow,
   "kupovina-stana": kupovinaStanaFlow,
   "registracija-vozila": registracijaVozilaFlow,
+  "legalizacija-objekta": legalizacijaObjektaFlow,
   "slobodan-razgovor": slobodanRazgovorFlow,
 };
 
@@ -29,7 +31,7 @@ export function getFlow(id: string): FlowConfig {
 
 /** Flow metadata for landing page cards (excludes free-form consultation) */
 export const FLOW_CARDS = FLOW_IDS
-  .filter((id) => id !== "slobodan-razgovor")
+  .filter((id) => id !== "slobodan-razgovor" && id !== "registracija-vozila")
   .map((id) => {
     const f = FLOWS[id];
     return {
